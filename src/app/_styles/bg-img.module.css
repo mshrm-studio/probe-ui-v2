@@ -1,0 +1,15 @@
+.bgImg {
+    background-image: var(--bg-src);
+}
+
+@media screen and (min-width: 768px) {
+    .bgImg {
+        background-image: var(--bg-src-md);
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .bgImg {
+        background-image: var(--bg-src-xl);
+    }
+}

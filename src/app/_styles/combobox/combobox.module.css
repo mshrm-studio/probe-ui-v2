@@ -1,0 +1,112 @@
+.wrapper.solidBoxShadow {
+    box-shadow: 8px 6px 0px #dfdfdf;
+}
+
+.wrapper.solidBoxShadow:not(:disabled):not(:focus-within):hover {
+    box-shadow: 4px 3px 0px #dfdfdf;
+}
+
+.wrapper.solidBoxShadow:not(:disabled):focus-within {
+    box-shadow: 0px 0px 0px #dfdfdf;
+}
+
+.wrapper.blurredBoxShadow {
+    box-shadow: 0px 4px 16.5px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+    position: absolute;
+    left: 1rem;
+    top: 0.375rem;
+    color: #838383;
+}
+
+.input {
+    height: 72px;
+    width: 100%;
+    border: 1px solid #d5d7e1;
+    background: #ffffff;
+    padding-left: 1rem;
+    padding-right: 2rem;
+    outline: none;
+    font-size: 26px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.input::placeholder {
+    color: #000000;
+}
+
+.wrapper .label + .input {
+    padding-top: 1rem;
+}
+
+.button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.button .buttonIcon {
+    height: 1.25rem;
+    width: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.button[data-open] .buttonIcon[data-options-anchored-to='bottom'] {
+    transform: rotate(-180deg);
+}
+
+.button[data-open] .buttonIcon[data-options-anchored-to='right'] {
+    transform: rotate(-90deg);
+}
+
+.options {
+    position: absolute;
+    z-index: 10;
+    max-height: var(--dropdown-max-height, 20rem) !important;
+    max-width: var(--input-width, 15rem) !important;
+    width: 100%;
+    overflow: auto;
+    background-color: #fff;
+    padding-top: 0.25rem;
+    border: 1px solid #d5d7e1;
+    box-shadow: 0px 4px 16.5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+    position: relative;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    display: flex;
+    align-items: center;
+    content-visibility: auto;
+}
+
+.option[data-focus] {
+    background-color: rgba(213, 215, 225, 0.29);
+}
+
+.optionCanvas {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}
+
+.optionImg {
+    height: 1.5rem;
+    width: 1.5rem;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}

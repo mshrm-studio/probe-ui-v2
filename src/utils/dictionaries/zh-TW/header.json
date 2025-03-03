@@ -1,0 +1,23 @@
+{
+    "auth": {
+        "connect": "連接",
+        "connectedAs": "已連接為 :ethAddress",
+        "disconnect": "斷開連接",
+        "imgAlt": "使用者圖示",
+        "showAuthMenu": "顯示認證選單"
+    },
+    "filters": {
+        "imgAlt": "篩選圖示",
+        "showFilters": "顯示篩選器"
+    },
+    "probe": {
+        "dreamsLinkText": "夢想",
+        "imgAlt": "探測徽標",
+        "lilsLinkText": "Lils",
+        "nounsLinkText": "Nouns"
+    },
+    "search": {
+        "imgAlt": "放大鏡圖示",
+        "showSearchBar": "顯示搜尋欄"
+    }
+}

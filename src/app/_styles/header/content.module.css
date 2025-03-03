@@ -1,0 +1,22 @@
+.breadcrumbsContainer,
+.copyContainer {
+    display: none;
+}
+
+@media screen and (min-width: 1280px) {
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: center;
+    }
+
+    .breadcrumbsContainer {
+        display: block;
+    }
+
+    .copyContainer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}

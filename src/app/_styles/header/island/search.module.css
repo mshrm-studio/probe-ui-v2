@@ -1,0 +1,11 @@
+.popoverPanel {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16rem;
+}
+
+@media screen and (min-width: 1280px) {
+    .popoverPanel {
+        width: 30.5rem;
+    }
+}

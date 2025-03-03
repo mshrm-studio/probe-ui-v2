@@ -1,0 +1,37 @@
+.nav {
+    height: 42px;
+    width: 100%;
+    border-radius: 21px;
+    background-color: rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    user-select: none;
+}
+
+.list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listItem {
+    position: relative;
+}
+
+.listItem:not(:first-child) {
+    margin-left: 2rem;
+}
+
+.listItem[data-active='true'] {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (min-width: 768px) {
+    .nav {
+        max-width: 500px;
+    }
+}

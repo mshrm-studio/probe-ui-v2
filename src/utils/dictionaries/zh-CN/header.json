@@ -1,0 +1,23 @@
+{
+    "auth": {
+        "connect": "连接",
+        "connectedAs": "已连接为 :ethAddress",
+        "disconnect": "断开连接",
+        "imgAlt": "用户图标",
+        "showAuthMenu": "显示认证菜单"
+    },
+    "filters": {
+        "imgAlt": "筛选图标",
+        "showFilters": "显示筛选器"
+    },
+    "probe": {
+        "dreamsLinkText": "梦想",
+        "imgAlt": "探测徽标",
+        "lilsLinkText": "Lils",
+        "nounsLinkText": "Nouns"
+    },
+    "search": {
+        "imgAlt": "放大镜图标",
+        "showSearchBar": "显示搜索栏"
+    }
+}

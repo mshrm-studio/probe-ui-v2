@@ -1,0 +1,18 @@
+.list {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.listItem:not(:last-child) {
+    margin-right: 0.5rem;
+}
+
+.divider {
+    padding-left: 0.5rem;
+}
+
+.link[data-active='true'] {
+    color: rgba(0, 0, 0, 0.4);
+    cursor: not-allowed;
+}

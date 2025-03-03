@@ -1,0 +1,23 @@
+{
+    "auth": {
+        "connect": "Connect",
+        "connectedAs": "Connected as :ethAddress",
+        "disconnect": "Disconnect",
+        "imgAlt": "User Icon",
+        "showAuthMenu": "Show Auth Menu"
+    },
+    "filters": {
+        "imgAlt": "Filter Icon",
+        "showFilters": "Show Filters"
+    },
+    "probe": {
+        "dreamsLinkText": "Dreams",
+        "imgAlt": "Probe Logo",
+        "lilsLinkText": "Lils",
+        "nounsLinkText": "Nouns"
+    },
+    "search": {
+        "imgAlt": "Magnifying Glass Icon",
+        "showSearchBar": "Show Search Bar"
+    }
+}
