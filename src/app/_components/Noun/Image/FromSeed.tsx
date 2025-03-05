@@ -48,8 +48,8 @@ export default function NounImageFromSeed({ seed }: Props) {
     };
 
     useEffect(() => {
-        if (inViewport && generatedSvg === '') generate();
-    }, [inViewport, generatedSvg]);
+        if (inViewport) generate();
+    }, [inViewport, seed]);
 
     return (
         <div
