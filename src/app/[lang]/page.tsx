@@ -15,6 +15,7 @@ const title = 'Probe';
 const description = 'Probing Nouns & Lil Nouns.';
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL as string),
     title,
     description,
     openGraph: {

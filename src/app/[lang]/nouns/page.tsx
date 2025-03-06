@@ -5,6 +5,7 @@ import NounCatalogue from '@/app/[lang]/nouns/_components/Catalogue/Catalogue';
 import FilterDisplayProvider from '@/context/FilterDisplay';
 import Header from '@/app/_components/Header/Header';
 import DictionaryProvider from '@/context/Dictionary';
+import { Suspense } from 'react';
 
 type Props = Readonly<{
     params: Promise<{ lang: Locale }>;
@@ -33,7 +34,9 @@ export default async function Page({ params }: Props) {
                 />
 
                 <main>
-                    <NounCatalogue />
+                    <Suspense>
+                        <NounCatalogue />
+                    </Suspense>
                 </main>
             </FilterDisplayProvider>
         </DictionaryProvider>

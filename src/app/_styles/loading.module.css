@@ -1,0 +1,18 @@
+@keyframes expandWidth {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.loadingIndicator {
+    background-color: red;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    animation: expandWidth 1s forwards;
+}
