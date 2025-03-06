@@ -1,3 +1,7 @@
+.controlsContainer {
+    margin-bottom: 1rem;
+}
+
 .fetchingImgContainer {
     display: flex;
     align-items: center;

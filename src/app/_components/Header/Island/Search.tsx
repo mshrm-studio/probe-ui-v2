@@ -1,16 +1,21 @@
+'use client';
+
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import Image from '@/app/_components/Image';
 import popoverStyles from '@/app/_styles/header/island/popover.module.css';
 import styles from '@/app/_styles/header/island/search.module.css';
 import clsx from 'clsx';
-import SelectNounTrait from '@/app/_components/Select/Noun/Trait';
+import SelectNounTrait from '@/app/[lang]/nouns/_components/Select/Noun/Trait';
+import { useState } from 'react';
 
 interface Props {
     dict: Dictionary;
 }
 
 export default function HeaderSearch({ dict }: Props) {
+    const [search, setSearch] = useState<string | null>('');
+
     return (
         <Popover className="relative">
             <PopoverButton className={popoverStyles.button}>
@@ -29,7 +34,7 @@ export default function HeaderSearch({ dict }: Props) {
             <PopoverPanel
                 className={clsx(popoverStyles.panel, styles.popoverPanel)}
             >
-                <SelectNounTrait />
+                <SelectNounTrait selected={search} setSelected={setSearch} />
             </PopoverPanel>
         </Popover>
     );

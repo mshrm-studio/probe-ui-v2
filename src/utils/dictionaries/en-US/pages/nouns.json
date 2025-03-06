@@ -2,6 +2,21 @@
     "breadcrumbs": {
         "nouns": "Nouns"
     },
+    "catalogue": {
+        "controls": {
+            "reset": "Reset",
+            "sorters": {
+                "biggest": "Biggest",
+                "brightest": "Brightest",
+                "darkest": "Darkest",
+                "leastColorful": "Least Colorful",
+                "mostColorful": "Most Colorful",
+                "mostRecent": "Most Recent",
+                "oldest": "Oldest",
+                "smallest": "Smallest"
+            }
+        }
+    },
     "metadata": {
         "description": "Probing Nouns",
         "title": "Nouns"

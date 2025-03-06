@@ -26,8 +26,6 @@ export async function GET(req: NextRequest) {
 
     const where = Object.keys(filters).length > 0 ? { seed_: filters } : {};
 
-    console.log('where:', where);
-
     const DATA_QUERY = gql`
         query getNouns($skip: Int!, $where: Noun_filter) {
             nouns(first: 1000, skip: $skip, where: $where) {

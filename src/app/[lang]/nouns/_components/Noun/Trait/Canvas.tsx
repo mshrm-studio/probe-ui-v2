@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { ImageData } from '@noundry/nouns-assets';
+import { useInViewport } from 'react-in-viewport';
 
 function decodeRLE(image: string) {
     const data = image.replace(/^0x/, '');
@@ -76,11 +77,18 @@ interface Props extends React.HTMLAttributes<HTMLCanvasElement> {
 export default function TraitCanvas({ className, rleData }: Props) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    const { inViewport } = useInViewport(
+        canvasRef,
+        {},
+        { disconnectOnLeave: true }
+    );
+
     useEffect(() => {
-        if (canvasRef.current) {
+        if (inViewport && canvasRef.current) {
+            console.log('renderRLEToCanvas');
             renderRLEToCanvas(canvasRef.current, rleData);
         }
-    }, [rleData]);
+    }, [inViewport, rleData]);
 
     return (
         <canvas ref={canvasRef} className={className} height={32} width={32} />

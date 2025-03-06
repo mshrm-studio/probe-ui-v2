@@ -1,10 +1,10 @@
 'use client';
 
-import { useContext, useEffect, useRef, useState } from 'react';
-import NounList from '@/app/_components/Noun/List/List';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import NounList from '@/app/[lang]/nouns/_components/Noun/List/List';
 import FetchingImage from '@/app/_components/FetchingImage';
-import styles from '@/app/[lang]/nouns/_styles/catalogue.module.css';
-import Controls from '@/app/[lang]/nouns/_components/Controls/Controls';
+import styles from '@/app/[lang]/nouns/_styles/catalogue/catalogue.module.css';
+import Controls from '@/app/[lang]/nouns/_components/Catalogue/Controls/Controls';
 import { FilterDisplayContext } from '@/context/FilterDisplay';
 import { useSearchParams } from 'next/navigation';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
@@ -14,7 +14,6 @@ import {
     isNounSortProperty,
     NounSortProperty,
 } from '@/utils/enums/Noun/SortProperty';
-import NounFilters from '@/utils/dto/Noun/Filters';
 import fetchNouns from '@/utils/lib/nouns/list';
 
 export default function NounsCatalogue() {
@@ -26,6 +25,7 @@ export default function NounsCatalogue() {
     const searchParams = useSearchParams();
     const [page, setPage] = useState(1);
     const accessory = searchParams.get('accessory');
+    const background = searchParams.get('background');
     const body = searchParams.get('body');
     const color = searchParams.get('color');
     const glasses = searchParams.get('glasses');
@@ -34,19 +34,20 @@ export default function NounsCatalogue() {
     const sort_property = searchParams.get('sort_property');
     const [lastScrollTop, setLastScrollTop] = useState(0);
 
-    useEffect(() => {
-        async function doFetch() {
+    const initFetchNouns = useCallback(
+        async (pageNumber?: number) => {
             try {
                 setFetching(true);
                 setError('');
 
                 const response = await fetchNouns({
                     accessory,
+                    background,
                     body,
                     color,
                     glasses,
                     head,
-                    page,
+                    page: pageNumber,
                     sort_method: isSortMethod(sort_method)
                         ? sort_method
                         : SortMethod.Descending,
@@ -55,17 +56,54 @@ export default function NounsCatalogue() {
                         : NounSortProperty.TokenID,
                 });
 
-                setNouns((prev) => [...prev, ...response.data]);
+                setNouns((prev) => {
+                    const newItems = response.data.filter(
+                        (newNoun) =>
+                            !prev.some(
+                                (existingNoun) =>
+                                    existingNoun.token_id === newNoun.token_id
+                            )
+                    );
+
+                    return [...prev, ...newItems];
+                });
+
                 setMeta(response.meta);
             } catch (err: unknown) {
                 setError(String(err));
             } finally {
                 setFetching(false);
             }
-        }
+        },
+        [
+            accessory,
+            background,
+            body,
+            color,
+            glasses,
+            head,
+            sort_method,
+            sort_property,
+        ]
+    );
 
-        doFetch();
-    }, [accessory, body, color, glasses, head, page]);
+    useEffect(() => {
+        setNouns([]);
+        initFetchNouns();
+    }, [
+        accessory,
+        background,
+        body,
+        color,
+        glasses,
+        head,
+        sort_method,
+        sort_property,
+    ]);
+
+    useEffect(() => {
+        initFetchNouns(page);
+    }, [page]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -102,7 +140,7 @@ export default function NounsCatalogue() {
 
     return (
         <div>
-            {showControls && <Controls />}
+            {showControls && <Controls className={styles.controlsContainer} />}
 
             <NounList nouns={nouns} />
 

@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import { loadDictionaries } from '@/app/[lang]/dictionaries';
 import { Locale, locales } from '@/utils/enums/Locale';
-import NounCatalogue from '@/app/[lang]/nouns/_components/Catalogue';
+import NounCatalogue from '@/app/[lang]/nouns/_components/Catalogue/Catalogue';
 import FilterDisplayProvider from '@/context/FilterDisplay';
 import Header from '@/app/_components/Header/Header';
 import DictionaryProvider from '@/context/Dictionary';
 
 type Props = Readonly<{
-    params: { lang: Locale };
+    params: Promise<{ lang: Locale }>;
 }>;
 
 export default async function Page({ params }: Props) {

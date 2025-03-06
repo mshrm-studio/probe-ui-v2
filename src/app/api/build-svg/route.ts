@@ -12,16 +12,6 @@ export async function POST(req: NextRequest) {
 
         const svg = buildSVG(RLE_PARTS, PALETTE_COLORS, BACKGROUND_COLOR);
 
-        const body = JSON.stringify({ svg });
-
-        return new NextResponse(body, {
-            status: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'public, max-age=604800', // 1 week
-            },
-        });
-
         return NextResponse.json({ svg });
     } catch (error) {
         return NextResponse.json(error, { status: 500 });

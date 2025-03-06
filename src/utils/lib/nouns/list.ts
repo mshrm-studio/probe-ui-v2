@@ -1,3 +1,4 @@
+import useApi from '@/hooks/useApi';
 import NounFilters from '@/utils/dto/Noun/Filters';
 import {
     isNounFromDBListResponse,
@@ -9,9 +10,13 @@ import { SortMethod } from '@/utils/enums/SortMethod';
 export default async function fetchNouns(
     filters?: NounFilters
 ): Promise<NounFromDBListResponse> {
+    const api = useApi();
+
     const params = new URLSearchParams();
 
     if (filters?.accessory) params.set('accessory', filters.accessory);
+
+    if (filters?.background) params.set('background', filters.background);
 
     if (filters?.body) params.set('body', filters.body);
 
@@ -34,17 +39,15 @@ export default async function fetchNouns(
 
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    let url = `${baseUrl}/nouns`;
+    let url = '/nouns';
 
     if (params) url += `?${params.toString()}`;
 
-    const res = await fetch(url);
+    const res = await api.get(url);
 
-    const json = await res.json();
-
-    if (!isNounFromDBListResponse(json)) {
+    if (!isNounFromDBListResponse(res.data)) {
         throw new Error('Invalid data');
     }
 
-    return json;
+    return res.data;
 }

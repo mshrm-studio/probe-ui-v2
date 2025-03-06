@@ -3,6 +3,7 @@ import styles from '@/app/_styles/image.module.css';
 import clsx from 'clsx';
 
 interface BaseProps {
+    className?: string;
     src: string;
     alt: string;
 }
@@ -13,7 +14,6 @@ interface PropsWithSize {
 }
 
 interface PropsWithoutSize {
-    className?: string;
     objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
     sizes: string;
 }
@@ -21,7 +21,7 @@ interface PropsWithoutSize {
 type Props = BaseProps & (PropsWithSize | PropsWithoutSize);
 
 export default function AppImage(props: Props) {
-    const { src, alt } = props;
+    const { className, src, alt } = props;
 
     const normalisedSrc = src.startsWith('http')
         ? src
@@ -32,6 +32,7 @@ export default function AppImage(props: Props) {
     if ('height' in props && 'width' in props) {
         return (
             <Image
+                className={className}
                 src={normalisedSrc}
                 alt={alt}
                 height={props.height}
@@ -41,7 +42,7 @@ export default function AppImage(props: Props) {
     }
 
     return (
-        <div className={clsx(styles.container, props.className)}>
+        <div className={clsx(styles.container, className)}>
             <Image
                 src={normalisedSrc}
                 alt={alt}

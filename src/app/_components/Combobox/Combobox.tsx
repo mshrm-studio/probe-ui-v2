@@ -13,7 +13,9 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useMemo, useState } from 'react';
 import styles from '@/app/_styles/combobox/combobox.module.css';
 import clsx from 'clsx';
-import TraitCanvas from '@/app/_components/Trait/Canvas';
+import TraitCanvas from '@/app/[lang]/nouns/_components/Noun/Trait/Canvas';
+import Image from '@/app/_components/Image';
+import useDictionary from '@/hooks/useDictionary';
 
 interface Props<ValueType> {
     anchorTo?: 'bottom' | 'right';
@@ -36,6 +38,8 @@ export default function AppComboxbox<ValueType extends string | number>({
     selected,
     setSelected,
 }: Props<ValueType>) {
+    const dict = useDictionary();
+
     const [query, setQuery] = useState('');
 
     const [selectedOption, setSelectedOption] =
@@ -98,7 +102,7 @@ export default function AppComboxbox<ValueType extends string | number>({
                     }
                     onBlur={() => setQuery('')}
                     onChange={(event) => setQuery(event.target.value)}
-                    placeholder="None"
+                    placeholder={dict.common.none}
                     required={required}
                 />
 
@@ -120,13 +124,25 @@ export default function AppComboxbox<ValueType extends string | number>({
                                 value={option}
                                 className={styles.option}
                             >
-                                {option.imgSrc && (
-                                    <img
-                                        className={styles.optionImg}
-                                        src={option.imgSrc}
-                                        alt={option.label}
-                                    />
-                                )}
+                                {option.imgSrc &&
+                                    (option.imgSrc.startsWith('data:') ? (
+                                        <img
+                                            className={clsx(
+                                                styles.optionImg,
+                                                'h-6 w-6'
+                                            )}
+                                            alt={option.label}
+                                            src={option.imgSrc}
+                                        />
+                                    ) : (
+                                        <Image
+                                            className={styles.optionImg}
+                                            height={24}
+                                            width={24}
+                                            alt={option.label}
+                                            src={option.imgSrc}
+                                        />
+                                    ))}
 
                                 {option.encodedImage && (
                                     <TraitCanvas

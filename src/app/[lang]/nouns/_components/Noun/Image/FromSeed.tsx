@@ -1,10 +1,11 @@
 'use client';
 
-import { getNounData } from '@noundry/nouns-assets';
+// import { getNounData } from '@noundry/nouns-assets';
 import { useEffect, useRef, useState } from 'react';
-import styles from '@/app/_styles/noun/image/from-seed.module.css';
+import styles from '@/app/[lang]/nouns/_styles/noun/image/from-seed.module.css';
 import NounSeed from '@/utils/dto/Noun/Seed';
 import { useInViewport } from 'react-in-viewport';
+import { getNounData } from '@nouns/assets';
 
 type Props = {
     seed: NounSeed;
@@ -48,8 +49,11 @@ export default function NounImageFromSeed({ seed }: Props) {
     };
 
     useEffect(() => {
-        if (inViewport) generate();
-    }, [inViewport, seed]);
+        if (inViewport) {
+            setGeneratedSvg('');
+            generate();
+        }
+    }, [inViewport]);
 
     return (
         <div
