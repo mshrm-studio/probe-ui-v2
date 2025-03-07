@@ -19,7 +19,10 @@ const useNormalisedNounList = (nouns: NounFromDB[] | NounFromSubgraph[]) => {
                               head: noun.head_index,
                           },
                       }
-                    : noun
+                    : {
+                          id: Number(noun.id),
+                          seed: noun.seed,
+                      }
             ),
         [nouns]
     );

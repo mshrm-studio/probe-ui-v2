@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import NounList from '@/app/[lang]/nouns/_components/Noun/List/List';
 import FetchingImage from '@/app/_components/FetchingImage';
 import styles from '@/app/[lang]/nouns/_styles/catalogue/catalogue.module.css';
@@ -15,13 +15,19 @@ import {
     NounSortProperty,
 } from '@/utils/enums/Noun/SortProperty';
 import fetchNouns from '@/utils/lib/nouns/list';
+import AuctionFromSubgraph, {
+    isAuctionFromSubgraphList,
+} from '@/utils/dto/Auction/FromSubgraph';
+import useDictionary from '@/hooks/useDictionary';
 
 export default function NounsCatalogue() {
+    const dict = useDictionary();
     const { show: showControls } = useContext(FilterDisplayContext);
     const [error, setError] = useState('');
     const [fetching, setFetching] = useState(false);
     const [meta, setMeta] = useState<ApiPaginationMeta>();
     const [nouns, setNouns] = useState<NounFromDB[]>([]);
+    const [auctions, setAuctions] = useState<AuctionFromSubgraph[]>([]);
     const searchParams = useSearchParams();
     const [page, setPage] = useState(1);
     const accessory = searchParams.get('accessory');
@@ -134,6 +140,46 @@ export default function NounsCatalogue() {
         };
     }, [fetching, lastScrollTop, meta]);
 
+    useEffect(() => {
+        const fetchAuctions = async () => {
+            try {
+                const response = await fetch('/api/subgraph/auctions', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch owners');
+                }
+
+                const { result } = await response.json();
+
+                if (!isAuctionFromSubgraphList(result.data.auctions)) {
+                    throw new Error('Invalid auction data');
+                }
+
+                setAuctions(result.data.auctions);
+            } catch (error) {
+                alert(error);
+                console.error(error);
+            }
+        };
+
+        fetchAuctions();
+    }, []);
+
+    const absentAuctions = useMemo(() => {
+        if (!accessory && !background && !body && !color && !glasses && !head) {
+            const nounTokenIds = new Set(nouns.map((n) => n.token_id));
+
+            return auctions.filter(
+                (auction) => !nounTokenIds.has(Number(auction.noun.id))
+            );
+        }
+
+        return [];
+    }, [accessory, auctions, background, body, color, glasses, head, nouns]);
+
     if (error) {
         return <div>{error}</div>;
     }
@@ -142,7 +188,12 @@ export default function NounsCatalogue() {
         <div>
             {showControls && <Controls className={styles.controlsContainer} />}
 
-            <NounList nouns={nouns} />
+            <NounList
+                absentAuctions={absentAuctions}
+                auctions={auctions}
+                dict={dict}
+                nouns={nouns}
+            />
 
             {fetching && (
                 <div className={styles.fetchingImgContainer}>

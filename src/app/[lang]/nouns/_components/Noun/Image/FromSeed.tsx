@@ -1,7 +1,7 @@
 'use client';
 
 // import { getNounData } from '@noundry/nouns-assets';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '@/app/[lang]/nouns/_styles/noun/image/from-seed.module.css';
 import NounSeed from '@/utils/dto/Noun/Seed';
 import { useInViewport } from 'react-in-viewport';
@@ -23,7 +23,7 @@ export default function NounImageFromSeed({ seed }: Props) {
         { disconnectOnLeave: true }
     );
 
-    const generate = async () => {
+    const generateAndSetSvg = useCallback(async () => {
         try {
             const { parts, background } = getNounData(seed);
 
@@ -45,15 +45,17 @@ export default function NounImageFromSeed({ seed }: Props) {
             setGeneratedSvg(svg);
         } catch (error) {
             setFailed(true);
+            setGeneratedSvg('');
         }
-    };
+    }, [seed]);
 
     useEffect(() => {
         if (inViewport) {
+            setFailed(false);
             setGeneratedSvg('');
-            generate();
+            generateAndSetSvg();
         }
-    }, [inViewport]);
+    }, [inViewport, seed]);
 
     return (
         <div

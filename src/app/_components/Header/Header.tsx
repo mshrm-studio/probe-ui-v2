@@ -6,18 +6,36 @@ import Content from '@/app/_components/Header/Content';
 import DictionaryProvider from '@/context/Dictionary';
 import Breadcrumb from '@/utils/dto/Breadcrumb';
 
-interface Props {
-    breadcrumbs: Breadcrumb[];
+interface GlobalProps {
     lang: Locale;
 }
 
-export default async function Header({ breadcrumbs, lang }: Props) {
+interface LeftAlignedProps extends GlobalProps {
+    islandAlign: 'left';
+}
+
+interface RightAlignedProps extends GlobalProps {
+    breadcrumbs: Breadcrumb[];
+    islandAlign?: 'center';
+}
+
+type Props = LeftAlignedProps | RightAlignedProps;
+
+export default async function Header(props: Props) {
+    const { lang, islandAlign } = props;
+
     const dict = await loadDictionaries(lang, ['common', 'header', 'traits']);
 
     return (
         <DictionaryProvider dictionary={dict}>
             <header className={styles.header}>
-                <Content dict={dict} breadcrumbs={breadcrumbs} />
+                <Content
+                    dict={dict}
+                    breadcrumbs={
+                        'breadcrumbs' in props ? props.breadcrumbs : []
+                    }
+                    islandAlign={islandAlign || 'center'}
+                />
             </header>
         </DictionaryProvider>
     );

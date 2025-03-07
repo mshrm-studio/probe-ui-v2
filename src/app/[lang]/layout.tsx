@@ -9,5 +9,5 @@ export default async function Layout({
 }>) {
     // const lang = (await params).lang;
 
-    return <div className="p-4 space-y-4">{children}</div>;
+    return <div>{children}</div>;
 }

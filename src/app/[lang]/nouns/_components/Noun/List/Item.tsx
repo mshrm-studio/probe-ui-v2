@@ -1,23 +1,31 @@
-import NounFromSubgraph from '@/utils/dto/Noun/FromSubgraph';
 import NounImageFromSeed from '@/app/[lang]/nouns/_components/Noun/Image/FromSeed';
 import styles from '@/app/[lang]/nouns/_styles/noun/list/item.module.css';
 import Link from 'next/link';
-import NounFromDB, { isNounFromDB } from '@/utils/dto/Noun/FromDB';
-import useNormalisedNoun from '@/hooks/useNormalisedNoun';
+import NormalisedNoun from '@/utils/dto/NormalisedNoun';
+import { Dictionary } from '@/app/[lang]/dictionaries';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-    noun: NounFromDB | NounFromSubgraph;
+    atAuction?: boolean;
+    dict: Dictionary;
+    noun: NormalisedNoun;
 }
 
-export default function NounListItem({ noun }: Props) {
-    const normalisedNoun = useNormalisedNoun(noun);
-
+export default function NounListItem({ atAuction, dict, noun }: Props) {
     return (
-        <Link href={`/nouns/${normalisedNoun.id}`}>
-            <div className={styles.container}>
-                <NounImageFromSeed seed={normalisedNoun.seed} />
+        <Link href={`/nouns/${noun.id}`}>
+            <div
+                className={styles.container}
+                aria-live={atAuction ? 'assertive' : 'off'}
+            >
+                <NounImageFromSeed seed={noun.seed} />
 
-                <label className={styles.label}>{normalisedNoun.id}</label>
+                <label className={styles.label}>{noun.id}</label>
+
+                {atAuction && (
+                    <div className={styles.bidBadge}>
+                        {dict.nouns.noun.list.item.bid}
+                    </div>
+                )}
             </div>
         </Link>
     );

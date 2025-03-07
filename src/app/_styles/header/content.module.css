@@ -1,3 +1,11 @@
+.container {
+    height: var(--header-height);
+}
+
+.islandContainer {
+    height: 100%;
+}
+
 .breadcrumbsContainer,
 .copyContainer {
     display: none;
@@ -6,12 +14,30 @@
 @media screen and (min-width: 1280px) {
     .container {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
+    }
+
+    .container[aria-colcount='2'] {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .container[aria-colcount='3'] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .container[aria-colcount='2'] .islandContainer {
+        grid-column: 1 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .breadcrumbsContainer {
         display: block;
+    }
+
+    .container[aria-colcount='2'] .copyContainer {
+        grid-column: 3 / 6;
     }
 
     .copyContainer {

@@ -1,7 +1,7 @@
 import NounSeed, { isNounSeed } from '@/utils/dto/Noun/Seed';
 
 export default interface NounFromSubgraph {
-    id: number;
+    id: string;
     seed: NounSeed;
 }
 

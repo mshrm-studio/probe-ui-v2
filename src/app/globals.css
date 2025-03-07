@@ -7,6 +7,10 @@
     font-style: normal;
 }
 
+:root {
+    --header-height: 42px;
+}
+
 body {
     font-family: 'ComicSansMS-Bold', sans-serif;
     text-transform: uppercase;

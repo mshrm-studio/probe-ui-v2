@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     openGraph: {
         description,
         images: ['todo'],
+        siteName: 'probe.wtf',
         title,
         url: process.env.NEXT_PUBLIC_URL,
     },

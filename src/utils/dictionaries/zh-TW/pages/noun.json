@@ -1,0 +1,30 @@
+{
+    "breadcrumbs": {
+        "nouns": "Nouns"
+    },
+    "details": {
+        "about": "關於",
+        "auction": {
+            "allocatedTo": "分配給",
+            "bid": "出價",
+            "by": "由",
+            "currentOwner": "當前擁有者",
+            "endsIn": "拍賣結束於",
+            "currentBid": "當前出價",
+            "minted": "鑄造",
+            "receipt": "收據",
+            "settledBy": "結算者",
+            "via": "透過",
+            "winningBid": "中標"
+        },
+        "colors": "顏色",
+        "traits": {
+            "area": "面積",
+            "brightness": "亮度"
+        }
+    },
+    "metadata": {
+        "description": "探尋 Noun :id 的顏色和屬性",
+        "title": "Noun :id"
+    }
+}

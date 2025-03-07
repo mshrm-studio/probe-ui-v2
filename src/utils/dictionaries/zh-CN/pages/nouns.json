@@ -20,5 +20,12 @@
     "metadata": {
         "description": "探究 Nouns",
         "title": "Nouns"
+    },
+    "noun": {
+        "list": {
+            "item": {
+                "bid": "出价"
+            }
+        }
     }
 }

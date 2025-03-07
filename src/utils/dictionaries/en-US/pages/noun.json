@@ -1,0 +1,30 @@
+{
+    "breadcrumbs": {
+        "nouns": "Nouns"
+    },
+    "details": {
+        "about": "About",
+        "auction": {
+            "allocatedTo": "Allocated to",
+            "bid": "Bid",
+            "by": "by",
+            "currentOwner": "Current owner",
+            "endsIn": "Auction ends in",
+            "currentBid": "Current bid",
+            "minted": "Minted",
+            "receipt": "Receipt",
+            "settledBy": "Settled by",
+            "via": "via",
+            "winningBid": "Winning bid"
+        },
+        "colors": "Colors",
+        "traits": {
+            "area": "Area",
+            "brightness": "Brightness"
+        }
+    },
+    "metadata": {
+        "description": "Probe the colors and stats for Noun :id",
+        "title": "Noun :id"
+    }
+}

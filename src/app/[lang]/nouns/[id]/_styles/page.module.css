@@ -1,0 +1,18 @@
+@media screen and (min-width: 1280px) {
+    .main {
+        max-height: calc(100vh - (var(--header-height) + 32px));
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .detailsContainer {
+        order: 1;
+        grid-column: 1 / 3;
+    }
+
+    .imgContainer {
+        order: 2;
+        grid-column: 3 / 6;
+    }
+}

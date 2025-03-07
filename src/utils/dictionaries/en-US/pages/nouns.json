@@ -20,5 +20,12 @@
     "metadata": {
         "description": "Probing Nouns",
         "title": "Nouns"
+    },
+    "noun": {
+        "list": {
+            "item": {
+                "bid": "Bid"
+            }
+        }
     }
 }

@@ -1,0 +1,30 @@
+{
+    "breadcrumbs": {
+        "nouns": "Nouns"
+    },
+    "details": {
+        "about": "关于",
+        "auction": {
+            "allocatedTo": "分配给",
+            "bid": "出价",
+            "by": "由",
+            "currentOwner": "当前拥有者",
+            "endsIn": "拍卖结束于",
+            "currentBid": "当前出价",
+            "minted": "铸造",
+            "receipt": "收据",
+            "settledBy": "结算者",
+            "via": "通过",
+            "winningBid": "中标"
+        },
+        "colors": "颜色",
+        "traits": {
+            "area": "面积",
+            "brightness": "亮度"
+        }
+    },
+    "metadata": {
+        "description": "探寻 Noun :id 的颜色和属性",
+        "title": "Noun :id"
+    }
+}

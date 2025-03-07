@@ -6,6 +6,7 @@ import FilterDisplayProvider from '@/context/FilterDisplay';
 import Header from '@/app/_components/Header/Header';
 import DictionaryProvider from '@/context/Dictionary';
 import { Suspense } from 'react';
+import styles from '@/app/[lang]/nouns/_styles/page.module.css';
 
 type Props = Readonly<{
     params: Promise<{ lang: Locale }>;
@@ -33,7 +34,7 @@ export default async function Page({ params }: Props) {
                     ]}
                 />
 
-                <main>
+                <main className={styles.main}>
                     <Suspense>
                         <NounCatalogue />
                     </Suspense>
@@ -48,24 +49,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const dict = await loadDictionaries(lang, ['pages/nouns']);
 
+    const title = dict.nouns.metadata.title;
+    const description = dict.nouns.metadata.description;
+
     return {
         alternates: {
             canonical: `/${lang}/nouns`,
             languages: locales.reduce((acc, locale) => {
-                acc[locale] = `/${locale}`;
+                acc[locale] = `/${locale}/nouns`;
                 return acc;
             }, {} as Record<string, string>),
         },
-        description: dict.nouns.metadata.description,
+        description,
         openGraph: {
-            description: dict.nouns.metadata.description,
-            title: dict.nouns.metadata.title,
+            description,
+            siteName: 'probe.wtf',
+            title,
             url: `${process.env.NEXT_PUBLIC_URL}/${lang}/nouns`,
         },
-        title: dict.nouns.metadata.title,
+        title,
         twitter: {
-            description: dict.nouns.metadata.description,
-            title: dict.nouns.metadata.title,
+            description,
+            title,
         },
     };
 }

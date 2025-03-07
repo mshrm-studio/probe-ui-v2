@@ -10,12 +10,24 @@ import Breadcrumbs from '@/app/_components/Breadcrumbs';
 import CopyToClipboard from '@/app/_components/CopyToClipboard';
 import styles from '@/app/_styles/header/content.module.css';
 
-interface Props {
-    breadcrumbs: Breadcrumb[];
+interface GlobalProps {
     dict: Dictionary;
 }
 
-export default function HeaderContent({ breadcrumbs, dict }: Props) {
+interface LeftAlignedProps extends GlobalProps {
+    islandAlign: 'left';
+}
+
+interface RightAlignedProps extends GlobalProps {
+    breadcrumbs: Breadcrumb[];
+    islandAlign: 'center';
+}
+
+type Props = LeftAlignedProps | RightAlignedProps;
+
+export default function HeaderContent(props: Props) {
+    const { dict, islandAlign } = props;
+
     const pathname = usePathname();
 
     const filterablePaths = ['/nouns', '/nouns/dreams', '/lils'];
@@ -30,13 +42,19 @@ export default function HeaderContent({ breadcrumbs, dict }: Props) {
     );
 
     return (
-        <div className={styles.container}>
-            <Breadcrumbs
-                breadcrumbs={breadcrumbs}
-                className={styles.breadcrumbsContainer}
-            />
+        <div
+            className={styles.container}
+            aria-colcount={islandAlign === 'center' ? 3 : 2}
+        >
+            {islandAlign === 'center' && (
+                <div className={styles.breadcrumbsContainer}>
+                    <Breadcrumbs breadcrumbs={props.breadcrumbs} />
+                </div>
+            )}
 
-            <Island dict={dict} isCatalogue={isCatalogue} />
+            <div className={styles.islandContainer}>
+                <Island dict={dict} isCatalogue={isCatalogue} />
+            </div>
 
             <div className={styles.copyContainer}>
                 <CopyToClipboard content="⌐◨-◨">⌐◨-◨</CopyToClipboard>
