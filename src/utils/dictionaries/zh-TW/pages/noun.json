@@ -8,7 +8,6 @@
             "allocatedTo": "分配給",
             "bid": "出價",
             "by": "由",
-            "currentOwner": "當前擁有者",
             "endsIn": "拍賣結束於",
             "currentBid": "當前出價",
             "minted": "鑄造",
@@ -18,6 +17,7 @@
             "winningBid": "中標"
         },
         "colors": "顏色",
+        "currentOwner": "當前擁有者",
         "traits": {
             "area": "面積",
             "brightness": "亮度"

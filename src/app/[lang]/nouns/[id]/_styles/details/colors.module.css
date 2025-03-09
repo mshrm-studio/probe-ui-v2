@@ -1,0 +1,13 @@
+.title {
+    font-size: 0.6875rem;
+    margin-bottom: 0.5rem;
+}
+
+.colorSquares {
+    display: flex;
+}
+
+.colorSquare {
+    height: 1.5rem;
+    width: 1.5rem;
+}

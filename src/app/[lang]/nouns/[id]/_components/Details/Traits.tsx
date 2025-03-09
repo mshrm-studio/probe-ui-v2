@@ -10,6 +10,8 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 export default function DetailsTraits({ className, dict, noun }: Props) {
     return (
         <div className={className}>
+            <h3 className={styles.title}>{dict.noun.details.about}</h3>
+
             <dl>
                 <div className={styles.dlItem}>
                     <dt className={styles.dt}>{dict.common.accessory}:</dt>

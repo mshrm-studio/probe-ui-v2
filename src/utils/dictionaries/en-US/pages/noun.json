@@ -8,7 +8,6 @@
             "allocatedTo": "Allocated to",
             "bid": "Bid",
             "by": "by",
-            "currentOwner": "Current owner",
             "endsIn": "Auction ends in",
             "currentBid": "Current bid",
             "minted": "Minted",
@@ -18,6 +17,7 @@
             "winningBid": "Winning bid"
         },
         "colors": "Colors",
+        "currentOwner": "Current owner",
         "traits": {
             "area": "Area",
             "brightness": "Brightness"

@@ -3,8 +3,21 @@ import NounFromSubgraph, {
 } from '@/utils/dto/Noun/FromSubgraph';
 
 export default interface AuctionFromSubgraph {
-    endTime: string;
+    amount?: string; // EG 26120000000000000000
+    bidder?: {
+        id: string; // EG 0xf6b6f07862a02c85628b3a9688beae07fea9c863
+    };
+    bids: {
+        amount: string;
+        bidder: {
+            id: string;
+        };
+        clientId: number | null; // EG 9
+    }[];
+    clientId: number | null;
+    endTime: string; // EG 1684187639
     noun: NounFromSubgraph;
+    settled: boolean;
 }
 
 export const isAuctionFromSubgraph = (

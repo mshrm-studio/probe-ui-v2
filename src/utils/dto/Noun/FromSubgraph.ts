@@ -3,6 +3,9 @@ import NounSeed, { isNounSeed } from '@/utils/dto/Noun/Seed';
 export default interface NounFromSubgraph {
     id: string;
     seed: NounSeed;
+    owner?: {
+        id: string;
+    };
 }
 
 export const isNounFromSubgraph = (

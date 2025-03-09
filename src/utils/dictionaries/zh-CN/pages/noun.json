@@ -8,7 +8,6 @@
             "allocatedTo": "分配给",
             "bid": "出价",
             "by": "由",
-            "currentOwner": "当前拥有者",
             "endsIn": "拍卖结束于",
             "currentBid": "当前出价",
             "minted": "铸造",
@@ -18,6 +17,7 @@
             "winningBid": "中标"
         },
         "colors": "颜色",
+        "currentOwner": "当前拥有者",
         "traits": {
             "area": "面积",
             "brightness": "亮度"

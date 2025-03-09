@@ -149,7 +149,7 @@ export default function NounsCatalogue() {
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch owners');
+                    throw new Error('Failed to fetch auctions');
                 }
 
                 const { result } = await response.json();
