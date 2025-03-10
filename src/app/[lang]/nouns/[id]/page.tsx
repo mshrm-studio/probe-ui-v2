@@ -3,20 +3,49 @@ import { loadDictionaries } from '@/app/[lang]/dictionaries';
 import { Locale, locales } from '@/utils/enums/Locale';
 import Header from '@/app/_components/Header/Header';
 import DictionaryProvider from '@/context/Dictionary';
-import { isNounFromDBResponse } from '@/utils/dto/Noun/FromDB';
+import NounFromDB, { isNounFromDBResponse } from '@/utils/dto/Noun/FromDB';
 import useApi from '@/hooks/useApi';
 import Details from '@/app/[lang]/nouns/[id]/_components/Details/Details';
 import Image from '@/app/[lang]/nouns/[id]/_components/Image';
 import styles from '@/app/[lang]/nouns/[id]/_styles/page.module.css';
+import useSubgraphClient from '@/hooks/useSubgraphClient';
+import { FETCH_AUCTION } from '@/utils/lib/subgraph/auction';
+import { notFound } from 'next/navigation';
+import AuctionFromSubgraph, {
+    isAuctionFromSubgraph,
+} from '@/utils/dto/Auction/FromSubgraph';
+import Background from '@/app/[lang]/nouns/[id]/_components/Background';
 
-async function fetchFallbackData(id: string) {
+async function fetchFallbackData(id: string): Promise<{
+    auction: AuctionFromSubgraph | undefined;
+    noun: NounFromDB | undefined;
+}> {
+    let response: any;
+    let result: any;
+
     const api = useApi();
+    const client = useSubgraphClient();
 
-    const { data } = await api.get(`/nouns/${id}`);
+    try {
+        response = await api.get(`/nouns/${id}`);
+    } catch (error) {
+        response = null;
+    }
 
-    if (!isNounFromDBResponse(data)) throw new Error('Invalid data');
+    try {
+        result = await client.query(FETCH_AUCTION, { id }).toPromise();
+    } catch (error) {
+        result = null;
+    }
 
-    return data;
+    return {
+        auction: isAuctionFromSubgraph(result?.data?.auction)
+            ? result.data.auction
+            : undefined,
+        noun: isNounFromDBResponse(response?.data)
+            ? response.data.data
+            : undefined,
+    };
 }
 
 type Props = Readonly<{
@@ -28,32 +57,29 @@ export default async function Page({ params }: Props) {
 
     const dict = await loadDictionaries(lang, [
         'common',
-        'pages/noun',
+        'pages/nouns/noun',
         'traits',
     ]);
 
-    const { data } = await fetchFallbackData(id);
+    const { auction, noun } = await fetchFallbackData(id);
+
+    if (auction === undefined && noun === undefined) notFound();
 
     return (
         <DictionaryProvider dictionary={dict}>
-            <div
-                style={{
-                    backgroundColor:
-                        data.background_index === 0 ? '#d5d7e1' : '#e1d7d5',
-                }}
-            >
+            <Background auction={auction} noun={noun}>
                 <Header lang={lang} islandAlign="left" />
 
                 <main className={styles.main}>
-                    <Image noun={data} className={styles.imgContainer} />
+                    <div className={styles.imgContainer}>
+                        <Image auction={auction} noun={noun} />
+                    </div>
 
-                    <Details
-                        noun={data}
-                        className={styles.detailsContainer}
-                        dict={dict}
-                    />
+                    <div className={styles.detailsContainer}>
+                        <Details auction={auction} noun={noun} dict={dict} />
+                    </div>
                 </main>
-            </div>
+            </Background>
         </DictionaryProvider>
     );
 }
@@ -61,7 +87,7 @@ export default async function Page({ params }: Props) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id, lang } = await params;
 
-    const dict = await loadDictionaries(lang, ['pages/noun']);
+    const dict = await loadDictionaries(lang, ['pages/nouns/noun']);
 
     const images = [
         {

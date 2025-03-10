@@ -1,13 +1,15 @@
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import NounImageFromSeed from '@/app/[lang]/nouns/_components/Noun/Image/FromSeed';
+import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
-    noun: NounFromDB;
+interface Props {
+    auction?: AuctionFromSubgraph;
+    noun?: NounFromDB;
 }
 
-export default function Image({ className, noun }: Props) {
-    return (
-        <div className={className}>
+export default function Image({ auction, noun }: Props) {
+    if (noun) {
+        return (
             <NounImageFromSeed
                 seed={{
                     accessory: noun.accessory_index,
@@ -17,6 +19,22 @@ export default function Image({ className, noun }: Props) {
                     head: noun.head_index,
                 }}
             />
-        </div>
-    );
+        );
+    }
+
+    if (auction) {
+        return (
+            <NounImageFromSeed
+                seed={{
+                    accessory: auction.noun.seed.accessory,
+                    background: auction.noun.seed.background,
+                    body: auction.noun.seed.body,
+                    glasses: auction.noun.seed.glasses,
+                    head: auction.noun.seed.head,
+                }}
+            />
+        );
+    }
+
+    return null;
 }

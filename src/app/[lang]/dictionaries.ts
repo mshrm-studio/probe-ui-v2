@@ -19,9 +19,9 @@ export const loadDictionaries = async (l: Locale, filePathList: string[]) => {
         filePathList.map(async (filePath) => {
             const dict = await loadDictionary(l, filePath);
 
-            const namespace = filePath.startsWith('pages/')
-                ? filePath.split('/')[1]
-                : filePath;
+            const parts = filePath.split('/');
+
+            const namespace = parts[parts.length - 1];
 
             return { [namespace]: dict };
         })
