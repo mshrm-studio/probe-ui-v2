@@ -1,7 +1,7 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
-import { ImageData } from '@nouns/assets';
+import { ImageData } from '@noundry/nouns-assets';
 
 interface Props {
     auction?: AuctionFromSubgraph;

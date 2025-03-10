@@ -1,11 +1,10 @@
 'use client';
 
-// import { getNounData } from '@noundry/nouns-assets';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '@/app/[lang]/nouns/_styles/noun/image/from-seed.module.css';
 import NounSeed from '@/utils/dto/Noun/Seed';
 import { useInViewport } from 'react-in-viewport';
-import { getNounData } from '@nouns/assets';
+import { getNounData } from '@noundry/nouns-assets';
 
 type Props = {
     seed: NounSeed;
