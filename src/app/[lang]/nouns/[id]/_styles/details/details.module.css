@@ -9,3 +9,9 @@
 .colorsContainer {
     margin-top: 1.5rem;
 }
+
+@media screen and (min-width: 1280px) {
+    .container {
+        padding-top: 3rem;
+    }
+}

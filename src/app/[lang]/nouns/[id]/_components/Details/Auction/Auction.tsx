@@ -2,11 +2,15 @@
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import Countdown from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Countdown';
+import Bids from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Bids';
 import CurrentBid from '@/app/[lang]/nouns/[id]/_components/Details/Auction/CurrentBid';
 import Form from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Form';
 import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
+import RpcProvider from '@/context/Rpc';
+import AuctionHouseProvider from '@/context/AuctionHouse';
+import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/auction.module.css';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction: AuctionFromSubgraph;
@@ -60,9 +64,21 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                 <>
                     <Countdown dict={dict} timeRemaining={timeRemaining} />
 
-                    <CurrentBid auction={auction} dict={dict} />
+                    <div className={styles.currentBidContainer}>
+                        <CurrentBid auction={auction} dict={dict} />
+                    </div>
 
-                    <Form auction={auction} dict={dict} />
+                    <div className={styles.bidsContainer}>
+                        <Bids auction={auction} dict={dict} />
+                    </div>
+
+                    <RpcProvider>
+                        <AuctionHouseProvider>
+                            <div className={styles.formContainer}>
+                                <Form auction={auction} dict={dict} />
+                            </div>
+                        </AuctionHouseProvider>
+                    </RpcProvider>
                 </>
             )}
         </div>

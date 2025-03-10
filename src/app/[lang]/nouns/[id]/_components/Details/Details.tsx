@@ -16,7 +16,7 @@ interface Props {
 
 export default function Details({ auction, dict, noun }: Props) {
     return (
-        <div>
+        <div className={styles.container}>
             {auction?.settled && (
                 <>
                     <WinningBid

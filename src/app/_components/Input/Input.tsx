@@ -1,3 +1,6 @@
+import styles from '@/app/_styles/input/input.module.css';
+import clsx from 'clsx';
+
 export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string;
@@ -9,5 +12,11 @@ export default function Input({
     invalid = false,
     ...props
 }: InputProps) {
-    return <input className={className} data-invalid={invalid} {...props} />;
+    return (
+        <input
+            className={clsx(styles.input, className)}
+            data-invalid={invalid}
+            {...props}
+        />
+    );
 }

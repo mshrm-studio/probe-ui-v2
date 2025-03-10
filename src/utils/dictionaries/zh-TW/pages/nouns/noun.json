@@ -5,6 +5,7 @@
     "details": {
         "about": "關於",
         "auction": {
+            "allBids": "所有出價",
             "allocatedTo": "分配給",
             "bid": "出價",
             "by": "由",
@@ -13,6 +14,7 @@
             "loginToBid": "登錄出價",
             "minted": "鑄造",
             "receipt": "收據",
+            "seeAllBids": "查看所有出價",
             "settledBy": "結算者",
             "via": "透過",
             "winningBid": "中標"
