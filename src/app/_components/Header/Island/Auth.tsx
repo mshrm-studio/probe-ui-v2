@@ -23,7 +23,11 @@ export default function HeaderAuth({ dict }: Props) {
 
     if (!isConnected) {
         return (
-            <button type="button" onClick={() => open()}>
+            <button
+                type="button"
+                className={popoverStyles.button}
+                onClick={() => open()}
+            >
                 <span className="sr-only">{dict.header.auth.connect}</span>
 
                 <Image

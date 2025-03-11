@@ -11,13 +11,7 @@ import {
 import Input from '@/app/_components/Input/Input';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/form.module.css';
 import { useContext, useState } from 'react';
-import {
-    BrowserProvider,
-    Contract,
-    ContractTransactionReceipt,
-    Eip1193Provider,
-    parseEther,
-} from 'ethers';
+import { BrowserProvider, Contract, Eip1193Provider, parseEther } from 'ethers';
 import { AuctionHouseContext } from '@/context/AuctionHouse';
 
 interface Props {
@@ -28,7 +22,7 @@ interface Props {
 export default function DetailsAuctionForm({ auction, dict }: Props) {
     const { isConnected } = useAppKitAccount();
     const { open } = useAppKit();
-    const [bid, setBid] = useState<number>(0);
+    const [bid, setBid] = useState<string>('');
     const { walletProvider } = useAppKitProvider('eip155');
     const { httpAuctionHouseContract } = useContext(AuctionHouseContext);
 
@@ -71,11 +65,12 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
                 signer
             ) as Contract;
 
-            const value = parseEther(String(bid));
+            const value = parseEther(bid);
+            const nounId = Number(auction.noun.id);
 
             const bigIntGasEstimate =
                 await contractWithSigner.createBid.estimateGas(
-                    auction.noun.id,
+                    nounId,
                     clientId,
                     {
                         value,
@@ -86,14 +81,10 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
 
             const gasLimit = Number(bigIntGasLimit);
 
-            const tx = await contractWithSigner.createBid(
-                auction.noun.id,
-                clientId,
-                {
-                    value,
-                    gasLimit,
-                }
-            );
+            const tx = await contractWithSigner.createBid(nounId, clientId, {
+                value,
+                gasLimit,
+            });
 
             await tx.wait();
 
@@ -107,15 +98,19 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
         <form className={styles.form} onSubmit={placeBid}>
             <Input
                 name="bid"
-                min={auction.amount}
+                min={0}
+                data-auction-amount={auction.amount}
                 type="number"
                 step="any"
                 className={styles.input}
+                placeholder={`Ξ ${dict.noun.details.auction.maxBid}`}
                 value={bid}
-                onChange={(e) => setBid(Number(e.target.value))}
+                onChange={(e) => setBid(e.target.value)}
             />
 
-            <Button disabled={bid == 0}>{dict.noun.details.auction.bid}</Button>
+            <Button disabled={bid == '0'}>
+                {dict.noun.details.auction.bid}
+            </Button>
         </form>
     );
 }

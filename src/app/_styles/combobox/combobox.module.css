@@ -93,6 +93,7 @@
     display: flex;
     align-items: center;
     content-visibility: auto;
+    cursor: pointer;
 }
 
 .option[data-focus] {

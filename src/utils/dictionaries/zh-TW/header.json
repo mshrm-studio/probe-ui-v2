@@ -6,9 +6,13 @@
         "imgAlt": "使用者圖示",
         "showAuthMenu": "顯示認證選單"
     },
+    "explore": "探索",
     "filters": {
         "imgAlt": "篩選圖示",
         "showFilters": "顯示篩選器"
+    },
+    "language": {
+        "showLanguageMenu": "顯示語言選單"
     },
     "probe": {
         "dreamsLinkText": "夢想",

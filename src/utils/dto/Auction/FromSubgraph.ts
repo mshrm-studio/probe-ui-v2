@@ -7,7 +7,7 @@ export default interface AuctionFromSubgraph {
     bidder?: {
         id: string; // EG 0xf6b6f07862a02c85628b3a9688beae07fea9c863
     };
-    bids: {
+    bids?: {
         amount: string;
         bidder: {
             id: string;

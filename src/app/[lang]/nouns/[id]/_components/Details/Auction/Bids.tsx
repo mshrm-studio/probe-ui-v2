@@ -17,9 +17,11 @@ export default function DetailsAuctionBids({ auction, dict }: Props) {
     const [open, setOpen] = useState(false);
 
     const sortedBids = useMemo(
-        () => auction.bids.sort((a, b) => Number(b.amount) - Number(a.amount)),
+        () => auction.bids?.sort((a, b) => Number(b.amount) - Number(a.amount)),
         [auction]
     );
+
+    if (sortedBids === undefined) return null;
 
     return (
         <div>

@@ -11,7 +11,6 @@ type Props = {
 };
 
 export default function NounImageFromSeed({ seed }: Props) {
-    const [failed, setFailed] = useState(false);
     const [generatedSvg, setGeneratedSvg] = useState('');
 
     const imgRef = useRef(null);
@@ -24,7 +23,13 @@ export default function NounImageFromSeed({ seed }: Props) {
 
     const generateAndSetSvg = useCallback(async () => {
         try {
-            const { parts, background } = getNounData(seed);
+            const { parts, background } = getNounData({
+                accessory: Number(seed.accessory),
+                background: Number(seed.background),
+                body: Number(seed.body),
+                glasses: Number(seed.glasses),
+                head: Number(seed.head),
+            });
 
             const response = await fetch('/api/build-svg', {
                 method: 'POST',
@@ -43,14 +48,12 @@ export default function NounImageFromSeed({ seed }: Props) {
 
             setGeneratedSvg(svg);
         } catch (error) {
-            setFailed(true);
             setGeneratedSvg('');
         }
     }, [seed]);
 
     useEffect(() => {
         if (inViewport) {
-            setFailed(false);
             setGeneratedSvg('');
             generateAndSetSvg();
         }

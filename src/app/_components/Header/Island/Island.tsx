@@ -1,9 +1,13 @@
 import Probe from '@/app/_components/Header/Island/Probe';
-import Auth from '@/app/_components/Header/Island/Auth';
 import Filters from '@/app/_components/Header/Island/Filters';
+import Language from '@/app/_components/Header/Island/Language';
 import Search from '@/app/_components/Header/Island/Search';
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/_styles/header/island/island.module.css';
+import dynamic from 'next/dynamic';
+const Auth = dynamic(() => import('@/app/_components/Header/Island/Auth'), {
+    ssr: false,
+});
 
 interface Props {
     dict: Dictionary;
@@ -27,6 +31,10 @@ export default function HeaderIsland({ dict, isCatalogue }: Props) {
                         <Filters dict={dict} />
                     </li>
                 )}
+
+                <li className={styles.listItem}>
+                    <Language dict={dict} />
+                </li>
 
                 <li className={styles.listItem}>
                     <Auth dict={dict} />

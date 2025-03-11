@@ -1,6 +1,16 @@
+import { locales } from '@/utils/enums/Locale';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/nouns',
+                permanent: true,
+            },
+        ];
+    },
     experimental: {
         useCache: true,
     },

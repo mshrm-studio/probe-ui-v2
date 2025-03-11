@@ -7,7 +7,8 @@
 }
 
 .breadcrumbsContainer,
-.copyContainer {
+.copyContainer,
+.exploreContainer {
     display: none;
 }
 
@@ -36,13 +37,19 @@
         display: block;
     }
 
-    .container[aria-colcount='2'] .copyContainer {
+    .container[aria-colcount='2'] .copyContainer,
+    .container[aria-colcount='2'] .exploreContainer {
         grid-column: 3 / 6;
     }
 
-    .copyContainer {
+    .copyContainer,
+    .exploreContainer {
         display: flex;
         align-items: center;
         justify-content: flex-end;
+    }
+
+    .exploreContainer {
+        font-size: 0.8125rem;
     }
 }

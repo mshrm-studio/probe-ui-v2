@@ -6,9 +6,13 @@
         "imgAlt": "User Icon",
         "showAuthMenu": "Show Auth Menu"
     },
+    "explore": "Explore",
     "filters": {
         "imgAlt": "Filter Icon",
         "showFilters": "Show Filters"
+    },
+    "language": {
+        "showLanguageMenu": "Show Language Menu"
     },
     "probe": {
         "dreamsLinkText": "Dreams",

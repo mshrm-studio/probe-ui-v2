@@ -27,7 +27,7 @@ export default function DetailsTraitsName({
                     {
                         dict.traits[
                             `background-${
-                                noun.background_index === 0 ? 'cool' : 'warm'
+                                noun.background_index == 0 ? 'cool' : 'warm'
                             }`
                         ]
                     }
@@ -55,7 +55,7 @@ export default function DetailsTraitsName({
                     {
                         dict.traits[
                             ImageData.images.accessories[
-                                auction.noun.seed.accessory
+                                Number(auction.noun.seed.accessory)
                             ].filename
                         ]
                     }
@@ -69,7 +69,7 @@ export default function DetailsTraitsName({
                     {
                         dict.traits[
                             `background-${
-                                auction.noun.seed.background === 0
+                                auction.noun.seed.background == 0
                                     ? 'cool'
                                     : 'warm'
                             }`
@@ -84,8 +84,9 @@ export default function DetailsTraitsName({
                 <>
                     {
                         dict.traits[
-                            ImageData.images.bodies[auction.noun.seed.body]
-                                .filename
+                            ImageData.images.bodies[
+                                Number(auction.noun.seed.body)
+                            ].filename
                         ]
                     }
                 </>
@@ -97,8 +98,9 @@ export default function DetailsTraitsName({
                 <>
                     {
                         dict.traits[
-                            ImageData.images.glasses[auction.noun.seed.glasses]
-                                .filename
+                            ImageData.images.glasses[
+                                Number(auction.noun.seed.glasses)
+                            ].filename
                         ]
                     }
                 </>
@@ -110,8 +112,9 @@ export default function DetailsTraitsName({
                 <>
                     {
                         dict.traits[
-                            ImageData.images.heads[auction.noun.seed.head]
-                                .filename
+                            ImageData.images.heads[
+                                Number(auction.noun.seed.head)
+                            ].filename
                         ]
                     }
                 </>

@@ -24,11 +24,15 @@ export default function DetailsAuctionCurrentBid({
 
             <span>Ξ {formatEther(BigInt(auction.amount))}</span>
 
-            <span>{dict.noun.details.auction.by}</span>
+            {auction.bidder && (
+                <>
+                    <span>{dict.noun.details.auction.by}</span>
 
-            <span title={auction.bidder.id}>
-                <EthAddress address={auction.bidder.id} />
-            </span>
+                    <span title={auction.bidder.id}>
+                        <EthAddress address={auction.bidder.id} />
+                    </span>
+                </>
+            )}
         </div>
     );
 }

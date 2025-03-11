@@ -6,9 +6,13 @@
         "imgAlt": "用户图标",
         "showAuthMenu": "显示认证菜单"
     },
+    "explore": "探索",
     "filters": {
         "imgAlt": "筛选图标",
         "showFilters": "显示筛选器"
+    },
+    "language": {
+        "showLanguageMenu": "显示语言菜单"
     },
     "probe": {
         "dreamsLinkText": "梦想",

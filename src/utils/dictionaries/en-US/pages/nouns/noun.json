@@ -12,6 +12,7 @@
             "endsIn": "Auction ends in",
             "currentBid": "Current bid",
             "loginToBid": "Login to bid",
+            "maxBid": "Max bid",
             "minted": "Minted",
             "receipt": "Receipt",
             "seeAllBids": "See all bids",

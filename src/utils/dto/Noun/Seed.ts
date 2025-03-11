@@ -1,9 +1,9 @@
 export default interface NounSeed {
-    accessory: number;
-    background: number;
-    body: number;
-    glasses: number;
-    head: number;
+    accessory: number | string;
+    background: number | string;
+    body: number | string;
+    glasses: number | string;
+    head: number | string;
 }
 
 export const isNounSeed = (input: unknown): input is NounSeed => {

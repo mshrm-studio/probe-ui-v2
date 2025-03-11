@@ -16,7 +16,7 @@ export default function DetailsWinningBid({ auction, className, dict }: Props) {
         <div className={clsx(className, styles.container)}>
             <span>{dict.noun.details.currentOwner}:</span>
 
-            <span>
+            <span title={auction.noun.owner.id}>
                 <EthAddress address={auction.noun.owner.id} />
             </span>
         </div>

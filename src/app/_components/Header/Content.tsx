@@ -9,6 +9,7 @@ import Breadcrumb from '@/utils/dto/Breadcrumb';
 import Breadcrumbs from '@/app/_components/Breadcrumbs';
 import CopyToClipboard from '@/app/_components/CopyToClipboard';
 import styles from '@/app/_styles/header/content.module.css';
+import Link from 'next/link';
 
 interface GlobalProps {
     dict: Dictionary;
@@ -30,7 +31,12 @@ export default function HeaderContent(props: Props) {
 
     const pathname = usePathname();
 
-    const filterablePaths = ['/nouns', '/nouns/dreams', '/lils'];
+    const filterablePaths = [
+        '/nouns',
+        '/nouns/dreams',
+        '/nouns/proposals',
+        '/lils',
+    ];
 
     const localizedFilterablePaths = filterablePaths.flatMap((path) =>
         locales.map((locale) => `/${locale}${path}`)
@@ -40,6 +46,15 @@ export default function HeaderContent(props: Props) {
         () => localizedFilterablePaths.includes(pathname),
         [pathname]
     );
+
+    const exploreLink = useMemo(() => {
+        if (isCatalogue) return null;
+        if (pathname.includes('/nouns/dreams')) return '/nouns/dreams';
+        if (pathname.includes('/nouns/proposals')) return '/nouns/proposals';
+        if (pathname.includes('/nouns')) return '/nouns';
+        if (pathname.includes('/lils')) return '/lils';
+        return null;
+    }, [isCatalogue, pathname]);
 
     return (
         <div
@@ -56,9 +71,15 @@ export default function HeaderContent(props: Props) {
                 <Island dict={dict} isCatalogue={isCatalogue} />
             </div>
 
-            <div className={styles.copyContainer}>
-                <CopyToClipboard content="⌐◨-◨">⌐◨-◨</CopyToClipboard>
-            </div>
+            {exploreLink ? (
+                <div className={styles.exploreContainer}>
+                    <Link href={exploreLink}>{dict.header.explore}</Link>
+                </div>
+            ) : (
+                <div className={styles.copyContainer}>
+                    <CopyToClipboard content="⌐◨-◨">⌐◨-◨</CopyToClipboard>
+                </div>
+            )}
         </div>
     );
 }

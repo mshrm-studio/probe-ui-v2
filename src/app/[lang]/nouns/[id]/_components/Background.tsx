@@ -16,7 +16,7 @@ export default function Background({ auction, children, noun }: Props) {
     return (
         <div
             style={{
-                backgroundColor: bgIndex === 0 ? '#d5d7e1' : '#e1d7d5',
+                backgroundColor: bgIndex == 0 ? '#d5d7e1' : '#e1d7d5',
             }}
         >
             {children}

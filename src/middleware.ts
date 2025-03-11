@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { locales } from '@/utils/enums/Locale';
+import { match } from '@formatjs/intl-localematcher';
 
-let locales = ['en-US', 'zh-CN', 'zh-TW'];
+function getLocale(request: NextRequest) {
+    const localeCookie = request.cookies.get('NEXT_LOCALE')?.value || 'en-US';
+
+    return match([localeCookie], locales, 'en-US');
+}
 
 export function middleware(request: NextRequest) {
     // Check if there is any supported locale in the pathname
     const { pathname } = request.nextUrl;
+
     const pathnameHasLocale = locales.some(
         (locale) =>
             pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -12,11 +19,10 @@ export function middleware(request: NextRequest) {
 
     if (pathnameHasLocale) return;
 
-    // Redirect if there is no locale
-    request.nextUrl.pathname = `/en-US${pathname}`;
+    const locale = getLocale(request);
 
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
+    request.nextUrl.pathname = `/${locale}${pathname}`;
+
     return NextResponse.redirect(request.nextUrl);
 }
 

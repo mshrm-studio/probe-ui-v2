@@ -12,6 +12,7 @@
             "endsIn": "拍卖结束于",
             "currentBid": "当前出价",
             "loginToBid": "登录出价",
+            "maxBid": "最高出价",
             "minted": "铸造",
             "receipt": "收据",
             "seeAllBids": "查看所有出价",

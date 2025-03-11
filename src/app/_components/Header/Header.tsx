@@ -2,7 +2,6 @@ import { loadDictionaries } from '@/app/[lang]/dictionaries';
 import styles from '@/app/_styles/header/header.module.css';
 import { Locale } from '@/utils/enums/Locale';
 import Content from '@/app/_components/Header/Content';
-
 import DictionaryProvider from '@/context/Dictionary';
 import Breadcrumb from '@/utils/dto/Breadcrumb';
 

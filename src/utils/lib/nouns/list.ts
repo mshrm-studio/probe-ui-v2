@@ -26,6 +26,8 @@ export default async function fetchNouns(
 
     if (filters?.head) params.set('head', filters.head);
 
+    if (filters?.search) params.set('search', filters.search);
+
     params.set('sort_method', filters?.sort_method || SortMethod.Descending);
 
     params.set(
