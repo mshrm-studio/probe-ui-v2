@@ -33,7 +33,7 @@ export default function HeaderProbe({ dict }: Props) {
                     {dict.header.probe.lilsLinkText}
                 </Link>
 
-                <Link className={styles.link} href="/dreams">
+                <Link className={styles.link} href="/nouns/dreams">
                     {dict.header.probe.dreamsLinkText}
                 </Link>
             </PopoverPanel>

@@ -1,0 +1,11 @@
+.controlsContainer {
+    margin-bottom: 1rem;
+}
+
+.fetchingImgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}

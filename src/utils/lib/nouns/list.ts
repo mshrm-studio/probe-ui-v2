@@ -39,8 +39,6 @@ export default async function fetchNouns(
 
     params.set('per_page', '300');
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
     let url = '/nouns';
 
     if (params) url += `?${params.toString()}`;

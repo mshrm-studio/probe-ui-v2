@@ -17,7 +17,7 @@ export default async function Page({ params }: Props) {
 
     const dict = await loadDictionaries(lang, [
         'common',
-        'pages/nouns/nouns',
+        'pages/nouns/dreams/dreams',
         'traits',
     ]);
 
@@ -28,16 +28,18 @@ export default async function Page({ params }: Props) {
                     lang={lang}
                     breadcrumbs={[
                         {
-                            label: dict.nouns.breadcrumbs.nouns,
+                            label: dict.dreams.breadcrumbs.nouns,
                             href: `/${lang}/nouns`,
+                        },
+                        {
+                            label: dict.dreams.breadcrumbs.dreams,
+                            href: `/${lang}/nouns/dreams`,
                         },
                     ]}
                 />
 
                 <main className={styles.main}>
-                    <Suspense>
-                        <NounCatalogue />
-                    </Suspense>
+                    <Suspense>{/* <NounCatalogue /> */}</Suspense>
                 </main>
             </FilterDisplayProvider>
         </DictionaryProvider>
@@ -47,16 +49,16 @@ export default async function Page({ params }: Props) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const lang = (await params).lang;
 
-    const dict = await loadDictionaries(lang, ['pages/nouns/nouns']);
+    const dict = await loadDictionaries(lang, ['pages/nouns/dreams/dreams']);
 
-    const title = dict.nouns.metadata.title;
-    const description = dict.nouns.metadata.description;
+    const title = dict.dreams.metadata.title;
+    const description = dict.dreams.metadata.description;
 
     return {
         alternates: {
-            canonical: `/${lang}/nouns`,
+            canonical: `/${lang}/nouns/dreams`,
             languages: locales.reduce((acc, locale) => {
-                acc[locale] = `/${locale}/nouns`;
+                acc[locale] = `/${locale}/nouns/dreams`;
                 return acc;
             }, {} as Record<string, string>),
         },
@@ -65,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             description,
             siteName: 'probe.wtf',
             title,
-            url: `${process.env.NEXT_PUBLIC_URL}/${lang}/nouns`,
+            url: `${process.env.NEXT_PUBLIC_URL}/${lang}/nouns/dreams`,
         },
         title,
         twitter: {

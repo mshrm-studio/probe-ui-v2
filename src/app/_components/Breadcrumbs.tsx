@@ -20,7 +20,7 @@ export default function Breadcrumbs({ breadcrumbs, className }: Props) {
                         <Link
                             href={breadcrumb.href}
                             className={styles.link}
-                            data-active={pathname.includes(breadcrumb.href)}
+                            data-active={pathname === breadcrumb.href}
                         >
                             {breadcrumb.label}
                         </Link>
