@@ -10,7 +10,7 @@ interface Props {
 
 export default function Background({ auction, children, lil }: Props) {
     const bgIndex = useMemo(() => {
-        return lil ? lil?.background_index : auction?.lil.seed.background;
+        return lil ? lil?.background_index : auction?.noun.seed.background;
     }, [auction, lil]);
 
     return (
