@@ -17,7 +17,7 @@ import {
 import fetchLils from '@/utils/lib/lils/list';
 import AuctionFromSubgraph, {
     isAuctionFromSubgraphList,
-} from '@/utils/dto/Noun/Auction/FromSubgraph';
+} from '@/utils/dto/Lil/Auction/FromSubgraph';
 import useDictionary from '@/hooks/useDictionary';
 
 export default function LilsCatalogue() {

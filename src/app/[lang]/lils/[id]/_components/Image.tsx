@@ -1,6 +1,6 @@
 import LilFromDB from '@/utils/dto/Lil/FromDB';
 import LilImageFromSeed from '@/app/[lang]/lils/_components/Lil/Image/FromSeed';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 
 interface Props {
     auction?: AuctionFromSubgraph;

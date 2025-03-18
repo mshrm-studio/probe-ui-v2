@@ -9,11 +9,11 @@ import Details from '@/app/[lang]/lils/[id]/_components/Details/Details';
 import Image from '@/app/[lang]/lils/[id]/_components/Image';
 import styles from '@/app/[lang]/lils/[id]/_styles/page.module.css';
 import useSubgraphClient from '@/hooks/useSubgraphClient';
-import { FETCH_AUCTION } from '@/utils/lib/nouns/subgraph/auction';
+import { FETCH_AUCTION } from '@/utils/lib/lils/subgraph/auction';
 import { notFound } from 'next/navigation';
 import AuctionFromSubgraph, {
     isAuctionFromSubgraph,
-} from '@/utils/dto/Noun/Auction/FromSubgraph';
+} from '@/utils/dto/Lil/Auction/FromSubgraph';
 import Background from '@/app/[lang]/lils/[id]/_components/Background';
 
 async function fetchFallbackData(id: string): Promise<{
@@ -27,7 +27,7 @@ async function fetchFallbackData(id: string): Promise<{
     const client = useSubgraphClient();
 
     try {
-        response = await api.get(`/lils/${id}`);
+        response = await api.get(`/lil-nouns/${id}`);
     } catch (error) {
         response = null;
     }

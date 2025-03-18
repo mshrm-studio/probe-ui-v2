@@ -1,7 +1,7 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import LilFromDB from '@/utils/dto/Lil/FromDB';
 import styles from '@/app/[lang]/lils/[id]/_styles/details/traits/traits.module.css';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 import TraitName from '@/app/[lang]/lils/[id]/_components/Details/Traits/Name';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

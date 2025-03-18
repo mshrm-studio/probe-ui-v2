@@ -1,7 +1,7 @@
 'use client';
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 import Button from '@/app/_components/Button';
 import {
     useAppKit,

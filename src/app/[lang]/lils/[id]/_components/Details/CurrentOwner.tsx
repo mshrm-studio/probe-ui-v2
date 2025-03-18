@@ -1,5 +1,5 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 import styles from '@/app/[lang]/lils/[id]/_styles/details/current-owner.module.css';
 import EthAddress from '@/app/_components/Eth/Address';
 import clsx from 'clsx';

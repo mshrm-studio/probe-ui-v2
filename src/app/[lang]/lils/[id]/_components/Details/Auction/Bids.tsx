@@ -1,7 +1,7 @@
 'use client';
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 import Dialog from '@/app/_components/Dialog/Dialog';
 import { useMemo, useState } from 'react';
 import { formatEther } from 'ethers';

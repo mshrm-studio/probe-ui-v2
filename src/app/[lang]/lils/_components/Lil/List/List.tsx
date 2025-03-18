@@ -3,7 +3,7 @@ import ListItem from '@/app/[lang]/lils/_components/Lil/List/Item';
 import styles from '@/app/[lang]/lils/_styles/lil/list/list.module.css';
 import LilFromDB from '@/utils/dto/Lil/FromDB';
 import useNormalisedLilList from '@/hooks/useNormalisedLilList';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 import { Dictionary } from '@/app/[lang]/dictionaries';
 
 interface Props extends React.HTMLAttributes<HTMLUListElement> {
