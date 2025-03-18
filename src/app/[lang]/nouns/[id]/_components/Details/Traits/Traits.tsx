@@ -1,7 +1,7 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/traits/traits.module.css';
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import TraitName from '@/app/[lang]/nouns/[id]/_components/Details/Traits/Name';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -88,7 +88,9 @@ export default function DetailsTraits({
 
                 {noun?.area && (
                     <div className={styles.dlItem}>
-                        <dt className={styles.dt}>Area:</dt>
+                        <dt className={styles.dt}>
+                            {dict.noun.details.traits.area}:
+                        </dt>
 
                         <dd className={styles.dd}>
                             {noun.area}
@@ -99,7 +101,9 @@ export default function DetailsTraits({
 
                 {noun?.weight && (
                     <div className={styles.dlItem}>
-                        <dt className={styles.dt}>Brightness:</dt>
+                        <dt className={styles.dt}>
+                            {dict.noun.details.traits.brightness}:
+                        </dt>
 
                         <dd className={styles.dd}>
                             {noun.weight}

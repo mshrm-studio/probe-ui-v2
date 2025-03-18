@@ -1,0 +1,34 @@
+{
+    "breadcrumbs": {
+        "lils": "Lils"
+    },
+    "details": {
+        "about": "關於",
+        "auction": {
+            "allBids": "所有出價",
+            "allocatedTo": "分配給",
+            "bid": "出價",
+            "by": "由",
+            "endsIn": "拍賣結束於",
+            "currentBid": "當前出價",
+            "loginToBid": "登錄出價",
+            "maxBid": "最高出價",
+            "minted": "鑄造",
+            "receipt": "收據",
+            "seeAllBids": "查看所有出價",
+            "settledBy": "結算者",
+            "via": "透過",
+            "winningBid": "中標"
+        },
+        "colors": "顏色",
+        "currentOwner": "當前擁有者",
+        "traits": {
+            "area": "面積",
+            "brightness": "亮度"
+        }
+    },
+    "metadata": {
+        "description": "探尋 Lil :id 的顏色和屬性",
+        "title": "Lil :id"
+    }
+}

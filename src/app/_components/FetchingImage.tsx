@@ -7,6 +7,7 @@ export default function FetchingImage() {
             alt="Loader"
             height={40}
             width={40}
+            priority
         />
     );
 }

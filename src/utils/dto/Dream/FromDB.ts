@@ -4,7 +4,7 @@ import {
     isPaginatedModelListResponse,
     PaginatedModelListResponse,
 } from '@/utils/dto/Api/Response';
-import { NounTraitLayer } from '@/utils/enums/NounTraitLayer';
+import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 
 export default interface DreamFromDB {
     id: number;

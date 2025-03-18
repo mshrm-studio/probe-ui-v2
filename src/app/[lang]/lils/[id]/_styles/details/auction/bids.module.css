@@ -1,0 +1,18 @@
+.button {
+    text-decoration: underline;
+    font-weight: 700;
+    font-size: 0.8125rem;
+}
+
+.listItem {
+    font-weight: 700;
+    font-size: 0.8125rem;
+}
+
+.listItem:not(:last-child) {
+    margin-bottom: 0.25rem;
+}
+
+.listItem > span:not(:last-child) {
+    margin-right: 0.25rem;
+}

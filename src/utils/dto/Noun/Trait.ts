@@ -1,4 +1,4 @@
-import { NounTraitLayer } from '@/utils/enums/NounTraitLayer';
+import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 
 export default interface NounTrait {
     name: string;

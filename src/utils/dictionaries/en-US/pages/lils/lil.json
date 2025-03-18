@@ -1,0 +1,34 @@
+{
+    "breadcrumbs": {
+        "lils": "Lils"
+    },
+    "details": {
+        "about": "About",
+        "auction": {
+            "allBids": "All bids",
+            "allocatedTo": "Allocated to",
+            "bid": "Bid",
+            "by": "by",
+            "endsIn": "Auction ends in",
+            "currentBid": "Current bid",
+            "loginToBid": "Login to bid",
+            "maxBid": "Max bid",
+            "minted": "Minted",
+            "receipt": "Receipt",
+            "seeAllBids": "See all bids",
+            "settledBy": "Settled by",
+            "via": "via",
+            "winningBid": "Winning bid"
+        },
+        "colors": "Colors",
+        "currentOwner": "Current owner",
+        "traits": {
+            "area": "Area",
+            "brightness": "Brightness"
+        }
+    },
+    "metadata": {
+        "description": "Probe the colors and stats for Lil :id",
+        "title": "Lil :id"
+    }
+}

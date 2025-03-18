@@ -47,7 +47,7 @@ export default async function Page({ params }: Props) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const lang = (await params).lang;
+    const { lang } = await params;
 
     const dict = await loadDictionaries(lang, ['pages/nouns/dreams/dreams']);
 

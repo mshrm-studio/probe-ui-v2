@@ -85,7 +85,6 @@ export default function TraitCanvas({ className, rleData }: Props) {
 
     useEffect(() => {
         if (inViewport && canvasRef.current) {
-            console.log('renderRLEToCanvas');
             renderRLEToCanvas(canvasRef.current, rleData);
         }
     }, [inViewport, rleData]);

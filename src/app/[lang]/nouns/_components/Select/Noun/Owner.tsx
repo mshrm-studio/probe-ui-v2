@@ -16,7 +16,7 @@ export default function SelectNounOwner({ selected, setSelected }: Props) {
 
     const fetchOwners = async () => {
         try {
-            const response = await fetch('/api/subgraph/owners', {
+            const response = await fetch('/api/nouns/subgraph/owners', {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

@@ -5,7 +5,7 @@ import Countdown from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Count
 import Bids from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Bids';
 import CurrentBid from '@/app/[lang]/nouns/[id]/_components/Details/Auction/CurrentBid';
 import Form from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Form';
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
 import RpcProvider from '@/context/Rpc';

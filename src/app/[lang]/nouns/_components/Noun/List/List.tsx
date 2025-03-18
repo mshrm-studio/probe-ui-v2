@@ -3,7 +3,7 @@ import ListItem from '@/app/[lang]/nouns/_components/Noun/List/Item';
 import styles from '@/app/[lang]/nouns/_styles/noun/list/list.module.css';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import useNormalisedNounList from '@/hooks/useNormalisedNounList';
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import { Dictionary } from '@/app/[lang]/dictionaries';
 
 interface Props extends React.HTMLAttributes<HTMLUListElement> {

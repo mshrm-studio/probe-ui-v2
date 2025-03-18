@@ -6,6 +6,7 @@ interface BaseProps {
     className?: string;
     src: string;
     alt: string;
+    priority?: boolean;
 }
 
 interface PropsWithSize {
@@ -21,7 +22,7 @@ interface PropsWithoutSize {
 type Props = BaseProps & (PropsWithSize | PropsWithoutSize);
 
 export default function AppImage(props: Props) {
-    const { className, src, alt } = props;
+    const { className, src, alt, priority } = props;
 
     const normalisedSrc = src.startsWith('http')
         ? src
@@ -37,6 +38,7 @@ export default function AppImage(props: Props) {
                 alt={alt}
                 height={props.height}
                 width={props.width}
+                priority={priority}
             />
         );
     }
@@ -51,6 +53,7 @@ export default function AppImage(props: Props) {
                 style={{
                     objectFit: props.objectFit || 'cover',
                 }}
+                priority={priority}
             />
         </div>
     );

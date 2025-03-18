@@ -31,7 +31,7 @@ export default function NounImageFromSeed({ seed }: Props) {
                 head: Number(seed.head),
             });
 
-            const response = await fetch('/api/build-svg', {
+            const response = await fetch('/api/nouns/build-svg', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

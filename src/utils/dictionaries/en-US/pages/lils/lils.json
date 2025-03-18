@@ -1,0 +1,31 @@
+{
+    "breadcrumbs": {
+        "lils": "Lils"
+    },
+    "catalogue": {
+        "controls": {
+            "reset": "Reset",
+            "sorters": {
+                "biggest": "Biggest",
+                "brightest": "Brightest",
+                "darkest": "Darkest",
+                "leastColorful": "Least Colorful",
+                "mostColorful": "Most Colorful",
+                "mostRecent": "Most Recent",
+                "oldest": "Oldest",
+                "smallest": "Smallest"
+            }
+        }
+    },
+    "metadata": {
+        "description": "Probing Lils",
+        "title": "Lils"
+    },
+    "lil": {
+        "list": {
+            "item": {
+                "bid": "Bid"
+            }
+        }
+    }
+}

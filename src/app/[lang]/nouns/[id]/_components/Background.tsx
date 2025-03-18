@@ -1,4 +1,4 @@
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import { useMemo } from 'react';
 

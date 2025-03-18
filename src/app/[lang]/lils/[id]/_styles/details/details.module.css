@@ -1,0 +1,17 @@
+.winningBidContainer {
+    margin-bottom: 0.25rem;
+}
+
+.traitsContainer {
+    margin-top: 1.5rem;
+}
+
+.colorsContainer {
+    margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 1280px) {
+    .container {
+        padding-top: 3rem;
+    }
+}

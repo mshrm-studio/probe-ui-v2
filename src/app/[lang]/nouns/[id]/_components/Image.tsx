@@ -1,6 +1,6 @@
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import NounImageFromSeed from '@/app/[lang]/nouns/_components/Noun/Image/FromSeed';
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 
 interface Props {
     auction?: AuctionFromSubgraph;

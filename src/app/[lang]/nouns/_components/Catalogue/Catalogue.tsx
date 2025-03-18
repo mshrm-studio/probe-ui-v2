@@ -17,7 +17,7 @@ import {
 import fetchNouns from '@/utils/lib/nouns/list';
 import AuctionFromSubgraph, {
     isAuctionFromSubgraphList,
-} from '@/utils/dto/Auction/FromSubgraph';
+} from '@/utils/dto/Noun/Auction/FromSubgraph';
 import useDictionary from '@/hooks/useDictionary';
 
 export default function NounsCatalogue() {
@@ -147,7 +147,7 @@ export default function NounsCatalogue() {
     useEffect(() => {
         const fetchAuctions = async () => {
             try {
-                const response = await fetch('/api/subgraph/auctions', {
+                const response = await fetch('/api/nouns/subgraph/auctions', {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                 });

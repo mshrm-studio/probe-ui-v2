@@ -3,7 +3,7 @@ import Colors from '@/app/[lang]/nouns/[id]/_components/Details/Colors';
 import Traits from '@/app/[lang]/nouns/[id]/_components/Details/Traits/Traits';
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/details.module.css';
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import WinningBid from '@/app/[lang]/nouns/[id]/_components/Details/WinningBid';
 import CurrentOwner from '@/app/[lang]/nouns/[id]/_components/Details/CurrentOwner';
 import Auction from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Auction';

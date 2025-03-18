@@ -1,0 +1,31 @@
+{
+    "breadcrumbs": {
+        "lils": "Lils"
+    },
+    "catalogue": {
+        "controls": {
+            "reset": "重置",
+            "sorters": {
+                "biggest": "最大",
+                "brightest": "最亮",
+                "darkest": "最暗",
+                "leastColorful": "色彩最少",
+                "mostColorful": "色彩最多",
+                "mostRecent": "最新",
+                "oldest": "最旧",
+                "smallest": "最小"
+            }
+        }
+    },
+    "metadata": {
+        "description": "探究 Lils",
+        "title": "Lils"
+    },
+    "lil": {
+        "list": {
+            "item": {
+                "bid": "出价"
+            }
+        }
+    }
+}

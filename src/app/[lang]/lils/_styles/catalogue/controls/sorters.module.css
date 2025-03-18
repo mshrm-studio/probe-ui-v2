@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.optionContainer {
+    margin-left: 1rem;
+}
+
+.button {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}
+
+.buttonIcon {
+    height: 0.75rem;
+    width: 0.75rem;
+}

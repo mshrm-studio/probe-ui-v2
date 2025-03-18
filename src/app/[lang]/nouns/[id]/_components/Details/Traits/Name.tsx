@@ -1,5 +1,5 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import AuctionFromSubgraph from '@/utils/dto/Auction/FromSubgraph';
+import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import { ImageData } from '@noundry/nouns-assets';
 
