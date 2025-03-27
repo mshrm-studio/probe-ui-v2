@@ -22,8 +22,8 @@ export default function HeaderLanguage({ dict }: Props) {
     const setLocaleCookieAndNavigate = useCallback(
         (newLocale: Locale) => {
             document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000;`;
-
             router.push(pathname.replace(String(lang), newLocale));
+            router.refresh();
         },
         [lang, pathname]
     );
