@@ -3,6 +3,7 @@ import NounFromDB from '@/utils/dto/Noun/FromDB';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/traits/traits.module.css';
 import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import TraitName from '@/app/[lang]/nouns/[id]/_components/Details/Traits/Name';
+import LocalisedNumber from '@/app/_components/LocalisedNumber';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction?: AuctionFromSubgraph;
@@ -93,7 +94,7 @@ export default function DetailsTraits({
                         </dt>
 
                         <dd className={styles.dd}>
-                            {noun.area}
+                            <LocalisedNumber number={noun.area} />
                             <span className="lowercase">px</span>
                         </dd>
                     </div>
@@ -106,7 +107,7 @@ export default function DetailsTraits({
                         </dt>
 
                         <dd className={styles.dd}>
-                            {noun.weight}
+                            <LocalisedNumber number={noun.weight} />
                             <span className="lowercase">lm</span>
                         </dd>
                     </div>

@@ -3,7 +3,9 @@
         "dreams": "Dreams"
     },
     "details": {
-        "about": "About"
+        "about": "About",
+        "date": "Date",
+        "dreamer": "Dreamer"
     },
     "metadata": {
         "description": "Probe the stats for Dream :id",

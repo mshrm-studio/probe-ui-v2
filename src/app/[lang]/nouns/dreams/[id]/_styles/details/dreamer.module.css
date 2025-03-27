@@ -1,0 +1,10 @@
+.dt {
+    margin-right: 0.25rem;
+}
+
+.dt,
+.dd {
+    font-weight: bold;
+    font-size: 0.8125rem;
+    display: inline-block;
+}

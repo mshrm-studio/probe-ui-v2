@@ -3,7 +3,9 @@
         "dreams": "夢境"
     },
     "details": {
-        "about": "關於"
+        "about": "關於",
+        "date": "日期",
+        "dreamer": "夢想家"
     },
     "metadata": {
         "description": "探查夢境 :id 的統計資訊",
