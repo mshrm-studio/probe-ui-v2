@@ -1,0 +1,16 @@
+.container {
+    box-shadow: 8px 6px 0px 0px #000000;
+    border: 2px;
+    height: 35px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-color: #4c48e3;
+    border-color: #4c48e3;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

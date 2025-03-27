@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 0.5rem;
+    padding-bottom: 6px;
+}
+
+.container > :global(*):not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 1280px) {
+    .container {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .container > :global(*):not(:last-child) {
+        margin-bottom: 0;
+    }
+}

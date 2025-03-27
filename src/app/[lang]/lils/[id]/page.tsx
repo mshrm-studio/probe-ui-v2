@@ -8,44 +8,15 @@ import useApi from '@/hooks/useApi';
 import Details from '@/app/[lang]/lils/[id]/_components/Details/Details';
 import Image from '@/app/[lang]/lils/[id]/_components/Image';
 import styles from '@/app/[lang]/lils/[id]/_styles/page.module.css';
-import useSubgraphClient from '@/hooks/useSubgraphClient';
-import { FETCH_AUCTION } from '@/utils/lib/lils/subgraph/auction';
 import { notFound } from 'next/navigation';
-import AuctionFromSubgraph, {
-    isAuctionFromSubgraph,
-} from '@/utils/dto/Lil/Auction/FromSubgraph';
 import Background from '@/app/[lang]/lils/[id]/_components/Background';
 
-async function fetchFallbackData(id: string): Promise<{
-    auction: AuctionFromSubgraph | undefined;
-    lil: LilFromDB | undefined;
-}> {
-    let response: any;
-    let result: any;
-
+async function fetchFallbackData(id: string): Promise<LilFromDB | undefined> {
     const api = useApi();
-    const client = useSubgraphClient();
 
-    try {
-        response = await api.get(`/lil-nouns/${id}`);
-    } catch (error) {
-        response = null;
-    }
+    const response = await api.get(`/lil-nouns/${id}`);
 
-    try {
-        result = await client.query(FETCH_AUCTION, { id }).toPromise();
-    } catch (error) {
-        result = null;
-    }
-
-    return {
-        auction: isAuctionFromSubgraph(result?.data?.auction)
-            ? result.data.auction
-            : undefined,
-        lil: isLilFromDBResponse(response?.data)
-            ? response.data.data
-            : undefined,
-    };
+    return isLilFromDBResponse(response?.data) ? response.data.data : undefined;
 }
 
 type Props = Readonly<{
@@ -61,22 +32,22 @@ export default async function Page({ params }: Props) {
         'traits',
     ]);
 
-    const { auction, lil } = await fetchFallbackData(id);
+    const lil = await fetchFallbackData(id);
 
-    if (auction === undefined && lil === undefined) notFound();
+    if (lil === undefined) notFound();
 
     return (
         <DictionaryProvider dictionary={dict}>
-            <Background auction={auction} lil={lil}>
+            <Background lil={lil}>
                 <Header lang={lang} islandAlign="left" />
 
                 <main className={styles.main}>
                     <div className={styles.imgContainer}>
-                        <Image auction={auction} lil={lil} />
+                        <Image lil={lil} />
                     </div>
 
                     <div className={styles.detailsContainer}>
-                        <Details auction={auction} lil={lil} dict={dict} />
+                        <Details lil={lil} dict={dict} />
                     </div>
                 </main>
             </Background>

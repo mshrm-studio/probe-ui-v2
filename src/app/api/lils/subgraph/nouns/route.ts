@@ -10,12 +10,12 @@ const client = createClient({
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
-    const skip = Number(searchParams.get('skip') ?? '0');
-    const accessory = searchParams.get('accessory') ?? null;
-    const body = searchParams.get('body') ?? null;
-    const glasses = searchParams.get('glasses') ?? null;
-    const head = searchParams.get('head') ?? null;
-    const idIn = searchParams.get('idIn') ?? null;
+    const skip = Number(searchParams.get('skip') || '0');
+    const accessory = searchParams.get('accessory') || null;
+    const body = searchParams.get('body') || null;
+    const glasses = searchParams.get('glasses') || null;
+    const head = searchParams.get('head') || null;
+    const idIn = searchParams.get('idIn') || null;
 
     const filters: Record<string, string | string[]> = {};
     if (accessory) filters.accessory = accessory;

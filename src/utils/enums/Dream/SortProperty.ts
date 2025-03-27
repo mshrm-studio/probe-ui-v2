@@ -1,5 +1,5 @@
 export enum DreamSortProperty {
-    TokenID = 'token_id',
+    ID = 'id',
 }
 
 export const dreamSortProperties = Object.values(DreamSortProperty);

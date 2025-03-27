@@ -7,7 +7,6 @@ import styles from '@/app/_styles/header/island/auth.module.css';
 import clsx from 'clsx';
 import { LanguageIcon } from '@heroicons/react/20/solid';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { Locale } from '@/utils/enums/Locale';
 import { useCallback } from 'react';
 

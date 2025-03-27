@@ -7,6 +7,7 @@ interface BaseProps {
     src: string;
     alt: string;
     priority?: boolean;
+    unoptimized?: boolean;
 }
 
 interface PropsWithSize {
@@ -22,7 +23,7 @@ interface PropsWithoutSize {
 type Props = BaseProps & (PropsWithSize | PropsWithoutSize);
 
 export default function AppImage(props: Props) {
-    const { className, src, alt, priority } = props;
+    const { className, src, alt, priority, unoptimized } = props;
 
     const normalisedSrc = src.startsWith('http')
         ? src
@@ -54,6 +55,7 @@ export default function AppImage(props: Props) {
                     objectFit: props.objectFit || 'cover',
                 }}
                 priority={priority}
+                unoptimized={unoptimized}
             />
         </div>
     );

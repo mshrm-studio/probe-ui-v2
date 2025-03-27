@@ -1,12 +1,14 @@
 import { Metadata } from 'next';
 import { loadDictionaries } from '@/app/[lang]/dictionaries';
 import { Locale, locales } from '@/utils/enums/Locale';
-import NounCatalogue from '@/app/[lang]/nouns/_components/Catalogue/Catalogue';
+import DreamCatalogue from '@/app/[lang]/nouns/dreams/_components/Catalogue/Catalogue';
 import FilterDisplayProvider from '@/context/FilterDisplay';
 import Header from '@/app/_components/Header/Header';
 import DictionaryProvider from '@/context/Dictionary';
 import { Suspense } from 'react';
-import styles from '@/app/[lang]/nouns/_styles/page.module.css';
+import styles from '@/app/[lang]/nouns/dreams/_styles/page.module.css';
+import Link from 'next/link';
+import Button from '@/app/_components/Button';
 
 type Props = Readonly<{
     params: Promise<{ lang: Locale }>;
@@ -39,7 +41,19 @@ export default async function Page({ params }: Props) {
                 />
 
                 <main className={styles.main}>
-                    <Suspense>{/* <NounCatalogue /> */}</Suspense>
+                    <Suspense>
+                        <DreamCatalogue />
+                    </Suspense>
+
+                    <div className={styles.createLink}>
+                        <Link href="/nouns/dreams/create">
+                            <span className="sr-only">
+                                {dict.dreams.createDream}
+                            </span>
+
+                            <Button type="button">{dict.dreams.dream}</Button>
+                        </Link>
+                    </div>
                 </main>
             </FilterDisplayProvider>
         </DictionaryProvider>

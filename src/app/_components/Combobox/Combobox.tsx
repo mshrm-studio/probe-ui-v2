@@ -48,10 +48,15 @@ export default function AppComboxbox<ValueType extends string | number>({
         );
 
     useEffect(() => {
-        setSelectedOption(
-            options.find((option) => option.value == selected) || null
-        );
-    }, [selected]);
+        setSelectedOption((prev) => {
+            const newSelectedOption =
+                options.find((option) => option.value == selected) || null;
+
+            if (prev == newSelectedOption) return prev;
+
+            return newSelectedOption;
+        });
+    }, [options, selected]);
 
     const filteredOptions = useMemo(() => {
         if (query === '') return options;
@@ -82,8 +87,14 @@ export default function AppComboxbox<ValueType extends string | number>({
             value={selectedOption}
             onChange={(option) => {
                 setQuery('');
-                setSelectedOption(option);
-                setSelected(option?.value || null);
+
+                setSelectedOption((prev) => (prev !== option ? option : prev));
+
+                setSelected((prev) => {
+                    const newSelection = option?.value || null;
+
+                    return newSelection !== prev ? newSelection : prev;
+                });
             }}
         >
             <div className="relative">

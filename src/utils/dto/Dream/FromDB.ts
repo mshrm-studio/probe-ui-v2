@@ -5,28 +5,96 @@ import {
     PaginatedModelListResponse,
 } from '@/utils/dto/Api/Response';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
+import NounTrait from '@/utils/dto/Noun/Trait';
 
-export default interface DreamFromDB {
+interface BaseDreamFromDB {
     id: number;
-    accessory_seed_id: number | null;
-    accessory?: string | null;
-    background_seed_id: number | null;
-    background?: string | null;
-    body_seed_id: number | null;
-    body?: string | null;
+    background_seed_id: number;
+    background: NounTrait;
     created_at: string;
-    custom_trait_image: string | null;
-    custom_trait_image_url?: string | null;
-    custom_trait_layer: Exclude<
-        NounTraitLayer,
-        NounTraitLayer.Background
-    > | null;
     dreamer: string;
-    glasses_seed_id: number | null;
-    glasses?: string | null;
-    head_seed_id: number | null;
-    head?: string | null;
 }
+
+interface DreamFromDBWithCustomAccessory {
+    accessory_seed_id: null;
+    accessory: null;
+    custom_trait_image: string;
+    custom_trait_image_url: string;
+    custom_trait_layer: NounTraitLayer.Accessory;
+    body_seed_id: number;
+    body: NounTrait;
+    glasses_seed_id: number;
+    glasses: NounTrait;
+    head_seed_id: number;
+    head: NounTrait;
+}
+
+interface DreamFromDBWithCustomBody {
+    accessory_seed_id: number;
+    accessory: NounTrait;
+    body_seed_id: null;
+    body: null;
+    custom_trait_image: string;
+    custom_trait_image_url: string;
+    custom_trait_layer: NounTraitLayer.Body;
+    glasses_seed_id: number;
+    glasses: NounTrait;
+    head_seed_id: number;
+    head: NounTrait;
+}
+
+interface DreamFromDBWithCustomGlasses {
+    accessory_seed_id: number;
+    accessory: NounTrait;
+    body_seed_id: number;
+    body: NounTrait;
+    custom_trait_image: string;
+    custom_trait_image_url: string;
+    custom_trait_layer: NounTraitLayer.Glasses;
+    glasses_seed_id: null;
+    glasses: null;
+    head_seed_id: number;
+    head: NounTrait;
+}
+
+interface DreamFromDBWithCustomHead {
+    accessory_seed_id: number;
+    accessory: NounTrait;
+    body_seed_id: number;
+    body: NounTrait;
+    custom_trait_image: string;
+    custom_trait_image_url: string;
+    custom_trait_layer: NounTraitLayer.Head;
+    glasses_seed_id: number;
+    glasses: NounTrait;
+    head_seed_id: null;
+    head: null;
+}
+
+interface DreamFromDBWithNoCustomTrait {
+    accessory_seed_id: number;
+    accessory: NounTrait;
+    body_seed_id: number;
+    body: NounTrait;
+    custom_trait_image: null;
+    custom_trait_image_url: null | undefined;
+    custom_trait_layer: null;
+    glasses_seed_id: number;
+    glasses: NounTrait;
+    head_seed_id: number;
+    head: NounTrait;
+}
+
+type DreamFromDB = BaseDreamFromDB &
+    (
+        | DreamFromDBWithCustomAccessory
+        | DreamFromDBWithCustomBody
+        | DreamFromDBWithCustomGlasses
+        | DreamFromDBWithCustomHead
+        | DreamFromDBWithNoCustomTrait
+    );
+
+export default DreamFromDB;
 
 export interface DreamFromDBResponse {
     data: DreamFromDB;
@@ -38,7 +106,7 @@ export interface DreamFromDBListResponse
 }
 
 export const isDreamFromDB = (i: unknown): i is DreamFromDB => {
-    return isObject(i) && 'accessory_seed_id' in i;
+    return isObject(i) && 'dreamer' in i;
 };
 
 export const isDreamFromDBList = (i: unknown): i is DreamFromDB[] => {

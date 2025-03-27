@@ -17,12 +17,12 @@ export default function SelectNounHead({ selected, setSelected }: Props) {
 
     const options = useMemo(() => {
         return heads
-            .sort((a, b) => a.filename.localeCompare(b.filename))
             .map((trait) => ({
                 encodedImage: trait,
                 label: dict.traits[trait.filename] || trait.filename,
                 value: trait.filename,
-            }));
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label));
     }, [dict, heads]);
 
     return (

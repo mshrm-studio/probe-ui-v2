@@ -3,7 +3,6 @@ import clsx from 'clsx';
 
 export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
-    className?: string;
     invalid?: boolean;
 }
 

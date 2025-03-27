@@ -33,16 +33,13 @@ export default async function fetchDreams(
 
     params.set('sort_method', filters?.sort_method || SortMethod.Descending);
 
-    params.set(
-        'sort_property',
-        filters?.sort_property || DreamSortProperty.TokenID
-    );
+    params.set('sort_property', filters?.sort_property || DreamSortProperty.ID);
 
     params.set('page', filters?.page?.toString() || '1');
 
     params.set('per_page', '300');
 
-    let url = '/dreams';
+    let url = '/dream-nouns';
 
     if (params) url += `?${params.toString()}`;
 

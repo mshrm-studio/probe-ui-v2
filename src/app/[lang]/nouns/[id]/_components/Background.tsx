@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 interface Props {
     auction?: AuctionFromSubgraph;
-    children: any;
+    children: React.ReactNode;
     noun?: NounFromDB;
 }
 

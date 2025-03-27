@@ -8,6 +8,7 @@ export default function FetchingImage() {
             height={40}
             width={40}
             priority
+            unoptimized
         />
     );
 }

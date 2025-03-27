@@ -3,6 +3,15 @@
         "dreams": "夢想",
         "nouns": "名詞"
     },
+    "catalogue": {
+        "controls": {
+            "reset": "重置",
+            "sorters": {
+                "mostRecent": "最新",
+                "oldest": "最舊"
+            }
+        }
+    },
     "createDream": "創建夢想",
     "dream": "夢想",
     "metadata": {

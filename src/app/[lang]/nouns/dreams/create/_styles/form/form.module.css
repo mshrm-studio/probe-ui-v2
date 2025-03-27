@@ -1,0 +1,27 @@
+.container {
+    width: 15rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media screen and (orientation: landscape) {
+    @media screen and (min-width: 640px) {
+        .container {
+            width: 10rem;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .container {
+            width: 15rem;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .container {
+            width: 20rem;
+        }
+    }
+}

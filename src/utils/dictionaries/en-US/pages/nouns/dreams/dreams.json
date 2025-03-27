@@ -3,6 +3,15 @@
         "dreams": "Dreams",
         "nouns": "Nouns"
     },
+    "catalogue": {
+        "controls": {
+            "reset": "Reset",
+            "sorters": {
+                "mostRecent": "Most Recent",
+                "oldest": "Oldest"
+            }
+        }
+    },
     "createDream": "Create Dream",
     "dream": "Dream",
     "metadata": {

@@ -17,12 +17,12 @@ export default function SelectNounGlasses({ selected, setSelected }: Props) {
 
     const options = useMemo(() => {
         return glasses
-            .sort((a, b) => a.filename.localeCompare(b.filename))
             .map((trait) => ({
                 encodedImage: trait,
                 label: dict.traits[trait.filename] || trait.filename,
                 value: trait.filename,
-            }));
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label));
     }, [dict, glasses]);
 
     return (

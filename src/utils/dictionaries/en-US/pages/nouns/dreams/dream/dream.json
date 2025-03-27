@@ -1,0 +1,12 @@
+{
+    "breadcrumbs": {
+        "dreams": "Dreams"
+    },
+    "details": {
+        "about": "About"
+    },
+    "metadata": {
+        "description": "Probe the stats for Dream :id",
+        "title": "Dream :id"
+    }
+}

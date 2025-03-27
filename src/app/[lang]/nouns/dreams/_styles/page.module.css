@@ -1,0 +1,18 @@
+.main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.createLink {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+@media screen and (min-width: 640px) {
+    .createLink {
+        padding-right: 2.5rem;
+    }
+}

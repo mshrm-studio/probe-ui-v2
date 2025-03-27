@@ -6,7 +6,6 @@ import { createContext } from 'react';
 import { Contract } from 'ethers';
 import { RpcContext } from '@/context/Rpc';
 import { nounsAuctionHouseContractABI } from '@/utils/contracts/NounsAuctionHouseContractABI';
-import { lilNounsAuctionHouseContractABI } from '@/utils/contracts/LilNounsAuctionHouseContractABI';
 
 interface AuctionHouseContext {
     httpAuctionHouseContract?: Contract | null;
@@ -31,22 +30,13 @@ const AuctionHouseProvider: React.FC<Props> = ({
         useState<Contract>();
 
     useEffect(() => {
-        const auctionHouseContractAddres =
-            project === Project.Nouns
-                ? (process.env
-                      .NEXT_PUBLIC_NOUNS_AUCTION_HOUSE_CONTRACT_ADDRESS as string)
-                : (process.env
-                      .NEXT_PUBLIC_LIL_NOUNS_AUCTION_HOUSE_CONTRACT_ADDRESS as string);
-
-        const auctionHouseContractABI =
-            project === Project.Nouns
-                ? nounsAuctionHouseContractABI
-                : lilNounsAuctionHouseContractABI;
+        const auctionHouseContractAddres = process.env
+            .NEXT_PUBLIC_NOUNS_AUCTION_HOUSE_CONTRACT_ADDRESS as string;
 
         setHttpAuctionHouseContract(
             new Contract(
                 auctionHouseContractAddres,
-                auctionHouseContractABI,
+                nounsAuctionHouseContractABI,
                 httpProvider
             )
         );
@@ -54,7 +44,7 @@ const AuctionHouseProvider: React.FC<Props> = ({
         setWsAuctionHouseContract(
             new Contract(
                 auctionHouseContractAddres,
-                auctionHouseContractABI,
+                nounsAuctionHouseContractABI,
                 wsProvider
             )
         );

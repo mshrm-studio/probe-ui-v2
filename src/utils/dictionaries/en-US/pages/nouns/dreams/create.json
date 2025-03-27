@@ -1,0 +1,15 @@
+{
+    "customTraitForm": {
+        "addTrait": "Add Trait",
+        "traitType": "Trait Type"
+    },
+    "metadata": {
+        "description": "Build your dream Noun",
+        "title": "Create Dream"
+    },
+    "randomize": "Randomize",
+    "seedForm": {
+        "dream": "Dream",
+        "uploadTrait": "Upload Trait"
+    }
+}

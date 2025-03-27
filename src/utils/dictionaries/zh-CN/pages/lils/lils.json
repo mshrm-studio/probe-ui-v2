@@ -20,12 +20,5 @@
     "metadata": {
         "description": "探究 Lils",
         "title": "Lils"
-    },
-    "lil": {
-        "list": {
-            "item": {
-                "bid": "出价"
-            }
-        }
     }
 }

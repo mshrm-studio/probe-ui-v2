@@ -15,19 +15,13 @@ import {
     LilSortProperty,
 } from '@/utils/enums/Lil/SortProperty';
 import fetchLils from '@/utils/lib/lils/list';
-import AuctionFromSubgraph, {
-    isAuctionFromSubgraphList,
-} from '@/utils/dto/Lil/Auction/FromSubgraph';
-import useDictionary from '@/hooks/useDictionary';
 
 export default function LilsCatalogue() {
-    const dict = useDictionary();
     const { show: showControls } = useContext(FilterDisplayContext);
     const [error, setError] = useState('');
     const [fetching, setFetching] = useState(false);
     const [meta, setMeta] = useState<ApiPaginationMeta>();
     const [lils, setLils] = useState<LilFromDB[]>([]);
-    const [auctions, setAuctions] = useState<AuctionFromSubgraph[]>([]);
     const searchParams = useSearchParams();
     const [page, setPage] = useState(1);
     const accessory = searchParams.get('accessory');
@@ -144,56 +138,11 @@ export default function LilsCatalogue() {
         };
     }, [fetching, lastScrollTop, meta]);
 
-    // useEffect(() => {
-    //     const fetchAuctions = async () => {
-    //         try {
-    //             const response = await fetch('/api/lils/subgraph/auctions', {
-    //                 method: 'GET',
-    //                 headers: { 'Content-Type': 'application/json' },
-    //             });
-
-    //             if (!response.ok) {
-    //                 throw new Error('Failed to fetch auctions');
-    //             }
-
-    //             const { result } = await response.json();
-
-    //             if (!isAuctionFromSubgraphList(result.data.auctions)) {
-    //                 throw new Error('Invalid auction data');
-    //             }
-
-    //             setAuctions(result.data.auctions);
-    //         } catch (error) {
-    //             alert(error);
-    //             console.error(error);
-    //         }
-    //     };
-
-    //     fetchAuctions();
-    // }, []);
-
-    const absentAuctions = useMemo(() => {
-        if (!accessory && !background && !body && !color && !glasses && !head) {
-            const lilTokenIds = new Set(lils.map((n) => n.token_id));
-
-            return auctions.filter(
-                (auction) => !lilTokenIds.has(Number(auction.noun.id))
-            );
-        }
-
-        return [];
-    }, [accessory, auctions, background, body, color, glasses, head, lils]);
-
     return (
         <div>
             {showControls && <Controls className={styles.controlsContainer} />}
 
-            <LilList
-                absentAuctions={absentAuctions}
-                auctions={auctions}
-                dict={dict}
-                lils={lils}
-            />
+            <LilList lils={lils} />
 
             {fetching && (
                 <div className={styles.fetchingImgContainer}>

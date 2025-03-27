@@ -20,12 +20,5 @@
     "metadata": {
         "description": "Probing Lils",
         "title": "Lils"
-    },
-    "lil": {
-        "list": {
-            "item": {
-                "bid": "Bid"
-            }
-        }
     }
 }

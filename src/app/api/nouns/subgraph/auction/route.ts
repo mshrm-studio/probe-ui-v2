@@ -11,7 +11,7 @@ const client = createClient({
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const { searchParams } = new URL(req.url);
 
-    const id = searchParams.get('id') ?? '0';
+    const id = searchParams.get('id') || '0';
 
     const DATA_QUERY = gql`
         {

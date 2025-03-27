@@ -1,0 +1,15 @@
+{
+    "customTraitForm": {
+        "addTrait": "添加特征",
+        "traitType": "特征类型"
+    },
+    "metadata": {
+        "description": "创建您的梦想名词",
+        "title": "创建梦想"
+    },
+    "randomize": "随机",
+    "seedForm": {
+        "dream": "梦想",
+        "uploadTrait": "上传特征"
+    }
+}

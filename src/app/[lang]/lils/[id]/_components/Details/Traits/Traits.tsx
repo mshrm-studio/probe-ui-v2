@@ -1,21 +1,14 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import LilFromDB from '@/utils/dto/Lil/FromDB';
 import styles from '@/app/[lang]/lils/[id]/_styles/details/traits/traits.module.css';
-import AuctionFromSubgraph from '@/utils/dto/Lil/Auction/FromSubgraph';
 import TraitName from '@/app/[lang]/lils/[id]/_components/Details/Traits/Name';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-    auction?: AuctionFromSubgraph;
     dict: Dictionary;
-    lil?: LilFromDB;
+    lil: LilFromDB;
 }
 
-export default function DetailsTraits({
-    auction,
-    className,
-    dict,
-    lil,
-}: Props) {
+export default function DetailsTraits({ className, dict, lil }: Props) {
     return (
         <div className={className}>
             <h3 className={styles.title}>{dict.lil.details.about}</h3>
@@ -25,12 +18,7 @@ export default function DetailsTraits({
                     <dt className={styles.dt}>{dict.common.accessory}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            lil={lil}
-                            type="accessory"
-                        />
+                        <TraitName dict={dict} lil={lil} type="accessory" />
                     </dd>
                 </div>
 
@@ -38,12 +26,7 @@ export default function DetailsTraits({
                     <dt className={styles.dt}>{dict.common.background}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            lil={lil}
-                            type="background"
-                        />
+                        <TraitName dict={dict} lil={lil} type="background" />
                     </dd>
                 </div>
 
@@ -51,12 +34,7 @@ export default function DetailsTraits({
                     <dt className={styles.dt}>{dict.common.body}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            lil={lil}
-                            type="body"
-                        />
+                        <TraitName dict={dict} lil={lil} type="body" />
                     </dd>
                 </div>
 
@@ -64,12 +42,7 @@ export default function DetailsTraits({
                     <dt className={styles.dt}>{dict.common.glasses}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            lil={lil}
-                            type="glasses"
-                        />
+                        <TraitName dict={dict} lil={lil} type="glasses" />
                     </dd>
                 </div>
 
@@ -77,12 +50,7 @@ export default function DetailsTraits({
                     <dt className={styles.dt}>{dict.common.head}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            lil={lil}
-                            type="head"
-                        />
+                        <TraitName dict={dict} lil={lil} type="head" />
                     </dd>
                 </div>
 

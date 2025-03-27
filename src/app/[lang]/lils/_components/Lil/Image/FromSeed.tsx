@@ -11,6 +11,7 @@ type Props = {
 };
 
 export default function LilImageFromSeed({ seed }: Props) {
+    const [containerSquare, setContainerSquare] = useState(0);
     const [generatedSvg, setGeneratedSvg] = useState('');
 
     const imgRef = useRef(null);
@@ -59,11 +60,34 @@ export default function LilImageFromSeed({ seed }: Props) {
         }
     }, [inViewport, seed]);
 
+    useEffect(() => {
+        const el = imgRef.current;
+
+        if (!el) return;
+
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                const { width, height } = entry.contentRect;
+
+                setContainerSquare(Math.min(width, height));
+            }
+        });
+
+        observer.observe(el);
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <div
             ref={imgRef}
             className={styles.container}
             dangerouslySetInnerHTML={{ __html: generatedSvg }}
+            style={
+                {
+                    '--container-square': `${containerSquare}px`,
+                } as React.CSSProperties
+            }
         />
     );
 }

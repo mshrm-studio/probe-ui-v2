@@ -6,7 +6,6 @@ import { FilterDisplayContext } from '@/context/FilterDisplay';
 import { useSearchParams } from 'next/navigation';
 import ApiPaginationMeta from '@/utils/dto/Api/PaginationMeta';
 import { isSortMethod, SortMethod } from '@/utils/enums/SortMethod';
-import useDictionary from '@/hooks/useDictionary';
 import useCatalogueScroll from '@/hooks/useCatalogueScroll';
 import styles from '@/app/[lang]/nouns/dreams/_styles/catalogue/catalogue.module.css';
 import {
@@ -15,9 +14,10 @@ import {
 } from '@/utils/enums/Dream/SortProperty';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import fetchDreams from '@/utils/lib/nouns/dreams/list';
+import DreamList from '@/app/[lang]/nouns/dreams/_components/Dream/List/List';
+import Controls from '@/app/[lang]/nouns/dreams/_components/Catalogue/Controls/Controls';
 
-export default function NounsCatalogue() {
-    const dict = useDictionary();
+export default function DreamsCatalogue() {
     const { show: showControls } = useContext(FilterDisplayContext);
     const [error, setError] = useState('');
     const [fetching, setFetching] = useState(false);
@@ -34,7 +34,7 @@ export default function NounsCatalogue() {
     const sort_property = searchParams.get('sort_property');
     const { page, setPage } = useCatalogueScroll({ fetching, meta });
 
-    const initFetchNouns = useCallback(
+    const initFetchDreams = useCallback(
         async (pageNumber?: number) => {
             try {
                 setFetching(true);
@@ -53,15 +53,15 @@ export default function NounsCatalogue() {
                         : SortMethod.Descending,
                     sort_property: isDreamSortProperty(sort_property)
                         ? sort_property
-                        : DreamSortProperty.TokenID,
+                        : DreamSortProperty.ID,
                 });
 
                 setDreams((prev) => {
                     const newItems = response.data.filter(
                         (newDream) =>
                             !prev.some(
-                                (existingNoun) =>
-                                    existingNoun.id === newDream.id
+                                (existingDream) =>
+                                    existingDream.id === newDream.id
                             )
                     );
 
@@ -89,7 +89,7 @@ export default function NounsCatalogue() {
 
     useEffect(() => {
         setDreams([]);
-        initFetchNouns();
+        initFetchDreams();
     }, [
         accessory,
         background,
@@ -102,7 +102,7 @@ export default function NounsCatalogue() {
     ]);
 
     useEffect(() => {
-        initFetchNouns(page);
+        initFetchDreams(page);
     }, [page]);
 
     if (error) {
@@ -111,12 +111,9 @@ export default function NounsCatalogue() {
 
     return (
         <div>
-            {/* {showControls && <Controls className={styles.controlsContainer} />}
+            {showControls && <Controls className={styles.controlsContainer} />}
 
-            <DreamList
-                dict={dict}
-                dreams={dreams}
-            /> */}
+            <DreamList dreams={dreams} />
 
             {fetching && (
                 <div className={styles.fetchingImgContainer}>
