@@ -21,7 +21,7 @@ export default function LilListItem({ lil }: Props) {
                 <LilImageFromSeed seed={lil.seed} />
 
                 <label className={styles.label}>
-                    <LocalisedNumber number={lil.id} />
+                    <LocalisedNumber number={lil.id} removeCommasAndPeriods />
                 </label>
             </div>
         </Link>

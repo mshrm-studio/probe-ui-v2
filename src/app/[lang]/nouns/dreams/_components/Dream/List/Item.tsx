@@ -44,7 +44,7 @@ export default function DreamListItem({ dream }: Props) {
                 />
 
                 <label className={styles.label}>
-                    <LocalisedNumber number={dream.id} />
+                    <LocalisedNumber number={dream.id} removeCommasAndPeriods />
                 </label>
             </div>
         </Link>

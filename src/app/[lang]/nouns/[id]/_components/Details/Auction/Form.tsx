@@ -108,7 +108,7 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
                 onChange={(e) => setBid(e.target.value)}
             />
 
-            <Button disabled={bid == '0'}>
+            <Button className={styles.button} disabled={bid == '0'}>
                 {dict.noun.details.auction.bid}
             </Button>
         </form>

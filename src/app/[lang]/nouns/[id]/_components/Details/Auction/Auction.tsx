@@ -11,6 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 import RpcProvider from '@/context/Rpc';
 import AuctionHouseProvider from '@/context/AuctionHouse';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/auction.module.css';
+import { useParams } from 'next/navigation';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction: AuctionFromSubgraph;
@@ -18,6 +19,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function DetailsAuction({ auction, className, dict }: Props) {
+    const { lang } = useParams();
     const [timeRemaining, setTimeRemaining] = useState<string>('0');
 
     const calculateTimeRemaining = useCallback(() => {
@@ -39,16 +41,24 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                 typeof minutes === 'number' &&
                 typeof seconds === 'number'
             ) {
-                setTimeRemaining(
-                    `${Math.floor(hours)}H ${Math.floor(minutes)}M ${Math.floor(
-                        seconds
-                    )}S`
-                );
+                const l = lang as string;
+
+                const f = l.startsWith('zh') ? `${l}-u-nu-hanidec` : l;
+
+                const h = new Intl.NumberFormat(f).format(Math.floor(hours));
+                const m = new Intl.NumberFormat(f).format(Math.floor(minutes));
+                const s = new Intl.NumberFormat(f).format(Math.floor(seconds));
+
+                const timeH = h + dict.noun.details.auction.h;
+                const timeM = m + dict.noun.details.auction.m;
+                const timeS = s + dict.noun.details.auction.m;
+
+                setTimeRemaining(`${timeH} ${timeM} ${timeS}`);
             } else {
                 setTimeRemaining('0');
             }
         }
-    }, [auction]);
+    }, [auction, dict, lang]);
 
     useEffect(() => {
         calculateTimeRemaining();
@@ -59,7 +69,7 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
     }, []);
 
     return (
-        <div className={className} data-auction={JSON.stringify(auction)}>
+        <div className={className}>
             {timeRemaining !== '0' && (
                 <>
                     <Countdown dict={dict} timeRemaining={timeRemaining} />

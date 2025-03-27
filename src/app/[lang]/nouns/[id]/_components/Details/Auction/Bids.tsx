@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react';
 import { formatEther } from 'ethers';
 import EthAddress from '@/app/_components/Eth/Address';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/bids.module.css';
+import LocalisedNumber from '@/app/_components/LocalisedNumber';
 
 interface Props {
     auction: AuctionFromSubgraph;
@@ -41,7 +42,12 @@ export default function DetailsAuctionBids({ auction, dict }: Props) {
                 <ul>
                     {sortedBids.map((bid) => (
                         <li key={bid.amount} className={styles.listItem}>
-                            <span>Ξ {formatEther(BigInt(bid.amount))}</span>
+                            <span>
+                                Ξ{' '}
+                                <LocalisedNumber
+                                    number={formatEther(BigInt(bid.amount))}
+                                />
+                            </span>
 
                             <span>{dict.noun.details.auction.by}</span>
 

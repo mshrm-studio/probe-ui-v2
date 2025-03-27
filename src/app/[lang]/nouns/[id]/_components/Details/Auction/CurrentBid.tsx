@@ -4,6 +4,7 @@ import { formatEther } from 'ethers';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/winning-bid.module.css';
 import EthAddress from '@/app/_components/Eth/Address';
 import clsx from 'clsx';
+import LocalisedNumber from '@/app/_components/LocalisedNumber';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction: AuctionFromSubgraph;
@@ -22,7 +23,10 @@ export default function DetailsAuctionCurrentBid({
         <div className={clsx(className, styles.container)}>
             <span>{dict.noun.details.auction.currentBid}:</span>
 
-            <span>Ξ {formatEther(BigInt(auction.amount))}</span>
+            <span>
+                Ξ{' '}
+                <LocalisedNumber number={formatEther(BigInt(auction.amount))} />
+            </span>
 
             {auction.bidder && (
                 <>

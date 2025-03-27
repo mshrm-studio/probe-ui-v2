@@ -25,7 +25,7 @@ export default function NounListItem({ atAuction, dict, noun }: Props) {
                 <NounImageFromSeed seed={noun.seed} />
 
                 <label className={styles.label}>
-                    <LocalisedNumber number={noun.id} />
+                    <LocalisedNumber number={noun.id} removeCommasAndPeriods />
                 </label>
 
                 {atAuction && (
