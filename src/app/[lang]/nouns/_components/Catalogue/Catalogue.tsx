@@ -37,6 +37,7 @@ export default function NounsCatalogue() {
     const glasses = searchParams.get('glasses');
     const head = searchParams.get('head');
     const search = searchParams.get('search');
+    const settler = searchParams.get('settler');
     const sort_method = searchParams.get('sort_method');
     const sort_property = searchParams.get('sort_property');
     const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -56,6 +57,7 @@ export default function NounsCatalogue() {
                     head,
                     page: pageNumber,
                     search,
+                    settler,
                     sort_method: isSortMethod(sort_method)
                         ? sort_method
                         : SortMethod.Descending,
@@ -91,6 +93,7 @@ export default function NounsCatalogue() {
             glasses,
             head,
             search,
+            settler,
             sort_method,
             sort_property,
         ]
@@ -107,6 +110,7 @@ export default function NounsCatalogue() {
         glasses,
         head,
         search,
+        settler,
         sort_method,
         sort_property,
     ]);

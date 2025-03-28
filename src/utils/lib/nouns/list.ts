@@ -28,6 +28,8 @@ export default async function fetchNouns(
 
     if (filters?.search) params.set('search', filters.search);
 
+    if (filters?.settler) params.set('settler', filters.settler);
+
     params.set('sort_method', filters?.sort_method || SortMethod.Descending);
 
     params.set(

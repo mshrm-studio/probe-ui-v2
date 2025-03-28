@@ -1,6 +1,7 @@
 .container {
     display: flex;
     align-items: center;
+    overflow-x: auto;
 }
 
 .optionContainer {
@@ -11,6 +12,7 @@
     font-size: 13px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 
 .buttonIcon {

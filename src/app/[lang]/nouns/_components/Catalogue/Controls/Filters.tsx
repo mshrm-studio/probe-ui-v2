@@ -6,6 +6,7 @@ import SelectNounColor from '@/app/[lang]/nouns/_components/Select/Noun/Color';
 import SelectNounGlasses from '@/app/[lang]/nouns/_components/Select/Noun/Glasses';
 import SelectNounHead from '@/app/[lang]/nouns/_components/Select/Noun/Head';
 import SelectNounBackground from '@/app/[lang]/nouns/_components/Select/Noun/Background';
+import SelectNounSettler from '@/app/[lang]/nouns/_components/Select/Noun/Settler';
 import { useEffect, useState } from 'react';
 import styles from '@/app/[lang]/nouns/_styles/catalogue/controls/filters.module.css';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -29,6 +30,9 @@ export default function NounsControlsFilters() {
         searchParams.get('glasses')
     );
     const [head, setHead] = useState<string | null>(searchParams.get('head'));
+    const [settler, setSettler] = useState<string | null>(
+        searchParams.get('settler')
+    );
 
     useEffect(() => {
         setAccessory(searchParams.get('accessory'));
@@ -37,6 +41,7 @@ export default function NounsControlsFilters() {
         setColor(searchParams.get('color'));
         setGlasses(searchParams.get('glasses'));
         setHead(searchParams.get('head'));
+        setSettler(searchParams.get('settler'));
     }, [searchParams]);
 
     useEffect(() => {
@@ -78,8 +83,14 @@ export default function NounsControlsFilters() {
             params.delete('head');
         }
 
+        if (settler) {
+            params.set('settler', settler);
+        } else {
+            params.delete('settler');
+        }
+
         router.push(pathname + '?' + params.toString());
-    }, [accessory, background, body, color, glasses, head]);
+    }, [accessory, background, body, color, glasses, head, settler]);
 
     return (
         <div className={styles.container}>
@@ -100,6 +111,8 @@ export default function NounsControlsFilters() {
                 selected={background}
                 setSelected={setBackground}
             />
+
+            <SelectNounSettler selected={settler} setSelected={setSettler} />
         </div>
     );
 }

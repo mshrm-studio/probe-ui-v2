@@ -8,6 +8,7 @@ import { formatEther } from 'ethers';
 import EthAddress from '@/app/_components/Eth/Address';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/bids.module.css';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
+import EtherscanLink from '@/app/_components/EtherscanLink';
 
 interface Props {
     auction: AuctionFromSubgraph;
@@ -52,7 +53,12 @@ export default function DetailsAuctionBids({ auction, dict }: Props) {
                             <span>{dict.noun.details.auction.by}</span>
 
                             <span title={bid.bidder.id}>
-                                <EthAddress address={bid.bidder.id} />
+                                <EtherscanLink
+                                    type="Address"
+                                    address={bid.bidder.id}
+                                >
+                                    <EthAddress address={bid.bidder.id} />
+                                </EtherscanLink>
                             </span>
                         </li>
                     ))}

@@ -19,12 +19,12 @@
             "receipt": "收据",
             "s": "秒",
             "seeAllBids": "查看所有出价",
-            "settledBy": "结算者",
             "via": "通过",
             "winningBid": "中标"
         },
         "colors": "颜色",
         "currentOwner": "当前拥有者",
+        "settledBy": "结算者",
         "traits": {
             "area": "面积",
             "brightness": "亮度"

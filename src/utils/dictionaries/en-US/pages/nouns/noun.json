@@ -19,12 +19,12 @@
             "receipt": "Receipt",
             "s": "S",
             "seeAllBids": "See all bids",
-            "settledBy": "Settled by",
             "via": "via",
             "winningBid": "Winning bid"
         },
         "colors": "Colors",
         "currentOwner": "Current owner",
+        "settledBy": "Settled by",
         "traits": {
             "area": "Area",
             "brightness": "Brightness"

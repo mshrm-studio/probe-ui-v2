@@ -8,7 +8,6 @@ import Form from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Form';
 import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
-import RpcProvider from '@/context/Rpc';
 import AuctionHouseProvider from '@/context/AuctionHouse';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/auction.module.css';
 import { useParams } from 'next/navigation';
@@ -82,13 +81,11 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                         <Bids auction={auction} dict={dict} />
                     </div>
 
-                    <RpcProvider>
-                        <AuctionHouseProvider>
-                            <div className={styles.formContainer}>
-                                <Form auction={auction} dict={dict} />
-                            </div>
-                        </AuctionHouseProvider>
-                    </RpcProvider>
+                    <AuctionHouseProvider>
+                        <div className={styles.formContainer}>
+                            <Form auction={auction} dict={dict} />
+                        </div>
+                    </AuctionHouseProvider>
                 </>
             )}
         </div>

@@ -22,6 +22,7 @@ export default interface NounFromDB {
     minted_at: string;
     png_path: string | null;
     png_url: string | null;
+    settled_by_address: string | null;
     svg_path: string | null;
     svg_url: string | null;
     token_id: number;

@@ -5,8 +5,10 @@ import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/details.module.css';
 import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import WinningBid from '@/app/[lang]/nouns/[id]/_components/Details/WinningBid';
+import Settler from '@/app/[lang]/nouns/[id]/_components/Details/Settler';
 import CurrentOwner from '@/app/[lang]/nouns/[id]/_components/Details/CurrentOwner';
 import Auction from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Auction';
+import RpcProvider from '@/context/Rpc';
 
 interface Props {
     auction?: AuctionFromSubgraph;
@@ -16,41 +18,51 @@ interface Props {
 
 export default function Details({ auction, dict, noun }: Props) {
     return (
-        <div className={styles.container}>
-            {auction?.settled && (
-                <>
-                    <WinningBid
-                        auction={auction}
+        <RpcProvider>
+            <div className={styles.container}>
+                {noun && noun.settled_by_address && (
+                    <Settler
                         dict={dict}
-                        className={styles.winningBidContainer}
+                        settler={noun.settled_by_address}
+                        className={styles.settlerContainer}
                     />
+                )}
 
-                    <CurrentOwner
-                        auction={auction}
+                {auction?.settled && (
+                    <>
+                        <WinningBid
+                            auction={auction}
+                            dict={dict}
+                            className={styles.winningBidContainer}
+                        />
+
+                        <CurrentOwner
+                            auction={auction}
+                            dict={dict}
+                            className={styles.currentOwnerContainer}
+                        />
+                    </>
+                )}
+
+                {auction && auction.settled === false && (
+                    <Auction auction={auction} dict={dict} />
+                )}
+
+                {noun && (
+                    <Colors
+                        noun={noun}
                         dict={dict}
-                        className={styles.currentOwnerContainer}
+                        className={styles.colorsContainer}
                     />
-                </>
-            )}
+                )}
 
-            {auction && auction.settled === false && (
-                <Auction auction={auction} dict={dict} />
-            )}
-
-            {noun && (
-                <Colors
+                <Traits
+                    auction={auction}
                     noun={noun}
                     dict={dict}
-                    className={styles.colorsContainer}
+                    className={styles.traitsContainer}
                 />
-            )}
-
-            <Traits
-                auction={auction}
-                noun={noun}
-                dict={dict}
-                className={styles.traitsContainer}
-            />
-        </div>
+            </div>
+        </RpcProvider>
     );
 }

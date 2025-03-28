@@ -5,6 +5,7 @@ import styles from '@/app/[lang]/nouns/[id]/_styles/details/winning-bid.module.c
 import EthAddress from '@/app/_components/Eth/Address';
 import clsx from 'clsx';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
+import EtherscanLink from '@/app/_components/EtherscanLink';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction: AuctionFromSubgraph;
@@ -33,7 +34,12 @@ export default function DetailsAuctionCurrentBid({
                     <span>{dict.noun.details.auction.by}</span>
 
                     <span title={auction.bidder.id}>
-                        <EthAddress address={auction.bidder.id} />
+                        <EtherscanLink
+                            type="Address"
+                            address={auction.bidder.id}
+                        >
+                            <EthAddress address={auction.bidder.id} />
+                        </EtherscanLink>
                     </span>
                 </>
             )}
