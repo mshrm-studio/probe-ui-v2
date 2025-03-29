@@ -19,12 +19,16 @@ export default function DetailsTraitsName({
 }: Props) {
     if (noun) {
         if (type === NounTraitLayer.Accessory) {
-            return <span>{dict.traits[noun.accessory_name]}</span>;
+            return (
+                <span data-db-trait-name={noun.accessory_name}>
+                    {dict.traits[noun.accessory_name]}
+                </span>
+            );
         }
 
         if (type === NounTraitLayer.Background) {
             return (
-                <span>
+                <span data-db-trait-id={noun.background_index}>
                     {
                         dict.traits[
                             `background-${
@@ -37,22 +41,34 @@ export default function DetailsTraitsName({
         }
 
         if (type === NounTraitLayer.Body) {
-            return <span>{dict.traits[noun.body_name]}</span>;
+            return (
+                <span data-db-trait-name={noun.body_name}>
+                    {dict.traits[noun.body_name]}
+                </span>
+            );
         }
 
         if (type === NounTraitLayer.Glasses) {
-            return <span>{dict.traits[noun.glasses_name]}</span>;
+            return (
+                <span data-db-trait-name={noun.glasses_name}>
+                    {dict.traits[noun.glasses_name]}
+                </span>
+            );
         }
 
         if (type === NounTraitLayer.Head) {
-            return <span>{dict.traits[noun.head_name]}</span>;
+            return (
+                <span data-db-trait-name={noun.head_name}>
+                    {dict.traits[noun.head_name]}
+                </span>
+            );
         }
     }
 
     if (auction) {
         if (type === NounTraitLayer.Accessory) {
             return (
-                <span>
+                <span data-auction-trait-id={auction.noun.seed.accessory}>
                     {
                         dict.traits[
                             ImageData.images.accessories[
@@ -66,7 +82,7 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Background) {
             return (
-                <span>
+                <span data-auction-trait-id={auction.noun.seed.background}>
                     {
                         dict.traits[
                             `background-${
@@ -82,7 +98,7 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Body) {
             return (
-                <span>
+                <span data-auction-trait-id={auction.noun.seed.body}>
                     {
                         dict.traits[
                             ImageData.images.bodies[
@@ -96,7 +112,7 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Glasses) {
             return (
-                <span>
+                <span data-auction-trait-id={auction.noun.seed.glasses}>
                     {
                         dict.traits[
                             ImageData.images.glasses[
@@ -110,7 +126,7 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Head) {
             return (
-                <span>
+                <span data-auction-trait-id={auction.noun.seed.head}>
                     {
                         dict.traits[
                             ImageData.images.heads[
