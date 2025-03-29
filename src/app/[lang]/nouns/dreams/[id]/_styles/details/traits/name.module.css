@@ -1,0 +1,10 @@
+.newBadge {
+    border-radius: 10px;
+    background: #5648ed;
+    color: #ffffff;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-left: 0.5rem;
+}

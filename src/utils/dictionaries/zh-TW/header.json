@@ -17,8 +17,8 @@
     "probe": {
         "dreamsLinkText": "夢想",
         "imgAlt": "探測徽標",
-        "lilsLinkText": "Lils",
-        "nounsLinkText": "Nouns"
+        "lilsLinkText": "小名詞",
+        "nounsLinkText": "名詞"
     },
     "search": {
         "imgAlt": "放大鏡圖示",

@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
                     breadcrumbs={[
                         {
                             label: dict.lils.breadcrumbs.lils,
-                            href: `/${lang}/lils`,
+                            href: '/lils',
                         },
                     ]}
                 />

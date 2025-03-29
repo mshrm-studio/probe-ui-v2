@@ -39,7 +39,14 @@ export default async function Page({ params }: Props) {
     return (
         <DictionaryProvider dictionary={dict}>
             <Background lil={lil}>
-                <Header lang={lang} islandAlign="left" />
+                <Header
+                    lang={lang}
+                    islandAlign="center"
+                    breadcrumbs={[
+                        { label: dict.lil.breadcrumbs.lils, href: '/lils' },
+                        { label: id, href: `/lils/${id}` },
+                    ]}
+                />
 
                 <main className={styles.main}>
                     <div className={styles.imgContainer}>

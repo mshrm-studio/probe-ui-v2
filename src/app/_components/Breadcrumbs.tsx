@@ -3,7 +3,7 @@
 import styles from '@/app/_styles/breadcrumbs.module.css';
 import Breadcrumb from '@/utils/dto/Breadcrumb';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
     breadcrumbs: Breadcrumb[];
@@ -11,6 +11,7 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 
 export default function Breadcrumbs({ breadcrumbs, className }: Props) {
     const pathname = usePathname();
+    const { lang } = useParams();
 
     return (
         <nav className={className}>
@@ -20,7 +21,10 @@ export default function Breadcrumbs({ breadcrumbs, className }: Props) {
                         <Link
                             href={breadcrumb.href}
                             className={styles.link}
-                            data-active={pathname === breadcrumb.href}
+                            data-active={
+                                pathname === breadcrumb.href ||
+                                pathname === '/' + lang + breadcrumb.href
+                            }
                         >
                             {breadcrumb.label}
                         </Link>

@@ -1,6 +1,7 @@
 {
     "breadcrumbs": {
-        "nouns": "Nouns"
+        "noun": "名词 :id",
+        "nouns": "名词"
     },
     "details": {
         "about": "关于",
@@ -24,6 +25,7 @@
         },
         "colors": "颜色",
         "currentOwner": "当前拥有者",
+        "noun": "名词",
         "settledBy": "结算者",
         "traits": {
             "area": "面积",
@@ -31,7 +33,7 @@
         }
     },
     "metadata": {
-        "description": "探寻 Noun :id 的颜色和属性",
-        "title": "Noun :id"
+        "description": "探寻 名词 :id 的颜色和属性",
+        "title": "名词 :id"
     }
 }

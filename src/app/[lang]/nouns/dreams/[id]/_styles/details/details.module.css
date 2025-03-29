@@ -1,5 +1,11 @@
+.dreamerContainer,
 .traitsContainer {
     margin-top: 1.5rem;
+}
+
+.heading {
+    font-size: 1.6875rem;
+    font-weight: 700;
 }
 
 @media screen and (min-width: 1280px) {

@@ -1,11 +1,15 @@
 {
     "breadcrumbs": {
-        "dreams": "梦境"
+        "dream": "梦境 :id",
+        "dreams": "梦境",
+        "nouns": "名词"
     },
     "details": {
         "about": "关于",
         "date": "日期",
-        "dreamer": "梦想家"
+        "dream": "梦境",
+        "dreamer": "梦想家",
+        "new": "新"
     },
     "metadata": {
         "description": "探查梦境 :id 的统计信息",

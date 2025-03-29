@@ -41,7 +41,24 @@ export default async function Page({ params }: Props) {
     return (
         <DictionaryProvider dictionary={dict}>
             <Background dream={dream}>
-                <Header lang={lang} islandAlign="left" />
+                <Header
+                    lang={lang}
+                    islandAlign="center"
+                    breadcrumbs={[
+                        {
+                            label: dict.dream.breadcrumbs.nouns,
+                            href: '/nouns',
+                        },
+                        {
+                            label: dict.dream.breadcrumbs.dreams,
+                            href: `/nouns/dreams`,
+                        },
+                        {
+                            label: id,
+                            href: `/nouns/dreams/${id}`,
+                        },
+                    ]}
+                />
 
                 <main className={styles.main}>
                     <div className={styles.imgContainer}>

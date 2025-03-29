@@ -1,13 +1,14 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
+import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { ImageData } from '@noundry/nouns-assets';
 
 interface Props {
     auction?: AuctionFromSubgraph;
     dict: Dictionary;
     noun?: NounFromDB;
-    type: 'accessory' | 'background' | 'body' | 'glasses' | 'head';
+    type: NounTraitLayer;
 }
 
 export default function DetailsTraitsName({
@@ -17,11 +18,11 @@ export default function DetailsTraitsName({
     type,
 }: Props) {
     if (noun) {
-        if (type === 'accessory') {
+        if (type === NounTraitLayer.Accessory) {
             return <>{dict.traits[noun.accessory_name]}</>;
         }
 
-        if (type === 'background') {
+        if (type === NounTraitLayer.Background) {
             return (
                 <>
                     {
@@ -35,21 +36,21 @@ export default function DetailsTraitsName({
             );
         }
 
-        if (type === 'body') {
+        if (type === NounTraitLayer.Body) {
             return <>{dict.traits[noun.body_name]}</>;
         }
 
-        if (type === 'glasses') {
+        if (type === NounTraitLayer.Glasses) {
             return <>{dict.traits[noun.glasses_name]}</>;
         }
 
-        if (type === 'head') {
+        if (type === NounTraitLayer.Head) {
             return <>{dict.traits[noun.head_name]}</>;
         }
     }
 
     if (auction) {
-        if (type === 'accessory') {
+        if (type === NounTraitLayer.Accessory) {
             return (
                 <>
                     {
@@ -63,7 +64,7 @@ export default function DetailsTraitsName({
             );
         }
 
-        if (type === 'background') {
+        if (type === NounTraitLayer.Background) {
             return (
                 <>
                     {
@@ -79,7 +80,7 @@ export default function DetailsTraitsName({
             );
         }
 
-        if (type === 'body') {
+        if (type === NounTraitLayer.Body) {
             return (
                 <>
                     {
@@ -93,7 +94,7 @@ export default function DetailsTraitsName({
             );
         }
 
-        if (type === 'glasses') {
+        if (type === NounTraitLayer.Glasses) {
             return (
                 <>
                     {
@@ -107,7 +108,7 @@ export default function DetailsTraitsName({
             );
         }
 
-        if (type === 'head') {
+        if (type === NounTraitLayer.Head) {
             return (
                 <>
                     {

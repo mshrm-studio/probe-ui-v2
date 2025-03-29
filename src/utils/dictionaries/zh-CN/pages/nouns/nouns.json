@@ -1,6 +1,6 @@
 {
     "breadcrumbs": {
-        "nouns": "Nouns"
+        "nouns": "名词"
     },
     "catalogue": {
         "controls": {
@@ -18,8 +18,8 @@
         }
     },
     "metadata": {
-        "description": "探究 Nouns",
-        "title": "Nouns"
+        "description": "探究 名词",
+        "title": "名词"
     },
     "noun": {
         "list": {

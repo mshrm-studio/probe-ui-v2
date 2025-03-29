@@ -1,3 +1,12 @@
+.headingContainer {
+    margin-bottom: 1.5rem;
+}
+
+.heading {
+    font-size: 1.6875rem;
+    font-weight: 700;
+}
+
 .settlerContainer {
     margin-bottom: 0.25rem;
 }

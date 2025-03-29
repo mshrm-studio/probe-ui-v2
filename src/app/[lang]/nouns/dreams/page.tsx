@@ -31,11 +31,11 @@ export default async function Page({ params }: Props) {
                     breadcrumbs={[
                         {
                             label: dict.dreams.breadcrumbs.nouns,
-                            href: `/${lang}/nouns`,
+                            href: '/nouns',
                         },
                         {
                             label: dict.dreams.breadcrumbs.dreams,
-                            href: `/${lang}/nouns/dreams`,
+                            href: `/nouns/dreams`,
                         },
                     ]}
                 />

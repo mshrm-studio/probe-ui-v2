@@ -1,5 +1,6 @@
 {
     "breadcrumbs": {
+        "noun": "Noun :id",
         "nouns": "Nouns"
     },
     "details": {
@@ -24,6 +25,7 @@
         },
         "colors": "Colors",
         "currentOwner": "Current owner",
+        "noun": "Noun",
         "settledBy": "Settled by",
         "traits": {
             "area": "Area",

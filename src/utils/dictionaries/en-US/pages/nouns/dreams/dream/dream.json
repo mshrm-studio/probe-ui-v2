@@ -1,11 +1,15 @@
 {
     "breadcrumbs": {
-        "dreams": "Dreams"
+        "dream": "Dream :id",
+        "dreams": "Dreams",
+        "nouns": "Nouns"
     },
     "details": {
         "about": "About",
         "date": "Date",
-        "dreamer": "Dreamer"
+        "dream": "Dream",
+        "dreamer": "Dreamer",
+        "new": "New"
     },
     "metadata": {
         "description": "Probe the stats for Dream :id",

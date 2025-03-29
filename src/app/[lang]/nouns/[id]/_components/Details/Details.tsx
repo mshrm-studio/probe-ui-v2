@@ -9,6 +9,7 @@ import Settler from '@/app/[lang]/nouns/[id]/_components/Details/Settler';
 import CurrentOwner from '@/app/[lang]/nouns/[id]/_components/Details/CurrentOwner';
 import Auction from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Auction';
 import RpcProvider from '@/context/Rpc';
+import LocalisedNumber from '@/app/_components/LocalisedNumber';
 
 interface Props {
     auction?: AuctionFromSubgraph;
@@ -20,6 +21,16 @@ export default function Details({ auction, dict, noun }: Props) {
     return (
         <RpcProvider>
             <div className={styles.container}>
+                <div className={styles.headingContainer}>
+                    <h1 className={styles.heading}>
+                        {dict.noun.details.noun}{' '}
+                        <LocalisedNumber
+                            number={auction?.noun?.id || noun?.token_id || 0}
+                            removeCommasAndPeriods
+                        />
+                    </h1>
+                </div>
+
                 {noun && noun.settled_by_address && (
                     <Settler
                         dict={dict}

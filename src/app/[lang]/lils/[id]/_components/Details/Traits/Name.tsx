@@ -1,10 +1,11 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import LilFromDB from '@/utils/dto/Lil/FromDB';
+import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 
 interface Props {
     dict: Dictionary;
     lil: LilFromDB;
-    type: 'accessory' | 'background' | 'body' | 'glasses' | 'head';
+    type: NounTraitLayer;
 }
 
 export default function DetailsTraitsName({ dict, lil, type }: Props) {
