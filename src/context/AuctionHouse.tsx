@@ -33,22 +33,26 @@ const AuctionHouseProvider: React.FC<Props> = ({
         const auctionHouseContractAddres = process.env
             .NEXT_PUBLIC_NOUNS_AUCTION_HOUSE_CONTRACT_ADDRESS as string;
 
-        setHttpAuctionHouseContract(
-            new Contract(
-                auctionHouseContractAddres,
-                nounsAuctionHouseContractABI,
-                httpProvider
-            )
-        );
+        if (httpProvider) {
+            setHttpAuctionHouseContract(
+                new Contract(
+                    auctionHouseContractAddres,
+                    nounsAuctionHouseContractABI,
+                    httpProvider
+                )
+            );
+        }
 
-        setWsAuctionHouseContract(
-            new Contract(
-                auctionHouseContractAddres,
-                nounsAuctionHouseContractABI,
-                wsProvider
-            )
-        );
-    }, [project]);
+        if (wsProvider) {
+            setWsAuctionHouseContract(
+                new Contract(
+                    auctionHouseContractAddres,
+                    nounsAuctionHouseContractABI,
+                    wsProvider
+                )
+            );
+        }
+    }, [project, httpProvider, wsProvider]);
 
     return (
         <AuctionHouseContext.Provider

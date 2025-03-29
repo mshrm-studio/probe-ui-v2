@@ -10,6 +10,7 @@ import CurrentOwner from '@/app/[lang]/nouns/[id]/_components/Details/CurrentOwn
 import Auction from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Auction';
 import RpcProvider from '@/context/Rpc';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
+import AuctionHouseProvider from '@/context/AuctionHouse';
 
 interface Props {
     auction?: AuctionFromSubgraph;
@@ -56,7 +57,9 @@ export default function Details({ auction, dict, noun }: Props) {
                 )}
 
                 {auction && auction.settled === false && (
-                    <Auction auction={auction} dict={dict} />
+                    <AuctionHouseProvider>
+                        <Auction auction={auction} dict={dict} />
+                    </AuctionHouseProvider>
                 )}
 
                 {noun && (

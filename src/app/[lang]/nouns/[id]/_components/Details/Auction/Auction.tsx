@@ -11,6 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 import AuctionHouseProvider from '@/context/AuctionHouse';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/auction.module.css';
 import { useParams } from 'next/navigation';
+import useLiveAuction from '@/hooks/useLiveAuction';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction: AuctionFromSubgraph;
@@ -20,9 +21,12 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 export default function DetailsAuction({ auction, className, dict }: Props) {
     const { lang } = useParams();
     const [timeRemaining, setTimeRemaining] = useState<string>('0');
+    const liveAuction = useLiveAuction();
 
     const calculateTimeRemaining = useCallback(() => {
-        const endTime = DateTime.fromSeconds(Number(auction.endTime));
+        const endTime = liveAuction
+            ? DateTime.fromSeconds(Number(liveAuction.endTime))
+            : DateTime.fromSeconds(Number(auction.endTime));
 
         const timeDifference = endTime.diff(DateTime.now(), [
             'hours',
@@ -57,7 +61,7 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                 setTimeRemaining('0');
             }
         }
-    }, [auction, dict, lang]);
+    }, [auction, dict, lang, liveAuction]);
 
     useEffect(() => {
         calculateTimeRemaining();
@@ -74,7 +78,11 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                     <Countdown dict={dict} timeRemaining={timeRemaining} />
 
                     <div className={styles.currentBidContainer}>
-                        <CurrentBid auction={auction} dict={dict} />
+                        <CurrentBid
+                            auction={auction}
+                            liveAuction={liveAuction}
+                            dict={dict}
+                        />
                     </div>
 
                     <div className={styles.bidsContainer}>
