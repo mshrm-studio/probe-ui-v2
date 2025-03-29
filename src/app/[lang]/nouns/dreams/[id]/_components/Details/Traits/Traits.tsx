@@ -2,6 +2,7 @@ import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/traits/traits.module.css';
 import TraitName from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Traits/Name';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
+import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -18,7 +19,11 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
                     <dt className={styles.dt}>{dict.common.accessory}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName dict={dict} dream={dream} type="accessory" />
+                        <TraitName
+                            dict={dict}
+                            dream={dream}
+                            type={NounTraitLayer.Accessory}
+                        />
                     </dd>
                 </div>
 
@@ -29,7 +34,7 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
                         <TraitName
                             dict={dict}
                             dream={dream}
-                            type="background"
+                            type={NounTraitLayer.Background}
                         />
                     </dd>
                 </div>
@@ -38,7 +43,11 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
                     <dt className={styles.dt}>{dict.common.body}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName dict={dict} dream={dream} type="body" />
+                        <TraitName
+                            dict={dict}
+                            dream={dream}
+                            type={NounTraitLayer.Body}
+                        />
                     </dd>
                 </div>
 
@@ -46,7 +55,11 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
                     <dt className={styles.dt}>{dict.common.glasses}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName dict={dict} dream={dream} type="glasses" />
+                        <TraitName
+                            dict={dict}
+                            dream={dream}
+                            type={NounTraitLayer.Glasses}
+                        />
                     </dd>
                 </div>
 
@@ -54,7 +67,11 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
                     <dt className={styles.dt}>{dict.common.head}:</dt>
 
                     <dd className={styles.dd}>
-                        <TraitName dict={dict} dream={dream} type="head" />
+                        <TraitName
+                            dict={dict}
+                            dream={dream}
+                            type={NounTraitLayer.Head}
+                        />
                     </dd>
                 </div>
             </dl>

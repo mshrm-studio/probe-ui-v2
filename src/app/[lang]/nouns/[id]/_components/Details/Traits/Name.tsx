@@ -19,12 +19,12 @@ export default function DetailsTraitsName({
 }: Props) {
     if (noun) {
         if (type === NounTraitLayer.Accessory) {
-            return <>{dict.traits[noun.accessory_name]}</>;
+            return <span>{dict.traits[noun.accessory_name]}</span>;
         }
 
         if (type === NounTraitLayer.Background) {
             return (
-                <>
+                <span>
                     {
                         dict.traits[
                             `background-${
@@ -32,27 +32,27 @@ export default function DetailsTraitsName({
                             }`
                         ]
                     }
-                </>
+                </span>
             );
         }
 
         if (type === NounTraitLayer.Body) {
-            return <>{dict.traits[noun.body_name]}</>;
+            return <span>{dict.traits[noun.body_name]}</span>;
         }
 
         if (type === NounTraitLayer.Glasses) {
-            return <>{dict.traits[noun.glasses_name]}</>;
+            return <span>{dict.traits[noun.glasses_name]}</span>;
         }
 
         if (type === NounTraitLayer.Head) {
-            return <>{dict.traits[noun.head_name]}</>;
+            return <span>{dict.traits[noun.head_name]}</span>;
         }
     }
 
     if (auction) {
         if (type === NounTraitLayer.Accessory) {
             return (
-                <>
+                <span>
                     {
                         dict.traits[
                             ImageData.images.accessories[
@@ -60,13 +60,13 @@ export default function DetailsTraitsName({
                             ].filename
                         ]
                     }
-                </>
+                </span>
             );
         }
 
         if (type === NounTraitLayer.Background) {
             return (
-                <>
+                <span>
                     {
                         dict.traits[
                             `background-${
@@ -76,13 +76,13 @@ export default function DetailsTraitsName({
                             }`
                         ]
                     }
-                </>
+                </span>
             );
         }
 
         if (type === NounTraitLayer.Body) {
             return (
-                <>
+                <span>
                     {
                         dict.traits[
                             ImageData.images.bodies[
@@ -90,13 +90,13 @@ export default function DetailsTraitsName({
                             ].filename
                         ]
                     }
-                </>
+                </span>
             );
         }
 
         if (type === NounTraitLayer.Glasses) {
             return (
-                <>
+                <span>
                     {
                         dict.traits[
                             ImageData.images.glasses[
@@ -104,13 +104,13 @@ export default function DetailsTraitsName({
                             ].filename
                         ]
                     }
-                </>
+                </span>
             );
         }
 
         if (type === NounTraitLayer.Head) {
             return (
-                <>
+                <span>
                     {
                         dict.traits[
                             ImageData.images.heads[
@@ -118,10 +118,10 @@ export default function DetailsTraitsName({
                             ].filename
                         ]
                     }
-                </>
+                </span>
             );
         }
     }
 
-    return <></>;
+    return null;
 }

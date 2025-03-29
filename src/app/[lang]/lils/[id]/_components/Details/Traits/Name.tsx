@@ -9,13 +9,13 @@ interface Props {
 }
 
 export default function DetailsTraitsName({ dict, lil, type }: Props) {
-    if (type === 'accessory') {
-        return <>{dict.traits[lil.accessory_name]}</>;
+    if (type === NounTraitLayer.Accessory) {
+        return <span>{dict.traits[lil.accessory_name]}</span>;
     }
 
     if (type === 'background') {
         return (
-            <>
+            <span>
                 {
                     dict.traits[
                         `background-${
@@ -23,21 +23,21 @@ export default function DetailsTraitsName({ dict, lil, type }: Props) {
                         }`
                     ]
                 }
-            </>
+            </span>
         );
     }
 
-    if (type === 'body') {
-        return <>{dict.traits[lil.body_name]}</>;
+    if (type === NounTraitLayer.Body) {
+        return <span>{dict.traits[lil.body_name]}</span>;
     }
 
-    if (type === 'glasses') {
-        return <>{dict.traits[lil.glasses_name]}</>;
+    if (type === NounTraitLayer.Glasses) {
+        return <span>{dict.traits[lil.glasses_name]}</span>;
     }
 
-    if (type === 'head') {
-        return <>{dict.traits[lil.head_name]}</>;
+    if (type === NounTraitLayer.Head) {
+        return <span>{dict.traits[lil.head_name]}</span>;
     }
 
-    return <></>;
+    return null;
 }

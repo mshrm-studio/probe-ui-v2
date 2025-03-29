@@ -4,6 +4,7 @@ import styles from '@/app/[lang]/nouns/[id]/_styles/details/traits/traits.module
 import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import TraitName from '@/app/[lang]/nouns/[id]/_components/Details/Traits/Name';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
+import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     auction?: AuctionFromSubgraph;
@@ -30,7 +31,7 @@ export default function DetailsTraits({
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type="accessory"
+                            type={NounTraitLayer.Accessory}
                         />
                     </dd>
                 </div>
@@ -43,7 +44,7 @@ export default function DetailsTraits({
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type="background"
+                            type={NounTraitLayer.Background}
                         />
                     </dd>
                 </div>
@@ -56,7 +57,7 @@ export default function DetailsTraits({
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type="body"
+                            type={NounTraitLayer.Body}
                         />
                     </dd>
                 </div>
@@ -69,7 +70,7 @@ export default function DetailsTraits({
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type="glasses"
+                            type={NounTraitLayer.Glasses}
                         />
                     </dd>
                 </div>
@@ -82,7 +83,7 @@ export default function DetailsTraits({
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type="head"
+                            type={NounTraitLayer.Head}
                         />
                     </dd>
                 </div>
