@@ -89,11 +89,9 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                         <Bids auction={auction} dict={dict} />
                     </div>
 
-                    <AuctionHouseProvider>
-                        <div className={styles.formContainer}>
-                            <Form auction={auction} dict={dict} />
-                        </div>
-                    </AuctionHouseProvider>
+                    <div className={styles.formContainer}>
+                        <Form auction={auction} dict={dict} />
+                    </div>
                 </>
             )}
         </div>

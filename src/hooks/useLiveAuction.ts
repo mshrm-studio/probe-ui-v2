@@ -20,6 +20,16 @@ const useLiveAuction = () => {
             const { nounId, amount, startTime, endTime, bidder, settled } =
                 await httpContract.auction();
 
+            console.log(
+                'AuctionFromContract:',
+                nounId,
+                amount,
+                startTime,
+                endTime,
+                bidder,
+                settled
+            );
+
             setAuction({
                 nounId: Number(nounId),
                 amount: formatEther(amount),
@@ -39,7 +49,7 @@ const useLiveAuction = () => {
         value: string,
         extended: boolean
     ) => {
-        console.log('newBid:', sender, value, extended);
+        console.log('handleAuctionBid:', sender, value, extended);
         setAuction((prev) => {
             if (!prev) return prev;
 
@@ -69,11 +79,17 @@ const useLiveAuction = () => {
 
         if (!wsContract) return;
 
+        console.log('Creating AuctionBid listener');
+
         wsContract.on('AuctionBid', (nounId, sender, value, extended) => {
+            console.log('on.AuctionBid:', nounId, sender, value, extended);
+
             handleAuctionBid(nounId, sender, value, extended);
         });
 
         return () => {
+            console.log('Destroying AuctionBid listener');
+
             wsContract.off('AuctionBid', (nounId, sender, value, extended) => {
                 handleAuctionBid(nounId, sender, value, extended);
             });
