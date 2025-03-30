@@ -20,10 +20,10 @@ export const DreamImageFromSeed: React.FC<Props> = ({
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [inheritedSize, setInheritedSize] = useState<number | null>(null);
 
-    const accessoryBitmap = useTraitBitmap('accessories', seed.accessory);
     const bodyBitmap = useTraitBitmap('bodies', seed.body);
-    const glassesBitmap = useTraitBitmap('glasses', seed.glasses);
+    const accessoryBitmap = useTraitBitmap('accessories', seed.accessory);
     const headBitmap = useTraitBitmap('heads', seed.head);
+    const glassesBitmap = useTraitBitmap('glasses', seed.glasses);
 
     useEffect(() => {
         if (!size && canvasRef.current) {
@@ -61,36 +61,50 @@ export const DreamImageFromSeed: React.FC<Props> = ({
             return;
         }
 
-        canvas.style.width = '';
-        canvas.style.height = '';
-        canvas.width = canvasSize + margin * 2;
-        canvas.height = canvasSize + margin * 2;
+        requestAnimationFrame(() => {
+            canvas.style.width = '';
+            canvas.style.height = '';
+            canvas.width = canvasSize + margin * 2;
+            canvas.height = canvasSize + margin * 2;
 
-        ctx.imageSmoothingEnabled = false;
-        ctx.clearRect(margin, margin, canvasSize, canvasSize);
-        ctx.fillStyle = backgroundColor;
-        ctx.fillRect(margin, margin, canvasSize, canvasSize);
+            ctx.imageSmoothingEnabled = false;
+            ctx.clearRect(margin, margin, canvasSize, canvasSize);
+            ctx.fillStyle = backgroundColor;
+            ctx.fillRect(margin, margin, canvasSize, canvasSize);
 
-        // Draw images once all bitmaps are loaded
-        ctx.drawImage(bodyBitmap, margin, margin, canvasSize, canvasSize);
-        ctx.drawImage(accessoryBitmap, margin, margin, canvasSize, canvasSize);
-        ctx.drawImage(headBitmap, margin, margin, canvasSize, canvasSize);
-        ctx.drawImage(glassesBitmap, margin, margin, canvasSize, canvasSize);
-
-        if (circleCrop) {
-            ctx.globalCompositeOperation = 'destination-in';
-            ctx.beginPath();
-            ctx.arc(
-                canvas.width / 2,
-                canvas.height / 2,
-                canvasSize / 2,
-                0,
-                Math.PI * 2
+            // Draw images once all bitmaps are loaded
+            ctx.drawImage(bodyBitmap, margin, margin, canvasSize, canvasSize);
+            ctx.drawImage(
+                accessoryBitmap,
+                margin,
+                margin,
+                canvasSize,
+                canvasSize
             );
-            ctx.closePath();
-            ctx.fill();
-            ctx.globalCompositeOperation = 'source-over';
-        }
+            ctx.drawImage(headBitmap, margin, margin, canvasSize, canvasSize);
+            ctx.drawImage(
+                glassesBitmap,
+                margin,
+                margin,
+                canvasSize,
+                canvasSize
+            );
+
+            if (circleCrop) {
+                ctx.globalCompositeOperation = 'destination-in';
+                ctx.beginPath();
+                ctx.arc(
+                    canvas.width / 2,
+                    canvas.height / 2,
+                    canvasSize / 2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.closePath();
+                ctx.fill();
+                ctx.globalCompositeOperation = 'source-over';
+            }
+        });
     }, [
         accessoryBitmap,
         backgroundColor,
