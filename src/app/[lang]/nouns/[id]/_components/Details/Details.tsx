@@ -11,6 +11,7 @@ import Auction from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Auction
 import RpcProvider from '@/context/Rpc';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
 import AuctionHouseProvider from '@/context/AuctionHouse';
+import TokenProvider from '@/context/Token';
 
 interface Props {
     auction?: AuctionFromSubgraph;
@@ -21,62 +22,63 @@ interface Props {
 export default function Details({ auction, dict, noun }: Props) {
     return (
         <RpcProvider>
-            <div className={styles.container}>
-                <div className={styles.headingContainer}>
-                    <h1 className={styles.heading}>
-                        {dict.noun.details.noun}{' '}
-                        <LocalisedNumber
-                            number={auction?.noun?.id || noun?.token_id || 0}
-                            removeCommasAndPeriods
-                        />
-                    </h1>
-                </div>
+            <AuctionHouseProvider>
+                <div className={styles.container}>
+                    <div className={styles.headingContainer}>
+                        <h1 className={styles.heading}>
+                            {dict.noun.details.noun}{' '}
+                            <LocalisedNumber
+                                number={
+                                    auction?.noun?.id || noun?.token_id || 0
+                                }
+                                removeCommasAndPeriods
+                            />
+                        </h1>
+                    </div>
 
-                {noun && noun.settled_by_address && (
-                    <Settler
-                        dict={dict}
-                        settler={noun.settled_by_address}
-                        className={styles.settlerContainer}
-                    />
-                )}
-
-                {auction?.settled && (
-                    <>
-                        <WinningBid
-                            auction={auction}
+                    <TokenProvider>
+                        <Settler
                             dict={dict}
-                            className={styles.winningBidContainer}
+                            className={styles.settlerContainer}
                         />
+                    </TokenProvider>
 
-                        <CurrentOwner
-                            auction={auction}
-                            dict={dict}
-                            className={styles.currentOwnerContainer}
-                        />
-                    </>
-                )}
+                    {auction?.settled && (
+                        <>
+                            <WinningBid
+                                auction={auction}
+                                dict={dict}
+                                className={styles.winningBidContainer}
+                            />
 
-                {auction && auction.settled === false && (
-                    <AuctionHouseProvider>
+                            <CurrentOwner
+                                auction={auction}
+                                dict={dict}
+                                className={styles.currentOwnerContainer}
+                            />
+                        </>
+                    )}
+
+                    {auction && auction.settled === false && (
                         <Auction auction={auction} dict={dict} />
-                    </AuctionHouseProvider>
-                )}
+                    )}
 
-                {noun && (
-                    <Colors
+                    {noun && (
+                        <Colors
+                            noun={noun}
+                            dict={dict}
+                            className={styles.colorsContainer}
+                        />
+                    )}
+
+                    <Traits
+                        auction={auction}
                         noun={noun}
                         dict={dict}
-                        className={styles.colorsContainer}
+                        className={styles.traitsContainer}
                     />
-                )}
-
-                <Traits
-                    auction={auction}
-                    noun={noun}
-                    dict={dict}
-                    className={styles.traitsContainer}
-                />
-            </div>
+                </div>
+            </AuctionHouseProvider>
         </RpcProvider>
     );
 }

@@ -17,14 +17,11 @@ export default function SelectNounOwner({ selected, setSelected }: Props) {
     const [settlers, setSettlers] = useState<string[]>([]);
 
     const initFetchSettlers = async () => {
-        console.log('initFetchSettlers');
         try {
             setFetching(true);
             setError('');
 
             const data = await fetchSettlers();
-
-            console.log('data:', data);
 
             setSettlers((prev) => {
                 const newItems = data.filter(

@@ -45,10 +45,7 @@ export default function DetailsAuctionCurrentBid({
     if (amount === null || bidder === null) return null;
 
     return (
-        <div
-            className={clsx(className, styles.container)}
-            data-auction={JSON.stringify(auction)}
-        >
+        <div className={clsx(className, styles.container)}>
             <span>{dict.noun.details.auction.currentBid}:</span>
 
             <span>

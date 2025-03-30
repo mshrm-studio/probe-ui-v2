@@ -96,8 +96,6 @@ export default function Form({
                 },
             });
 
-            console.log('data:', data);
-
             if (!isDreamFromDBResponse(data)) {
                 throw new Error('Dream created but unexpected response.');
             }

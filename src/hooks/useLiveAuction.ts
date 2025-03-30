@@ -75,21 +75,13 @@ const useLiveAuction = () => {
 
     // Subscribe to auction bid events and clean up on unmount
     useEffect(() => {
-        console.log('Using wsContract:', wsContract);
-
         if (!wsContract) return;
 
-        console.log('Creating AuctionBid listener');
-
         wsContract.on('AuctionBid', (nounId, sender, value, extended) => {
-            console.log('on.AuctionBid:', nounId, sender, value, extended);
-
             handleAuctionBid(nounId, sender, value, extended);
         });
 
         return () => {
-            console.log('Destroying AuctionBid listener');
-
             wsContract.off('AuctionBid', (nounId, sender, value, extended) => {
                 handleAuctionBid(nounId, sender, value, extended);
             });

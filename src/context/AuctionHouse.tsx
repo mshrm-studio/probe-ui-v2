@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Project } from '@/utils/enums/Project';
 import { createContext } from 'react';
 import { Contract } from 'ethers';

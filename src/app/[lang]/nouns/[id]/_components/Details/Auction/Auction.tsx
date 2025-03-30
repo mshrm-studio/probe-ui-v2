@@ -69,7 +69,7 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
     }, []);
 
     return (
-        <div className={className} data-auction={JSON.stringify(auction.bids)}>
+        <div className={className}>
             {timeRemaining !== '0' && (
                 <>
                     <Countdown dict={dict} timeRemaining={timeRemaining} />

@@ -727,4 +727,4 @@ export const nounsTokenContractABI = [
         stateMutability: 'view',
         type: 'function',
     },
-]
+];
