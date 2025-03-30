@@ -72,10 +72,10 @@ export const DreamImageFromSeed: React.FC<Props> = ({
         ctx.fillRect(margin, margin, canvasSize, canvasSize);
 
         // Draw images once all bitmaps are loaded
-        ctx.drawImage(accessoryBitmap, margin, margin, canvasSize, canvasSize);
         ctx.drawImage(bodyBitmap, margin, margin, canvasSize, canvasSize);
-        ctx.drawImage(glassesBitmap, margin, margin, canvasSize, canvasSize);
+        ctx.drawImage(accessoryBitmap, margin, margin, canvasSize, canvasSize);
         ctx.drawImage(headBitmap, margin, margin, canvasSize, canvasSize);
+        ctx.drawImage(glassesBitmap, margin, margin, canvasSize, canvasSize);
 
         if (circleCrop) {
             ctx.globalCompositeOperation = 'destination-in';
