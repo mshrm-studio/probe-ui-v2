@@ -1,7 +1,6 @@
 'use client';
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import Button from '@/app/_components/Button';
 import {
     useAppKit,
@@ -10,12 +9,13 @@ import {
 } from '@reown/appkit/react';
 import Input from '@/app/_components/Input/Input';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/form.module.css';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { BrowserProvider, Contract, Eip1193Provider, parseEther } from 'ethers';
 import { AuctionHouseContext } from '@/context/AuctionHouse';
+import AuctionFromContract from '@/utils/dto/Noun/Auction/FromContract';
 
 interface Props {
-    auction: AuctionFromSubgraph;
+    auction: AuctionFromContract;
     dict: Dictionary;
 }
 
@@ -24,7 +24,29 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
     const { open } = useAppKit();
     const [bid, setBid] = useState<string>('');
     const { walletProvider } = useAppKitProvider('eip155');
-    const { httpAuctionHouseContract } = useContext(AuctionHouseContext);
+    const {
+        httpAuctionHouseContract,
+        minBidIncrementPercentage,
+        reservePrice,
+    } = useContext(AuctionHouseContext);
+
+    const minBid = useMemo(() => {
+        if (!auction || minBidIncrementPercentage === undefined) return;
+
+        const currentBid = parseFloat(auction.amount);
+
+        const minBidIncrease = currentBid * (minBidIncrementPercentage / 100);
+
+        return currentBid + minBidIncrease;
+    }, [auction, minBidIncrementPercentage]);
+
+    const placeholder = useMemo(() => {
+        if (!minBid) return;
+
+        if (minBid <= 0) return `Ξ ${dict.noun.details.auction.maxBid}`;
+
+        return `Ξ ${minBid} ${dict.noun.details.auction.orMore}`;
+    }, [dict, minBid]);
 
     if (!isConnected) {
         return (
@@ -66,7 +88,7 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
             ) as Contract;
 
             const value = parseEther(bid);
-            const nounId = Number(auction.noun.id);
+            const nounId = Number(auction.nounId);
 
             const bigIntGasEstimate =
                 await contractWithSigner.createBid.estimateGas(
@@ -88,7 +110,7 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
 
             await tx.wait();
 
-            // window.location.reload();
+            window.location.reload();
         } catch (error: any) {
             alert(error?.info?.error?.message || error.code);
         }
@@ -99,11 +121,10 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
             <Input
                 name="bid"
                 min={0}
-                data-auction-amount={auction.amount}
                 type="number"
                 step="any"
                 className={styles.input}
-                placeholder={`Ξ ${dict.noun.details.auction.maxBid}`}
+                placeholder={placeholder}
                 value={bid}
                 onChange={(e) => setBid(e.target.value)}
             />

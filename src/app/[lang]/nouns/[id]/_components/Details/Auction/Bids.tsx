@@ -9,6 +9,7 @@ import EthAddress from '@/app/_components/Eth/Address';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/bids.module.css';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
 import EtherscanLink from '@/app/_components/EtherscanLink';
+import AuctionClient from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Client';
 
 interface Props {
     auction: AuctionFromSubgraph;
@@ -60,6 +61,8 @@ export default function DetailsAuctionBids({ auction, dict }: Props) {
                                     <EthAddress address={bid.bidder.id} />
                                 </EtherscanLink>
                             </span>
+
+                            <AuctionClient bid={bid} />
                         </li>
                     ))}
                 </ul>

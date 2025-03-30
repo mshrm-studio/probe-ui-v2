@@ -2,18 +2,22 @@ import NounFromSubgraph, {
     isNounFromSubgraph,
 } from '@/utils/dto/Noun/FromSubgraph';
 
+export interface Bidder {
+    id: string; // EG 0xf6b6f07862a02c85628b3a9688beae07fea9c863
+}
+
+export interface Bid {
+    amount: string;
+    bidder: {
+        id: string;
+    };
+    clientId: number | null; // EG 9
+}
+
 export default interface AuctionFromSubgraph {
     amount?: string; // EG 26120000000000000000
-    bidder?: {
-        id: string; // EG 0xf6b6f07862a02c85628b3a9688beae07fea9c863
-    };
-    bids?: {
-        amount: string;
-        bidder: {
-            id: string;
-        };
-        clientId: number | null; // EG 9
-    }[];
+    bidder?: Bidder;
+    bids?: Bid[];
     clientId: number | null;
     endTime: string; // EG 1684187639
     noun: NounFromSubgraph;

@@ -18,3 +18,7 @@
 .input:disabled {
     cursor: not-allowed;
 }
+
+.input::placeholder {
+    text-transform: uppercase;
+}

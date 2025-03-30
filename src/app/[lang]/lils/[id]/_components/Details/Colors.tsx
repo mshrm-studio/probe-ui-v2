@@ -16,12 +16,12 @@ export default function DetailsColors({ className, dict, lil }: Props) {
 
             <div className={styles.colorSquares}>
                 {Object.entries(lil.color_histogram).map(
-                    ([color, _count], idx) => (
+                    ([color, count], idx) => (
                         <div
                             key={idx}
                             style={{ backgroundColor: color }}
                             className={styles.colorSquare}
-                            title={color}
+                            title={`${color} (${count})`}
                         ></div>
                     )
                 )}

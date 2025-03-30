@@ -8,7 +8,6 @@ import Form from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Form';
 import AuctionFromSubgraph from '@/utils/dto/Noun/Auction/FromSubgraph';
 import { DateTime } from 'luxon';
 import { useCallback, useEffect, useState } from 'react';
-import AuctionHouseProvider from '@/context/AuctionHouse';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/auction.module.css';
 import { useParams } from 'next/navigation';
 import useLiveAuction from '@/hooks/useLiveAuction';
@@ -72,7 +71,7 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
     }, []);
 
     return (
-        <div className={className}>
+        <div className={className} data-auction={JSON.stringify(auction.bids)}>
             {timeRemaining !== '0' && (
                 <>
                     <Countdown dict={dict} timeRemaining={timeRemaining} />
@@ -89,9 +88,11 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                         <Bids auction={auction} dict={dict} />
                     </div>
 
-                    <div className={styles.formContainer}>
-                        <Form auction={auction} dict={dict} />
-                    </div>
+                    {liveAuction && (
+                        <div className={styles.formContainer}>
+                            <Form auction={liveAuction} dict={dict} />
+                        </div>
+                    )}
                 </>
             )}
         </div>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { buildSVG } from '@nouns/sdk';
-import { ImageData } from '@noundry/nouns-assets';
+import { ImageData } from '@noundry/lil-nouns-assets';
 
 export async function POST(req: NextRequest) {
     try {
