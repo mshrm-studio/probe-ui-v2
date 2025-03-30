@@ -130,8 +130,8 @@ const AuctionHouseProvider: React.FC<Props> = ({
             value={{
                 httpAuctionHouseContract,
                 wsAuctionHouseContract,
-                reservePrice,
                 minBidIncrementPercentage,
+                reservePrice,
             }}
         >
             {children}

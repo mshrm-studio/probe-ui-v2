@@ -24,14 +24,11 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
     const { open } = useAppKit();
     const [bid, setBid] = useState<string>('');
     const { walletProvider } = useAppKitProvider('eip155');
-    const {
-        httpAuctionHouseContract,
-        minBidIncrementPercentage,
-        reservePrice,
-    } = useContext(AuctionHouseContext);
+    const { httpAuctionHouseContract, minBidIncrementPercentage } =
+        useContext(AuctionHouseContext);
 
     const minBid = useMemo(() => {
-        if (!auction || minBidIncrementPercentage === undefined) return;
+        if (!auction || !minBidIncrementPercentage) return;
 
         const currentBid = parseFloat(auction.amount);
 
@@ -41,9 +38,8 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
     }, [auction, minBidIncrementPercentage]);
 
     const placeholder = useMemo(() => {
-        if (!minBid) return;
-
-        if (minBid <= 0) return `Ξ ${dict.noun.details.auction.maxBid}`;
+        if (!minBid || minBid <= 0)
+            return `Ξ ${dict.noun.details.auction.maxBid}`;
 
         return `Ξ ${minBid} ${dict.noun.details.auction.orMore}`;
     }, [dict, minBid]);
