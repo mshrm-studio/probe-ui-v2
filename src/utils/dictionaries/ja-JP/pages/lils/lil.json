@@ -1,0 +1,18 @@
+{
+    "breadcrumbs": {
+        "lils": "リルズ"
+    },
+    "details": {
+        "about": "概要",
+        "colors": "色",
+        "lil": "リル",
+        "traits": {
+            "area": "エリア",
+            "brightness": "明るさ"
+        }
+    },
+    "metadata": {
+        "description": "リル :id の色とステータスを調べる",
+        "title": "リル :id"
+    }
+}

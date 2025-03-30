@@ -1,0 +1,21 @@
+{
+    "breadcrumbs": {
+        "dreams": "ドリーム一覧",
+        "nouns": "ナウンズ"
+    },
+    "catalogue": {
+        "controls": {
+            "reset": "リセット",
+            "sorters": {
+                "mostRecent": "最新",
+                "oldest": "最も古い"
+            }
+        }
+    },
+    "createDream": "ドリームを作成",
+    "dream": "ドリーム",
+    "metadata": {
+        "description": "理想のナウンを作ろう",
+        "title": "ドリーム一覧"
+    }
+}

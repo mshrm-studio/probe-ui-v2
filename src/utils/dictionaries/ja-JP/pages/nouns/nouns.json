@@ -1,0 +1,31 @@
+{
+    "breadcrumbs": {
+        "nouns": "ナウンズ"
+    },
+    "catalogue": {
+        "controls": {
+            "reset": "リセット",
+            "sorters": {
+                "biggest": "最大",
+                "brightest": "最も明るい",
+                "darkest": "最も暗い",
+                "leastColorful": "最も色味が少ない",
+                "mostColorful": "最もカラフル",
+                "mostRecent": "最新",
+                "oldest": "最も古い",
+                "smallest": "最小"
+            }
+        }
+    },
+    "metadata": {
+        "description": "ナウンズを調査中",
+        "title": "ナウンズ"
+    },
+    "noun": {
+        "list": {
+            "item": {
+                "bid": "入札"
+            }
+        }
+    }
+}

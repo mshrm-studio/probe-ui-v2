@@ -1,5 +1,6 @@
 'use client';
 
+import { isLocale } from '@/utils/enums/Locale';
 import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
 
@@ -16,15 +17,15 @@ export default function LocalisedNumber({
     const { lang } = useParams();
 
     const formattedNumber = useMemo(() => {
-        const n = new Intl.NumberFormat(
-            (lang as string).startsWith('zh') ? `${lang}-u-nu-hanidec` : lang
-        ).format(Number(number));
+        if (isLocale(lang) === false) return number;
+
+        const n = new Intl.NumberFormat(lang).format(Number(number));
 
         if (removeCommasAndPeriods) {
             return n.replace(/[.,]/g, '');
         }
 
-        return n;
+        return number;
     }, [lang]);
 
     return <span className={className}>{formattedNumber}</span>;

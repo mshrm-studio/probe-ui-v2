@@ -1,0 +1,27 @@
+{
+    "auth": {
+        "connect": "接続",
+        "connectedAs": ":ethAddress として接続中",
+        "disconnect": "切断",
+        "imgAlt": "ユーザーアイコン",
+        "showAuthMenu": "認証メニューを表示"
+    },
+    "explore": "探索",
+    "filters": {
+        "imgAlt": "フィルターアイコン",
+        "showFilters": "フィルターを表示"
+    },
+    "language": {
+        "showLanguageMenu": "言語メニューを表示"
+    },
+    "probe": {
+        "dreamsLinkText": "ドリーム一覧",
+        "imgAlt": "プローブロゴ",
+        "lilsLinkText": "リルズ",
+        "nounsLinkText": "ナウンズ"
+    },
+    "search": {
+        "imgAlt": "虫眼鏡アイコン",
+        "showSearchBar": "検索バーを表示"
+    }
+}

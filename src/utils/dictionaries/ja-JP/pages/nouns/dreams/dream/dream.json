@@ -1,0 +1,18 @@
+{
+    "breadcrumbs": {
+        "dream": "ドリーム :id",
+        "dreams": "ドリーム一覧",
+        "nouns": "ナウンズ"
+    },
+    "details": {
+        "about": "概要",
+        "date": "日付",
+        "dream": "ドリーム",
+        "dreamer": "夢見る者",
+        "new": "新規"
+    },
+    "metadata": {
+        "description": "ドリーム :id の統計を調べる",
+        "title": "ドリーム :id"
+    }
+}

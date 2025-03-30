@@ -1,0 +1,40 @@
+{
+    "breadcrumbs": {
+        "noun": "ナウン :id",
+        "nouns": "ナウンズ"
+    },
+    "details": {
+        "about": "概要",
+        "auction": {
+            "allBids": "すべての入札",
+            "allocatedTo": "割り当て先",
+            "bid": "入札",
+            "by": "入札者",
+            "endsIn": "オークション終了まで",
+            "currentBid": "現在の入札額",
+            "h": "時間",
+            "loginToBid": "入札するにはログイン",
+            "m": "分",
+            "maxBid": "最高入札額",
+            "minted": "ミント済み",
+            "orMore": "以上",
+            "receipt": "領収書",
+            "s": "秒",
+            "seeAllBids": "すべての入札を見る",
+            "via": "経由",
+            "winningBid": "落札額"
+        },
+        "colors": "色",
+        "currentOwner": "現在の所有者",
+        "noun": "ナウン",
+        "settledBy": "決済者",
+        "traits": {
+            "area": "エリア",
+            "brightness": "明るさ"
+        }
+    },
+    "metadata": {
+        "description": "ナウン :id の色と統計を調べる",
+        "title": "ナウン :id"
+    }
+}

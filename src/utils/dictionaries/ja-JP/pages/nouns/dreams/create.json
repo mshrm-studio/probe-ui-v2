@@ -1,0 +1,15 @@
+{
+    "customTraitForm": {
+        "addTrait": "特性を追加",
+        "traitType": "特性の種類"
+    },
+    "metadata": {
+        "description": "理想のナウンを作ろう",
+        "title": "ドリームを作成"
+    },
+    "randomize": "ランダム化",
+    "seedForm": {
+        "dream": "ドリーム",
+        "uploadTrait": "特性をアップロード"
+    }
+}

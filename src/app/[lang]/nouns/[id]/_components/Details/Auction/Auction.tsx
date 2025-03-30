@@ -45,11 +45,9 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
             ) {
                 const l = lang as string;
 
-                const f = l.startsWith('zh') ? `${l}-u-nu-hanidec` : l;
-
-                const h = new Intl.NumberFormat(f).format(Math.floor(hours));
-                const m = new Intl.NumberFormat(f).format(Math.floor(minutes));
-                const s = new Intl.NumberFormat(f).format(Math.floor(seconds));
+                const h = new Intl.NumberFormat(l).format(Math.floor(hours));
+                const m = new Intl.NumberFormat(l).format(Math.floor(minutes));
+                const s = new Intl.NumberFormat(l).format(Math.floor(seconds));
 
                 const timeH = h + dict.noun.details.auction.h;
                 const timeM = m + dict.noun.details.auction.m;

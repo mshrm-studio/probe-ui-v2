@@ -80,6 +80,17 @@ export default function HeaderLanguage({ dict }: Props) {
                             繁體中文
                         </button>
                     </li>
+
+                    <li>
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setLocaleCookieAndNavigate(Locale.Japanese)
+                            }
+                        >
+                            日本語
+                        </button>
+                    </li>
                 </ul>
             </PopoverPanel>
         </Popover>
