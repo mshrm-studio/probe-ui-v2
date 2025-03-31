@@ -17,54 +17,6 @@ export default function DetailsTraitsName({
     noun,
     type,
 }: Props) {
-    if (noun) {
-        if (type === NounTraitLayer.Accessory) {
-            return (
-                <span data-db-trait-name={noun.accessory_name}>
-                    {dict.traits[noun.accessory_name]}
-                </span>
-            );
-        }
-
-        if (type === NounTraitLayer.Background) {
-            return (
-                <span data-db-trait-id={noun.background_index}>
-                    {
-                        dict.traits[
-                            `background-${
-                                noun.background_index == 0 ? 'cool' : 'warm'
-                            }`
-                        ]
-                    }
-                </span>
-            );
-        }
-
-        if (type === NounTraitLayer.Body) {
-            return (
-                <span data-db-trait-name={noun.body_name}>
-                    {dict.traits[noun.body_name]}
-                </span>
-            );
-        }
-
-        if (type === NounTraitLayer.Glasses) {
-            return (
-                <span data-db-trait-name={noun.glasses_name}>
-                    {dict.traits[noun.glasses_name]}
-                </span>
-            );
-        }
-
-        if (type === NounTraitLayer.Head) {
-            return (
-                <span data-db-trait-name={noun.head_name}>
-                    {dict.traits[noun.head_name]}
-                </span>
-            );
-        }
-    }
-
     if (auction) {
         if (type === NounTraitLayer.Accessory) {
             return (
@@ -134,6 +86,54 @@ export default function DetailsTraitsName({
                             ].filename
                         ]
                     }
+                </span>
+            );
+        }
+    }
+
+    if (noun) {
+        if (type === NounTraitLayer.Accessory) {
+            return (
+                <span data-db-trait-name={noun.accessory_name}>
+                    {dict.traits[noun.accessory_name]}
+                </span>
+            );
+        }
+
+        if (type === NounTraitLayer.Background) {
+            return (
+                <span data-db-trait-id={noun.background_index}>
+                    {
+                        dict.traits[
+                            `background-${
+                                noun.background_index == 0 ? 'cool' : 'warm'
+                            }`
+                        ]
+                    }
+                </span>
+            );
+        }
+
+        if (type === NounTraitLayer.Body) {
+            return (
+                <span data-db-trait-name={noun.body_name}>
+                    {dict.traits[noun.body_name]}
+                </span>
+            );
+        }
+
+        if (type === NounTraitLayer.Glasses) {
+            return (
+                <span data-db-trait-name={noun.glasses_name}>
+                    {dict.traits[noun.glasses_name]}
+                </span>
+            );
+        }
+
+        if (type === NounTraitLayer.Head) {
+            return (
+                <span data-db-trait-name={noun.head_name}>
+                    {dict.traits[noun.head_name]}
                 </span>
             );
         }
