@@ -20,7 +20,14 @@ export default function DetailsTraitsName({
     if (auction) {
         if (type === NounTraitLayer.Accessory) {
             return (
-                <span data-auction-trait-id={auction.noun.seed.accessory}>
+                <span
+                    data-auction-trait-id={auction.noun.seed.accessory}
+                    data-auction-trait-name={
+                        ImageData.images.accessories[
+                            Number(auction.noun.seed.accessory)
+                        ].filename
+                    }
+                >
                     {
                         dict.traits[
                             ImageData.images.accessories[
@@ -50,7 +57,13 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Body) {
             return (
-                <span data-auction-trait-id={auction.noun.seed.body}>
+                <span
+                    data-auction-trait-id={auction.noun.seed.body}
+                    data-auction-trait-name={
+                        ImageData.images.bodies[Number(auction.noun.seed.body)]
+                            .filename
+                    }
+                >
                     {
                         dict.traits[
                             ImageData.images.bodies[
@@ -64,7 +77,14 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Glasses) {
             return (
-                <span data-auction-trait-id={auction.noun.seed.glasses}>
+                <span
+                    data-auction-trait-id={auction.noun.seed.glasses}
+                    data-auction-trait-name={
+                        ImageData.images.glasses[
+                            Number(auction.noun.seed.glasses)
+                        ].filename
+                    }
+                >
                     {
                         dict.traits[
                             ImageData.images.glasses[
@@ -78,7 +98,13 @@ export default function DetailsTraitsName({
 
         if (type === NounTraitLayer.Head) {
             return (
-                <span data-auction-trait-id={auction.noun.seed.head}>
+                <span
+                    data-auction-trait-id={auction.noun.seed.head}
+                    data-auction-trait-name={
+                        ImageData.images.heads[Number(auction.noun.seed.head)]
+                            .filename
+                    }
+                >
                     {
                         dict.traits[
                             ImageData.images.heads[
