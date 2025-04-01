@@ -196,15 +196,8 @@ export default function SeedForm({
 
     return (
         <div className={styles.container}>
-            {customTraitLayer !== NounTraitLayer.Accessory && (
-                <SelectNounAccessory
-                    selected={accessory}
-                    setSelected={setAccessory}
-                />
-            )}
-
-            {customTraitLayer !== NounTraitLayer.Body && (
-                <SelectNounBody selected={body} setSelected={setBody} />
+            {customTraitLayer !== NounTraitLayer.Head && (
+                <SelectNounHead selected={head} setSelected={setHead} />
             )}
 
             {customTraitLayer !== NounTraitLayer.Glasses && (
@@ -214,8 +207,15 @@ export default function SeedForm({
                 />
             )}
 
-            {customTraitLayer !== NounTraitLayer.Head && (
-                <SelectNounHead selected={head} setSelected={setHead} />
+            {customTraitLayer !== NounTraitLayer.Accessory && (
+                <SelectNounAccessory
+                    selected={accessory}
+                    setSelected={setAccessory}
+                />
+            )}
+
+            {customTraitLayer !== NounTraitLayer.Body && (
+                <SelectNounBody selected={body} setSelected={setBody} />
             )}
 
             <SelectNounBackground

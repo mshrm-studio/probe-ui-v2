@@ -20,10 +20,10 @@ export const DreamImageFromSeed: React.FC<Props> = ({
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [inheritedSize, setInheritedSize] = useState<number | null>(null);
 
-    const bodyBitmap = useTraitBitmap('bodies', seed.body);
-    const accessoryBitmap = useTraitBitmap('accessories', seed.accessory);
-    const headBitmap = useTraitBitmap('heads', seed.head);
-    const glassesBitmap = useTraitBitmap('glasses', seed.glasses);
+    const body = useTraitBitmap('bodies', seed.body);
+    const accessory = useTraitBitmap('accessories', seed.accessory);
+    const head = useTraitBitmap('heads', seed.head);
+    const glasses = useTraitBitmap('glasses', seed.glasses);
 
     useEffect(() => {
         if (!size && canvasRef.current) {
@@ -54,7 +54,7 @@ export const DreamImageFromSeed: React.FC<Props> = ({
 
         const ctx = canvas.getContext('2d')!;
 
-        if (!accessoryBitmap || !bodyBitmap || !headBitmap || !glassesBitmap) {
+        if (!body || !accessory || !head || !glasses) {
             canvas.style.width = '100%';
             canvas.style.height = '100%';
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear any existing content
@@ -73,22 +73,10 @@ export const DreamImageFromSeed: React.FC<Props> = ({
             ctx.fillRect(margin, margin, canvasSize, canvasSize);
 
             // Draw images once all bitmaps are loaded
-            ctx.drawImage(bodyBitmap, margin, margin, canvasSize, canvasSize);
-            ctx.drawImage(
-                accessoryBitmap,
-                margin,
-                margin,
-                canvasSize,
-                canvasSize
-            );
-            ctx.drawImage(headBitmap, margin, margin, canvasSize, canvasSize);
-            ctx.drawImage(
-                glassesBitmap,
-                margin,
-                margin,
-                canvasSize,
-                canvasSize
-            );
+            ctx.drawImage(body, margin, margin, canvasSize, canvasSize);
+            ctx.drawImage(accessory, margin, margin, canvasSize, canvasSize);
+            ctx.drawImage(head, margin, margin, canvasSize, canvasSize);
+            ctx.drawImage(glasses, margin, margin, canvasSize, canvasSize);
 
             if (circleCrop) {
                 ctx.globalCompositeOperation = 'destination-in';
@@ -106,14 +94,14 @@ export const DreamImageFromSeed: React.FC<Props> = ({
             }
         });
     }, [
-        accessoryBitmap,
+        accessory,
         backgroundColor,
-        bodyBitmap,
+        body,
         canvasRef,
         canvasSize,
         circleCrop,
-        headBitmap,
-        glassesBitmap,
+        head,
+        glasses,
         margin,
     ]);
 

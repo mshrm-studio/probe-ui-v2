@@ -71,6 +71,7 @@
 
 .options {
     position: absolute;
+    margin-top: 0.5rem;
     z-index: 10;
     max-height: var(--dropdown-max-height, 20rem) !important;
     max-width: var(--input-width, 15rem) !important;
@@ -80,7 +81,6 @@
     padding-top: 0.25rem;
     border: 1px solid #d5d7e1;
     box-shadow: 0px 4px 16.5px 4px rgba(0, 0, 0, 0.1);
-    overscroll-behavior: contain;
 }
 
 .option {

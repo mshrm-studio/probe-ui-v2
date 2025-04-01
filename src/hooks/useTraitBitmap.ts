@@ -10,8 +10,13 @@ export const useTraitBitmap = (
     const [bitmap, setBitmap] = useState<ImageBitmap | null>(null);
 
     useEffect(() => {
-        const loadBitmap = async () => {
+        async function loadBitmap() {
             try {
+                if (trait === null || trait === undefined) {
+                    setBitmap(null);
+                    return;
+                }
+
                 // If it's already an ImageBitmap (uploaded image), use it directly
                 if (trait instanceof ImageBitmap) {
                     setBitmap(trait);
@@ -123,12 +128,13 @@ export const useTraitBitmap = (
 
                 // Convert to ImageBitmap
                 const imgBitmap = await createImageBitmap(canvas);
+
                 setBitmap(imgBitmap);
             } catch (error) {
                 console.error('Failed to decode RLE:', error);
                 setBitmap(null);
             }
-        };
+        }
 
         loadBitmap();
     }, [layer, trait]);

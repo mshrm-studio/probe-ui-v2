@@ -18,7 +18,6 @@ import Image from '@/app/_components/Image';
 import useDictionary from '@/hooks/useDictionary';
 
 interface Props<ValueType> {
-    anchorTo?: 'bottom' | 'right';
     boxShadowStyle?: 'solid' | 'blurred';
     disabled?: boolean;
     label?: string;
@@ -29,7 +28,6 @@ interface Props<ValueType> {
 }
 
 export default function AppComboxbox<ValueType extends string | number>({
-    anchorTo = 'bottom',
     boxShadowStyle = 'solid',
     disabled,
     label,
@@ -118,17 +116,11 @@ export default function AppComboxbox<ValueType extends string | number>({
                 />
 
                 <ComboboxButton className={styles.button}>
-                    <ChevronDownIcon
-                        className={styles.buttonIcon}
-                        data-options-anchored-to={anchorTo}
-                    />
+                    <ChevronDownIcon className={styles.buttonIcon} />
                 </ComboboxButton>
 
                 {filteredOptions.length > 0 && (
-                    <ComboboxOptions
-                        className={styles.options}
-                        anchor={{ to: anchorTo, gap: '8px' }}
-                    >
+                    <ComboboxOptions className={styles.options}>
                         {filteredOptions.map((option) => (
                             <ComboboxOption
                                 key={option.value}
