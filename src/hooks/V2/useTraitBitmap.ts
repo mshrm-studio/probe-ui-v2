@@ -49,15 +49,12 @@ export const useTraitBitmap = (
                     return;
                 }
 
-                console.log('image.data', image.data);
-
                 const { width, height, colorIndexes, paletteIndex } =
                     decodeTrait(image.data as EncodedTrait, 32, 32);
 
                 const normalisedPalette = palette.map((color) =>
                     color == '' ? TRANSPARENT_HEX : `#${color}`
                 );
-                console.log('normalisedPalette', normalisedPalette);
 
                 const { data } = colormap(
                     { width, height, colorIndexes },
