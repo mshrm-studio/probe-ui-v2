@@ -33,8 +33,9 @@ export default function HeaderAuth({ dict }: Props) {
                 <Image
                     src="header/user.svg"
                     alt={dict.header.auth.imgAlt}
-                    height={19}
-                    width={15}
+                    className={popoverStyles.imgContainer}
+                    objectFit="contain"
+                    sizes="15px"
                 />
             </button>
         );
@@ -48,8 +49,9 @@ export default function HeaderAuth({ dict }: Props) {
                 <Image
                     src="header/user.svg"
                     alt={dict.header.auth.imgAlt}
-                    height={19}
-                    width={15}
+                    className={popoverStyles.imgContainer}
+                    objectFit="contain"
+                    sizes="15px"
                 />
             </PopoverButton>
 

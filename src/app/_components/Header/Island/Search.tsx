@@ -54,10 +54,11 @@ export default function HeaderSearch({ dict }: Props) {
                 </span>
 
                 <Image
+                    className={popoverStyles.imgContainer}
                     src="header/search.svg"
                     alt={dict.header.search.imgAlt}
-                    height={15}
-                    width={15}
+                    objectFit="contain"
+                    sizes="15px"
                 />
             </button>
         );
@@ -71,10 +72,11 @@ export default function HeaderSearch({ dict }: Props) {
                 </span>
 
                 <Image
+                    className={popoverStyles.imgContainer}
                     src="header/search.svg"
                     alt={dict.header.search.imgAlt}
-                    height={15}
-                    width={15}
+                    objectFit="contain"
+                    sizes="15px"
                 />
             </PopoverButton>
 

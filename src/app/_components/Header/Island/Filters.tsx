@@ -24,8 +24,9 @@ export default function HeaderFilters({ dict }: Props) {
             <Image
                 src={show ? 'header/filter-active.svg' : 'header/filter.svg'}
                 alt={dict.header.filters.imgAlt}
-                height={15}
-                width={27}
+                className={popoverStyles.imgContainer}
+                objectFit="contain"
+                sizes="15px"
             />
         </button>
     );

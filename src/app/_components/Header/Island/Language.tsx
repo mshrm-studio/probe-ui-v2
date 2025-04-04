@@ -5,10 +5,10 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import popoverStyles from '@/app/_styles/header/island/popover.module.css';
 import styles from '@/app/_styles/header/island/auth.module.css';
 import clsx from 'clsx';
-import { LanguageIcon } from '@heroicons/react/20/solid';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { Locale } from '@/utils/enums/Locale';
 import { useCallback } from 'react';
+import Image from '@/app/_components/Image';
 
 interface Props {
     dict: Dictionary;
@@ -35,7 +35,13 @@ export default function HeaderLanguage({ dict }: Props) {
                     {dict.header.language.showLanguageMenu}
                 </span>
 
-                <LanguageIcon className="h-4 w-4" />
+                <Image
+                    src="header/lang.gif"
+                    alt={dict.header.language.showLanguageMenu}
+                    className={popoverStyles.imgContainer}
+                    objectFit="contain"
+                    sizes="15px"
+                />
             </PopoverButton>
 
             <PopoverPanel
