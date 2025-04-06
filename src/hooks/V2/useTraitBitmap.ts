@@ -14,6 +14,15 @@ export const useTraitBitmap = (
     const [bitmap, setBitmap] = useState<ImageBitmap | null>(null);
 
     useEffect(() => {
+        console.log(
+            '[useTraitBitmap] effect firing for:',
+            layer,
+            'trait:',
+            trait,
+            'time:',
+            new Date().toISOString()
+        );
+
         async function loadBitmap() {
             try {
                 if (trait === null || trait === undefined) {

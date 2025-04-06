@@ -17,6 +17,8 @@ export const DreamImageFromSeed: React.FC<Props> = ({
     seed,
     size,
 }) => {
+    console.log('[DreamImageFromSeed] render:', seed, new Date().toISOString());
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [inheritedSize, setInheritedSize] = useState<number | null>(null);
 
