@@ -4,8 +4,11 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import { AuctionHouseContext } from '@/context/AuctionHouse';
 import { formatEther } from 'ethers';
 import AuctionFromContract from '@/utils/dto/Noun/Auction/FromContract';
+import useDictionary from '@/hooks/useDictionary';
 
 const useLiveAuction = () => {
+    const dict = useDictionary();
+
     const {
         httpAuctionHouseContract: httpContract,
         wsAuctionHouseContract: wsContract,
@@ -62,6 +65,12 @@ const useLiveAuction = () => {
                 amount: formatEther(value),
                 bidder: sender,
             }
+        );
+
+        alert(
+            dict.noun.details.action.newBidPlaced
+                .replace(':amount', formatEther(value))
+                .replace(':bidder', sender)
         );
 
         // EG 0xf193C62Bf66A2da6f4fa5Cacad6F75DcF7D7fA96 1000000000000n false

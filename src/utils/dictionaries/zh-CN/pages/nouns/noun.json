@@ -17,6 +17,7 @@
             "m": "分",
             "maxBid": "最高出价",
             "minted": "铸造",
+            "newBidPlaced": "收到来自 :bidder 的新出价 :amount ETH",
             "orMore": "或更多",
             "receipt": "收据",
             "s": "秒",

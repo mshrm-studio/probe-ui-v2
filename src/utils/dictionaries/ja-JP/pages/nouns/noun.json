@@ -17,6 +17,7 @@
             "m": "分",
             "maxBid": "最高入札額",
             "minted": "ミント済み",
+            "newBidPlaced": ":bidder から :amount ETH の新しい入札がありました",
             "orMore": "以上",
             "receipt": "領収書",
             "s": "秒",

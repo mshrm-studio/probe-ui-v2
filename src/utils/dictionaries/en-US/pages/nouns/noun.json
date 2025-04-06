@@ -17,6 +17,7 @@
             "m": "M",
             "maxBid": "Max bid",
             "minted": "Minted",
+            "newBidPlaced": "New bid place of :amount ETH from :bidder",
             "orMore": "or more",
             "receipt": "Receipt",
             "s": "S",
