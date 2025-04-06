@@ -99,7 +99,7 @@ const useLiveAuction = () => {
         }
 
         alert(
-            dict.noun.details.action.newBidPlaced
+            dict.noun.details.auction.newBidPlaced
                 .replace(':amount', formatEther(value))
                 .replace(':bidder', sender)
         );
