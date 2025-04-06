@@ -59,6 +59,8 @@ const useLiveAuction = () => {
             extended
         );
 
+        // EG 0xf193C62Bf66A2da6f4fa5Cacad6F75DcF7D7fA96 1000000000000n false
+
         console.log(
             '[useLiveAuction] handleAuctionBid, setAuction with following:',
             {
@@ -66,14 +68,6 @@ const useLiveAuction = () => {
                 bidder: sender,
             }
         );
-
-        alert(
-            dict.noun.details.action.newBidPlaced
-                .replace(':amount', formatEther(value))
-                .replace(':bidder', sender)
-        );
-
-        // EG 0xf193C62Bf66A2da6f4fa5Cacad6F75DcF7D7fA96 1000000000000n false
 
         setAuction((prev) => {
             console.log(
@@ -103,6 +97,12 @@ const useLiveAuction = () => {
         if (extended) {
             fetchAuctionDetails();
         }
+
+        alert(
+            dict.noun.details.action.newBidPlaced
+                .replace(':amount', formatEther(value))
+                .replace(':bidder', sender)
+        );
     };
 
     // Fetch the auction details whenever the contract or auction ID changes
