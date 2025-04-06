@@ -106,7 +106,7 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
 
             await tx.wait();
 
-            window.location.reload();
+            // window.location.reload();
         } catch (error: any) {
             alert(error?.info?.error?.message || error.code);
         }
