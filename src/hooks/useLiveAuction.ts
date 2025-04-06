@@ -49,20 +49,39 @@ const useLiveAuction = () => {
         value: string,
         extended: boolean
     ) => {
-        console.log('handleAuctionBid:', sender, value, extended);
+        console.log(
+            '[useLiveAuction] handleAuctionBid',
+            sender,
+            value,
+            extended
+        );
+
+        console.log(
+            '[useLiveAuction] handleAuctionBid, setAuction with following:',
+            {
+                amount: formatEther(value),
+                bidder: sender,
+            }
+        );
 
         // EG 0xf193C62Bf66A2da6f4fa5Cacad6F75DcF7D7fA96 1000000000000n false
 
         setAuction((prev) => {
-            console.log('Previous auction state:', prev);
+            console.log(
+                '[useLiveAuction] Inside setAuction callback, prev =',
+                prev
+            );
 
             if (!prev) return prev;
 
-            console.log('Updating auction state:', {
-                ...prev,
-                amount: formatEther(value),
-                bidder: sender,
-            });
+            console.log(
+                '[useLiveAuction] Inside setAuction callback, setting state =',
+                {
+                    ...prev,
+                    amount: formatEther(value),
+                    bidder: sender,
+                }
+            );
 
             return {
                 ...prev,
