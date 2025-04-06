@@ -50,8 +50,15 @@ const useLiveAuction = () => {
         extended: boolean
     ) => {
         console.log('handleAuctionBid:', sender, value, extended);
+
         setAuction((prev) => {
             if (!prev) return prev;
+
+            console.log('Updating auction state:', {
+                ...prev,
+                amount: formatEther(value),
+                bidder: sender,
+            });
 
             return {
                 ...prev,
