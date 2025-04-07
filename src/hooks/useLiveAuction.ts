@@ -4,8 +4,11 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import { AuctionHouseContext } from '@/context/AuctionHouse';
 import { formatEther } from 'ethers';
 import AuctionFromContract from '@/utils/dto/Noun/Auction/FromContract';
+import useDictionary from '@/hooks/useDictionary';
 
 const useLiveAuction = () => {
+    const dict = useDictionary();
+
     const {
         httpAuctionHouseContract: httpContract,
         wsAuctionHouseContract: wsContract,
@@ -49,9 +52,39 @@ const useLiveAuction = () => {
         value: string,
         extended: boolean
     ) => {
-        console.log('handleAuctionBid:', sender, value, extended);
+        console.log(
+            '[useLiveAuction] handleAuctionBid',
+            sender,
+            value,
+            extended
+        );
+
+        // EG 0xf193C62Bf66A2da6f4fa5Cacad6F75DcF7D7fA96 1000000000000n false
+
+        console.log(
+            '[useLiveAuction] handleAuctionBid, setAuction with following:',
+            {
+                amount: formatEther(value),
+                bidder: sender,
+            }
+        );
+
         setAuction((prev) => {
+            console.log(
+                '[useLiveAuction] Inside setAuction callback, prev =',
+                prev
+            );
+
             if (!prev) return prev;
+
+            console.log(
+                '[useLiveAuction] Inside setAuction callback, setting state =',
+                {
+                    ...prev,
+                    amount: formatEther(value),
+                    bidder: sender,
+                }
+            );
 
             return {
                 ...prev,
@@ -64,6 +97,12 @@ const useLiveAuction = () => {
         if (extended) {
             fetchAuctionDetails();
         }
+
+        alert(
+            dict.noun.details.auction.newBidPlaced
+                .replace(':amount', formatEther(value))
+                .replace(':bidder', sender)
+        );
     };
 
     // Fetch the auction details whenever the contract or auction ID changes

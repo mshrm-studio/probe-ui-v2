@@ -52,19 +52,15 @@ export default function DetailsAuctionCurrentBid({
                 Ξ <LocalisedNumber number={amount} />
             </span>
 
-            {auction.bidder && (
-                <>
-                    <span>{dict.noun.details.auction.by}</span>
+            <span>{dict.noun.details.auction.by}</span>
 
-                    <span title={bidder}>
-                        <EtherscanLink type="Address" address={bidder}>
-                            <EthAddress address={bidder} />
-                        </EtherscanLink>
-                    </span>
+            <span title={bidder}>
+                <EtherscanLink type="Address" address={bidder}>
+                    <EthAddress address={bidder} />
+                </EtherscanLink>
+            </span>
 
-                    <AuctionClient auction={auction} />
-                </>
-            )}
+            <AuctionClient auction={auction} />
         </div>
     );
 }

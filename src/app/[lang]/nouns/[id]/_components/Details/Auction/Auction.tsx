@@ -51,7 +51,7 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
 
                 const timeH = h + dict.noun.details.auction.h;
                 const timeM = m + dict.noun.details.auction.m;
-                const timeS = s + dict.noun.details.auction.m;
+                const timeS = s + dict.noun.details.auction.s;
 
                 setTimeRemaining(`${timeH} ${timeM} ${timeS}`);
             } else {
@@ -66,7 +66,7 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
         const interval = setInterval(calculateTimeRemaining, 1000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [calculateTimeRemaining]);
 
     return (
         <div className={className}>

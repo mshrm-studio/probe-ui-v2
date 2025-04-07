@@ -26,7 +26,15 @@ export default function LocalisedNumber({
         }
 
         return number;
-    }, [lang]);
+    }, [number, lang, removeCommasAndPeriods]);
 
-    return <span className={className}>{formattedNumber}</span>;
+    return (
+        <span
+            className={className}
+            data-number={number}
+            data-typeof-number={typeof number}
+        >
+            {formattedNumber}
+        </span>
+    );
 }

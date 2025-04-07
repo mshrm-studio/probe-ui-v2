@@ -22,6 +22,7 @@
         "axios": "^1.8.1",
         "chroma-js": "^3.1.2",
         "clsx": "^2.1.1",
+        "colord": "^2.9.3",
         "ethers": "^6.13.5",
         "graphql": "^16.10.0",
         "luxon": "^3.5.0",
@@ -30,6 +31,7 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-in-viewport": "^1.0.0-beta.8",
+        "remeda": "^2.21.2",
         "urql": "^4.2.1"
     },
     "devDependencies": {

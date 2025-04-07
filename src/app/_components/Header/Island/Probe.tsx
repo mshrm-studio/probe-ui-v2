@@ -17,8 +17,9 @@ export default function HeaderProbe({ dict }: Props) {
                 <Image
                     src="header/probe.svg"
                     alt={dict.header.probe.imgAlt}
-                    height={15}
-                    width={15}
+                    className={popoverStyles.imgContainer}
+                    objectFit="contain"
+                    sizes="15px"
                 />
             </PopoverButton>
 

@@ -98,7 +98,7 @@ const AuctionHouseProvider: React.FC<Props> = ({
 
     useEffect(() => {
         if (!httpAuctionHouseContract) {
-            console.warn('AuctionHouse contract not available');
+            console.warn('Auction House contract not available');
             return;
         }
 

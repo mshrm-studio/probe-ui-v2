@@ -2,7 +2,7 @@
 
 import styles from '@/app/[lang]/nouns/dreams/create/_styles/content.module.css';
 import DreamSeed from '@/utils/dto/Dream/Seed';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Form from '@/app/[lang]/nouns/dreams/create/_components/Form/Form';
 import Preview from '@/app/[lang]/nouns/dreams/create/_components/Preview';
 import Background from '@/app/[lang]/nouns/dreams/create/_components/Background';
@@ -28,30 +28,40 @@ export default function Content({ children, dict }: Props) {
         head: 0,
     });
 
+    console.log('[Content] render. seed:', seed);
+
     const randomize = useCallback(() => {
+        console.log('[randomize] called. old seed:', seed);
+
         const { images } = ImageData;
 
         const { accessories, bodies, glasses, heads } = images;
 
-        setSeed((prev) => ({
-            accessory:
-                customTraitLayer === NounTraitLayer.Accessory
-                    ? prev.accessory
-                    : Math.floor(Math.random() * accessories.length),
-            background: Math.floor(Math.random() * 2),
-            body:
-                customTraitLayer === NounTraitLayer.Body
-                    ? prev.body
-                    : Math.floor(Math.random() * bodies.length),
-            glasses:
-                customTraitLayer === NounTraitLayer.Glasses
-                    ? prev.glasses
-                    : Math.floor(Math.random() * glasses.length),
-            head:
-                customTraitLayer === NounTraitLayer.Head
-                    ? prev.head
-                    : Math.floor(Math.random() * heads.length),
-        }));
+        setSeed((prev) => {
+            const newSeed = {
+                accessory:
+                    customTraitLayer === NounTraitLayer.Accessory
+                        ? prev.accessory
+                        : Math.floor(Math.random() * accessories.length),
+                background: Math.floor(Math.random() * 2),
+                body:
+                    customTraitLayer === NounTraitLayer.Body
+                        ? prev.body
+                        : Math.floor(Math.random() * bodies.length),
+                glasses:
+                    customTraitLayer === NounTraitLayer.Glasses
+                        ? prev.glasses
+                        : Math.floor(Math.random() * glasses.length),
+                head:
+                    customTraitLayer === NounTraitLayer.Head
+                        ? prev.head
+                        : Math.floor(Math.random() * heads.length),
+            };
+
+            console.log('[randomize] new seed:', newSeed);
+
+            return newSeed;
+        });
     }, [customTraitLayer]);
 
     return (

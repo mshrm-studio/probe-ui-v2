@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useTraitBitmap } from '@/hooks/useTraitBitmap';
+import { useTraitBitmap } from '@/hooks/V2/useTraitBitmap';
 import DreamSeed from '@/utils/dto/Dream/Seed';
 
 interface Props {
@@ -17,6 +17,8 @@ export const DreamImageFromSeed: React.FC<Props> = ({
     seed,
     size,
 }) => {
+    console.log('[DreamImageFromSeed] render:', seed, new Date().toISOString());
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [inheritedSize, setInheritedSize] = useState<number | null>(null);
 

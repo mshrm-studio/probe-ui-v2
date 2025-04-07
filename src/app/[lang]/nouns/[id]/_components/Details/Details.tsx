@@ -43,7 +43,7 @@ export default function Details({ auction, dict, noun }: Props) {
                         />
                     </TokenProvider>
 
-                    {auction?.settled && (
+                    {auction && auction.settled && (
                         <>
                             <WinningBid
                                 auction={auction}
