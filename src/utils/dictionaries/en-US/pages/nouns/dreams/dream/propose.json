@@ -1,0 +1,26 @@
+{
+    "back": "Back",
+    "breadcrumbs": {
+        "dream": "Dream :id",
+        "dreams": "Dreams",
+        "nouns": "Nouns",
+        "propose": "Propose"
+    },
+    "metadata": {
+        "description": "Create Proposal for Dream :id",
+        "title": "Create Proposal"
+    },
+    "titleAndDescription": {
+        "field": {
+            "description": {
+                "label": "Proposal",
+                "placeholder": "Use markdown shortcuts like '#' and '1.' to create headings and lists."
+            },
+            "title": {
+                "label": "Title",
+                "placeholder": "Write your title"
+            }
+        },
+        "title": "Create a title and write your dream proposal"
+    }
+}

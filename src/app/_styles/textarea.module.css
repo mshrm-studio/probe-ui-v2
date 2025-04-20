@@ -1,0 +1,25 @@
+.textarea {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: 700;
+    background-color: #fff;
+    border-style: solid;
+    width: 100%;
+    font-size: 1.625rem;
+    border-color: transparent;
+    border-width: 1px;
+    field-sizing: content;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.textarea:disabled {
+    cursor: not-allowed;
+}
+
+.textarea::placeholder {
+    text-transform: uppercase;
+    color: #000;
+}

@@ -1,4 +1,3 @@
-import { locales } from '@/utils/enums/Locale';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
