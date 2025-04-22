@@ -3,7 +3,8 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/content.module.css';
 import { useState } from 'react';
-import ProposalWriteUp from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/ProposalWriteUp';
+import WriteUp from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/WriteUp';
+import RequestCompensation from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/RequestCompensation';
 import SectionHeader from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/Header';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import useImageBitmap from '@/hooks/V2/useImageBitmap';
@@ -13,10 +14,7 @@ interface Props {
     dream: DreamFromDB;
 }
 
-export type Section =
-    | 'WriteUp'
-    | 'ArtworkContribution'
-    | 'RequestedCompensation';
+export type Section = 'WriteUp' | 'RequestCompensation';
 
 export default function Content({ dict, dream }: Props) {
     const [section, setSection] = useState<Section>('WriteUp');
@@ -52,20 +50,26 @@ export default function Content({ dict, dream }: Props) {
                 setSection={setSection}
             />
 
-            {!traitCanvas ||
-                (!traitBitmap && (
-                    <p>{dict.propose.error.invalidCustomTrait}</p>
-                ))}
+            {(!traitCanvas || !traitBitmap) && (
+                <p>{dict.propose.error.invalidCustomTrait}</p>
+            )}
 
             {traitCanvas && traitBitmap && section === 'WriteUp' && (
-                <ProposalWriteUp
+                <WriteUp
                     dict={dict}
                     dream={dream}
                     traitCanvas={traitCanvas}
                     writeUp={writeUp}
                     setWriteUp={setWriteUp}
+                    goToNextSection={() => setSection('RequestCompensation')}
                 />
             )}
+
+            {traitCanvas &&
+                traitBitmap &&
+                section === 'RequestCompensation' && (
+                    <RequestCompensation dict={dict} />
+                )}
         </div>
     );
 }

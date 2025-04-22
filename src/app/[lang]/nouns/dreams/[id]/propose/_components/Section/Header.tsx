@@ -17,20 +17,20 @@ export default function SectionHeader({ dict, section, setSection }: Props) {
     const router = useRouter();
 
     const title = useMemo(() => {
-        if (section === 'WriteUp') {
+        if (section === 'WriteUp')
             return dict.propose.titleAndDescription.title;
-        }
 
-        return dict.propose.requestedCompensation.title;
+        if (section === 'RequestCompensation')
+            return dict.propose.requestCompensation.title;
+
+        return '';
     }, [dict, section]);
 
     const handleClick = useCallback(() => {
         if (section === 'WriteUp') {
             router.back();
-        } else if (section === 'ArtworkContribution') {
+        } else if (section === 'RequestCompensation') {
             setSection('WriteUp');
-        } else if (section === 'RequestedCompensation') {
-            setSection('ArtworkContribution');
         }
     }, [section]);
 

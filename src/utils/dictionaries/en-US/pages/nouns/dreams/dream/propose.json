@@ -14,6 +14,18 @@
         "description": "Create Proposal for Dream :id",
         "title": "Create Proposal"
     },
+    "requestCompensation": {
+        "action": {
+            "signArtworkAgreement": "Sign CC0 Waiver"
+        },
+        "field": {
+            "eth": {
+                "label": "Request ETH",
+                "placeholder": "Specify ETH amnt"
+            }
+        },
+        "title": "Would you like to request componsation? This will be sent to the wallet you are proposing from right now."
+    },
     "titleAndDescription": {
         "field": {
             "description": {
@@ -25,6 +37,7 @@
                 "placeholder": "Write your title"
             }
         },
+        "next": "Next",
         "propsalPreviewTitle": "Proposal Preview",
         "title": "Create a title and write your dream proposal"
     }

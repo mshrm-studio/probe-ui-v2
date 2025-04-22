@@ -5,9 +5,10 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import React, { useEffect, useState } from 'react';
-import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/proposal-write-up.module.css';
+import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/write-up.module.css';
 import clsx from 'clsx';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
+import Button from '@/app/_components/Button';
 
 interface Props {
     dict: Dictionary;
@@ -15,14 +16,16 @@ interface Props {
     traitCanvas: HTMLCanvasElement;
     writeUp: string;
     setWriteUp: React.Dispatch<React.SetStateAction<string>>;
+    goToNextSection: () => void;
 }
 
-export default function ProposalWriteUp({
+export default function WriteUp({
     dict,
     dream,
     traitCanvas,
     writeUp,
     setWriteUp,
+    goToNextSection,
 }: Props) {
     const [description, setDescription] = useState<string>('');
 
@@ -96,6 +99,16 @@ export default function ProposalWriteUp({
                     </div>
                 </div>
             )}
+
+            <div className={styles.actions}>
+                <Button
+                    color="purple"
+                    className={styles.actionBtn}
+                    onClick={goToNextSection}
+                >
+                    {dict.propose.titleAndDescription.next}
+                </Button>
+            </div>
         </div>
     );
 }

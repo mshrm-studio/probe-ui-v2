@@ -19,3 +19,12 @@
     text-transform: none;
     max-width: none;
 }
+
+.actions {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.actionBtn {
+    width: 100%;
+}
