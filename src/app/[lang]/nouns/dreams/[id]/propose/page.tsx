@@ -66,7 +66,7 @@ export default async function Page({ params }: Props) {
                     />
 
                     <main className={styles.main}>
-                        <Content dict={dict} />
+                        <Content dict={dict} dream={dream} />
                     </main>
                 </Background>
             </RpcProvider>

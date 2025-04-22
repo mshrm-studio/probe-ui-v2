@@ -10,6 +10,8 @@ import styles from '@/app/[lang]/nouns/[id]/_styles/details/auction/bids.module.
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
 import EtherscanLink from '@/app/_components/EtherscanLink';
 import AuctionClient from '@/app/[lang]/nouns/[id]/_components/Details/Auction/Client';
+import LocalisedDateTime from '@/app/_components/LocalisedDateTime';
+import { DateTime } from 'luxon';
 
 interface Props {
     auction: AuctionFromSubgraph;
@@ -63,6 +65,13 @@ export default function DetailsAuctionBids({ auction, dict }: Props) {
                             </span>
 
                             <AuctionClient bid={bid} />
+
+                            {'('}
+                            <LocalisedDateTime
+                                dateTime={bid.blockTimestamp}
+                                format={DateTime.TIME_SIMPLE}
+                            />
+                            {')'}
                         </li>
                     ))}
                 </ul>

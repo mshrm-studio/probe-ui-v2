@@ -6,6 +6,10 @@
         "nouns": "Nouns",
         "propose": "Propose"
     },
+    "error": {
+        "invalidCustomTrait": "Invalid custom trait. Likely due to size or color mismatch.",
+        "noCustomTrait": "No custom trait. You cannot create a proposal for a dream with no custom trait."
+    },
     "metadata": {
         "description": "Create Proposal for Dream :id",
         "title": "Create Proposal"
@@ -13,7 +17,7 @@
     "titleAndDescription": {
         "field": {
             "description": {
-                "label": "Proposal",
+                "label": "Description",
                 "placeholder": "Use markdown shortcuts like '#' and '1.' to create headings and lists."
             },
             "title": {
@@ -21,6 +25,7 @@
                 "placeholder": "Write your title"
             }
         },
+        "propsalPreviewTitle": "Proposal Preview",
         "title": "Create a title and write your dream proposal"
     }
 }

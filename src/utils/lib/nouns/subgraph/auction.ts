@@ -25,6 +25,7 @@ export const FETCH_AUCTION = gql`
                 bidder {
                     id
                 }
+                blockTimestamp
                 clientId
             }
             bidder {

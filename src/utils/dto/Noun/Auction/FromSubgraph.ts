@@ -11,6 +11,7 @@ export interface Bid {
     bidder: {
         id: string;
     };
+    blockTimestamp: string; // EG 1689395795
     clientId: number | null; // EG 9
 }
 
