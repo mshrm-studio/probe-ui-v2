@@ -69,7 +69,7 @@ export default function HeaderAuth({ dict }: Props) {
                     )}
 
                     <button
-                        onClick={disconnect}
+                        onClick={() => disconnect()}
                         className={styles.disconnectButton}
                     >
                         {dict.header.auth.disconnect}
