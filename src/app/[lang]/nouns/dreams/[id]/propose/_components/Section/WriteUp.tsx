@@ -9,10 +9,11 @@ import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/write
 import clsx from 'clsx';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import Button from '@/app/_components/Button';
+import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 
 interface Props {
     dict: Dictionary;
-    dream: DreamFromDB;
+    dream: DreamFromDBWithCustomTrait;
     traitCanvas: HTMLCanvasElement;
     writeUp: string;
     setWriteUp: React.Dispatch<React.SetStateAction<string>>;
@@ -31,11 +32,9 @@ export default function WriteUp({
 
     const [title, setTitle] = useState<string>(
         dream.custom_trait_image
-            ? dream.custom_trait_image
-                  .split('/')
-                  .pop()!
-                  .replace(/\.[^.]+$/, '')
-            : ''
+            .split('/')
+            .pop()!
+            .replace(/\.[^.]+$/, '')
     );
 
     useEffect(() => {

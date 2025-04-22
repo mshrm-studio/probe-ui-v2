@@ -27,7 +27,7 @@ export default function Content({ dict, dream }: Props) {
         dream.custom_trait_image_url
     );
 
-    if (!dream.custom_trait_image) {
+    if (!dream.custom_trait_image_url || !dream.custom_trait_image) {
         return (
             <div className={styles.container}>
                 <p>{dict.propose.error.noCustomTrait}</p>
@@ -68,7 +68,11 @@ export default function Content({ dict, dream }: Props) {
             {traitCanvas &&
                 traitBitmap &&
                 section === 'RequestCompensation' && (
-                    <RequestCompensation dict={dict} />
+                    <RequestCompensation
+                        dict={dict}
+                        dream={dream}
+                        traitCanvas={traitCanvas}
+                    />
                 )}
         </div>
     );
