@@ -4,7 +4,7 @@ import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/content.module.css';
 import { useState } from 'react';
 import WriteUp from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/WriteUp';
-import RequestCompensation from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/RequestCompensation';
+import RequestCompensation from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/RequestCompensation/RequestCompensation';
 import SectionHeader from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/Header';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import useImageBitmap from '@/hooks/V2/useImageBitmap';
@@ -71,7 +71,9 @@ export default function Content({ dict, dream }: Props) {
                     <RequestCompensation
                         dict={dict}
                         dream={dream}
+                        traitBitmap={traitBitmap}
                         traitCanvas={traitCanvas}
+                        writeUp={writeUp}
                     />
                 )}
         </div>

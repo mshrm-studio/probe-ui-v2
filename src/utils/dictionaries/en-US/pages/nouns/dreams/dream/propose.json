@@ -16,7 +16,9 @@
     },
     "requestCompensation": {
         "action": {
-            "signArtworkAgreement": "Sign CC0 Waiver"
+            "signArtworkAgreement": "Sign CC0 Waiver",
+            "submitCandidate": "Submit Candidate",
+            "submitProposal": "Submit Proposal"
         },
         "artworkAgreementSigned": "CC0 Waiver Signed",
         "artworkContributionAgreementMessage": "I, the individual controlling Ethereum address :ethAddress, hereby waive all copyright and all related or neighboring rights, together with any associated claims or causes of action, to the extent permitted by law. I have read and understand the terms and intended legal effect of the Nouns Art Contribution Agreement, available at :agreementUrl, and hereby voluntarily elect to apply it to this contribution. Contribution name: :contributionName. Contribution specification: :contributionSpec.",

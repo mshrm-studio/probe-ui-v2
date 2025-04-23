@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import Background from '@/app/[lang]/nouns/dreams/[id]/_components/Background';
 import DreamFromDB, { isDreamFromDBResponse } from '@/utils/dto/Dream/FromDB';
 import RpcProvider from '@/context/Rpc';
+import DataProxyProvider from '@/context/DataProxy';
 import Content from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Content';
 
 async function fetchFallbackData(id: string): Promise<DreamFromDB | undefined> {
@@ -41,34 +42,36 @@ export default async function Page({ params }: Props) {
     return (
         <DictionaryProvider dictionary={dict}>
             <RpcProvider>
-                <Background dream={dream}>
-                    <Header
-                        lang={lang}
-                        islandAlign="center"
-                        breadcrumbs={[
-                            {
-                                label: dict.propose.breadcrumbs.nouns,
-                                href: '/nouns',
-                            },
-                            {
-                                label: dict.propose.breadcrumbs.dreams,
-                                href: `/nouns/dreams`,
-                            },
-                            {
-                                label: id,
-                                href: `/nouns/dreams/${id}`,
-                            },
-                            {
-                                label: dict.propose.breadcrumbs.propose,
-                                href: `/nouns/dreams/${id}/propose`,
-                            },
-                        ]}
-                    />
+                <DataProxyProvider>
+                    <Background dream={dream}>
+                        <Header
+                            lang={lang}
+                            islandAlign="center"
+                            breadcrumbs={[
+                                {
+                                    label: dict.propose.breadcrumbs.nouns,
+                                    href: '/nouns',
+                                },
+                                {
+                                    label: dict.propose.breadcrumbs.dreams,
+                                    href: `/nouns/dreams`,
+                                },
+                                {
+                                    label: id,
+                                    href: `/nouns/dreams/${id}`,
+                                },
+                                {
+                                    label: dict.propose.breadcrumbs.propose,
+                                    href: `/nouns/dreams/${id}/propose`,
+                                },
+                            ]}
+                        />
 
-                    <main className={styles.main}>
-                        <Content dict={dict} dream={dream} />
-                    </main>
-                </Background>
+                        <main className={styles.main}>
+                            <Content dict={dict} dream={dream} />
+                        </main>
+                    </Background>
+                </DataProxyProvider>
             </RpcProvider>
         </DictionaryProvider>
     );
