@@ -1,11 +1,11 @@
 'use client';
 
-import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/write-up.module.css';
+import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/request-compensation.module.css';
 import Button from '@/app/_components/Button';
 import Input from '@/app/_components/Input/Input';
 import FormField from '@/app/_components/FormField';
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
     useAppKit,
     useAppKitAccount,
@@ -33,12 +33,7 @@ export default function RequestCompensation({
     const { walletProvider } = useAppKitProvider('eip155');
     const [agreement, setAgreement] = useState<ArtworkContributionAgreement>();
 
-    const signArtworkAgreement = useCallback(async () => {
-        if (!isConnected || !address) {
-            open();
-            return;
-        }
-
+    const agreementMessage = useMemo(() => {
         const agreementUrl =
             'https://z5pvlzj323gcssdd3bua3hjqckxbcsydr4ksukoidh3l46fhet4q.arweave.net/z19V5TvWzClIY9hoDZ0wEq4RSwOPFSopyBn2vninJPk';
 
@@ -49,23 +44,50 @@ export default function RequestCompensation({
 
         const contributionSpec = traitCanvas.toDataURL('image/png');
 
-        const message =
-            dict.propose.requestCompensation.artworkContributionAgreementMessage
-                .replace(':ethAddress', address)
-                .replace(':agreementUrl', agreementUrl)
-                .replace(':contributionName', contributionName)
-                .replace(':contributionSpec', contributionSpec);
+        return dict.propose.requestCompensation.artworkContributionAgreementMessage
+            .replace(':ethAddress', address)
+            .replace(':agreementUrl', agreementUrl)
+            .replace(':contributionName', contributionName)
+            .replace(':contributionSpec', contributionSpec);
+    }, [address, dict, dream, traitCanvas]);
 
-        const provider = new BrowserProvider(walletProvider as Eip1193Provider);
-        const signer = await provider.getSigner();
-        const signature = await signer.signMessage(message);
+    const signArtworkAgreement = async () => {
+        console.log('isConnected', isConnected);
+        console.log('address', address);
 
-        setAgreement({
-            message,
-            signature,
-            signer: address,
-        });
-    }, [address, dict, dream, isConnected]);
+        if (!isConnected || !address) {
+            open();
+            return;
+        }
+
+        if (!walletProvider) return;
+
+        try {
+            const provider = new BrowserProvider(
+                walletProvider as Eip1193Provider
+            );
+
+            const signer = await provider.getSigner();
+
+            const signature = await signer.signMessage(agreementMessage);
+            console.log('signature', signature);
+
+            console.log('agreement:', {
+                message: agreementMessage,
+                signature,
+                signer: address,
+            });
+
+            setAgreement({
+                message: agreementMessage,
+                signature,
+                signer: address,
+            });
+        } catch (error: any) {
+            console.error('Error signing message:', error);
+            alert(error?.info?.error?.message || error.code);
+        }
+    };
 
     return (
         <div className={styles.container}>
@@ -98,6 +120,7 @@ export default function RequestCompensation({
                     <Button
                         color="purple"
                         className={styles.actionBtn}
+                        type="button"
                         onClick={signArtworkAgreement}
                     >
                         {

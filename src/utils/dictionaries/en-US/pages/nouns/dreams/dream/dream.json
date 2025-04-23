@@ -9,7 +9,8 @@
         "date": "Date",
         "dream": "Dream",
         "dreamer": "Dreamer",
-        "new": "New"
+        "new": "New",
+        "propose": "Propose"
     },
     "metadata": {
         "description": "Probe the stats for Dream :id",

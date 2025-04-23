@@ -109,6 +109,17 @@ export const isDreamFromDB = (i: unknown): i is DreamFromDB => {
     return isObject(i) && 'dreamer' in i;
 };
 
+export const isDreamFromDBWithCustomTrait = (
+    i: unknown
+): i is DreamFromDBWithCustomTrait => {
+    return (
+        isDreamFromDB(i) &&
+        typeof i.custom_trait_image === 'string' &&
+        typeof i.custom_trait_image_url === 'string' &&
+        i.custom_trait_layer !== null
+    );
+};
+
 export const isDreamFromDBList = (i: unknown): i is DreamFromDB[] => {
     return Array.isArray(i) && i.every((item) => isDreamFromDB(item));
 };

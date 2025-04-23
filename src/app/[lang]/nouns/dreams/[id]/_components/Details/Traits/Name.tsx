@@ -3,6 +3,7 @@ import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import startCase from 'lodash/startCase';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/traits/name.module.css';
+import Link from 'next/link';
 
 interface Props {
     dict: Dictionary;
@@ -56,6 +57,13 @@ export default function DetailsTraitsName({ dict, dream, type }: Props) {
                 <span className={styles.newBadge}>
                     {dict.dream.details.new}
                 </span>
+
+                <Link
+                    href={`/nouns/dreams/${dream.id}/propose`}
+                    className={styles.proposeLink}
+                >
+                    {dict.dream.details.propose}
+                </Link>
             </span>
         );
     }

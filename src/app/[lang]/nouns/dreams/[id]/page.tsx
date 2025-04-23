@@ -10,7 +10,6 @@ import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/page.module.css';
 import { notFound } from 'next/navigation';
 import Background from '@/app/[lang]/nouns/dreams/[id]/_components/Background';
 import DreamFromDB, { isDreamFromDBResponse } from '@/utils/dto/Dream/FromDB';
-import RpcProvider from '@/context/Rpc';
 
 async function fetchFallbackData(id: string): Promise<DreamFromDB | undefined> {
     const api = useApi();
@@ -41,38 +40,36 @@ export default async function Page({ params }: Props) {
 
     return (
         <DictionaryProvider dictionary={dict}>
-            <RpcProvider>
-                <Background dream={dream}>
-                    <Header
-                        lang={lang}
-                        islandAlign="center"
-                        breadcrumbs={[
-                            {
-                                label: dict.dream.breadcrumbs.nouns,
-                                href: '/nouns',
-                            },
-                            {
-                                label: dict.dream.breadcrumbs.dreams,
-                                href: `/nouns/dreams`,
-                            },
-                            {
-                                label: id,
-                                href: `/nouns/dreams/${id}`,
-                            },
-                        ]}
-                    />
+            <Background dream={dream}>
+                <Header
+                    lang={lang}
+                    islandAlign="center"
+                    breadcrumbs={[
+                        {
+                            label: dict.dream.breadcrumbs.nouns,
+                            href: '/nouns',
+                        },
+                        {
+                            label: dict.dream.breadcrumbs.dreams,
+                            href: `/nouns/dreams`,
+                        },
+                        {
+                            label: id,
+                            href: `/nouns/dreams/${id}`,
+                        },
+                    ]}
+                />
 
-                    <main className={styles.main}>
-                        <div className={styles.imgContainer}>
-                            <Image dream={dream} />
-                        </div>
+                <main className={styles.main}>
+                    <div className={styles.imgContainer}>
+                        <Image dream={dream} />
+                    </div>
 
-                        <div className={styles.detailsContainer}>
-                            <Details dream={dream} dict={dict} />
-                        </div>
-                    </main>
-                </Background>
-            </RpcProvider>
+                    <div className={styles.detailsContainer}>
+                        <Details dream={dream} dict={dict} />
+                    </div>
+                </main>
+            </Background>
         </DictionaryProvider>
     );
 }
