@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/request-compensation.module.css';
+import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/request-compensation/request-compensation.module.css';
 import Input from '@/app/_components/Input/Input';
 import FormField from '@/app/_components/FormField';
 import { Dictionary } from '@/app/[lang]/dictionaries';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 import ArtworkContributionAgreement from '@/utils/dto/Dream/ArtworkContributionAgreement';
 import SignArtworkAgreement from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/RequestCompensation/SignArtworkAgreement';
+import SubmitCandidate from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Section/RequestCompensation//SubmitCandidate';
 
 interface Props {
     dict: Dictionary;
@@ -20,6 +21,7 @@ interface Props {
 export default function RequestCompensation({
     dict,
     dream,
+    traitBitmap,
     traitCanvas,
     writeUp,
 }: Props) {
@@ -41,13 +43,27 @@ export default function RequestCompensation({
             </FormField>
 
             <div className={styles.actions}>
-                <SignArtworkAgreement
-                    agreement={agreement}
-                    dict={dict}
-                    dream={dream}
-                    traitCanvas={traitCanvas}
-                    setAgreement={setAgreement}
-                />
+                <div className={styles.actionContainer}>
+                    <SignArtworkAgreement
+                        agreement={agreement}
+                        dict={dict}
+                        dream={dream}
+                        traitCanvas={traitCanvas}
+                        setAgreement={setAgreement}
+                    />
+                </div>
+
+                <div className={styles.actionContainer}>
+                    <SubmitCandidate
+                        agreement={agreement}
+                        dict={dict}
+                        dream={dream}
+                        requestedEth={Number(requestedEth)}
+                        traitBitmap={traitBitmap}
+                        traitCanvas={traitCanvas}
+                        writeUp={writeUp}
+                    />
+                </div>
             </div>
         </div>
     );

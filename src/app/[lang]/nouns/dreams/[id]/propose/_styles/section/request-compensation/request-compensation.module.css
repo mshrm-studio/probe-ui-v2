@@ -7,6 +7,10 @@
     padding-right: 1.5rem;
 }
 
+.actionContainer:not(:first-child) {
+    margin-top: 1rem;
+}
+
 .actionBtn {
     width: 100%;
 }

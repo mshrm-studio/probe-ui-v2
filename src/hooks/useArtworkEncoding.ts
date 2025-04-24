@@ -134,11 +134,31 @@ const useArtworkEncoding = () => {
         );
 
     const getPaletteIndex = (colors?: HexColor[], palettes?: Palette[]) => {
-        if (!colors || !palettes) return undefined;
+        console.log('getPaletteIndex', colors, palettes);
 
-        for (let i = 0; i < palettes.length; i++) {
-            const palette = palettes[i];
-            if (colors.every((color) => palette.includes(color))) return i;
+        if (!colors || !palettes) return null;
+
+        const normalisedColors = colors.map((color) =>
+            color.startsWith('#') ? color : `#${color}`
+        );
+
+        const normalisedPalettes = palettes.map((palette) =>
+            palette.map((color) =>
+                color.startsWith('#') ? color : `#${color}`
+            )
+        );
+
+        console.log(
+            'getPaletteIndex (normalised)',
+            normalisedColors,
+            normalisedPalettes
+        );
+
+        for (let i = 0; i < normalisedPalettes.length; i++) {
+            const palette = normalisedPalettes[i];
+
+            if (normalisedColors.every((color) => palette.includes(color)))
+                return i;
         }
 
         return null;

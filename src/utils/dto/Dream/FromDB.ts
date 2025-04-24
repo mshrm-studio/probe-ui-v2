@@ -85,14 +85,17 @@ interface DreamFromDBWithNoCustomTrait {
     head: NounTrait;
 }
 
-export type DreamFromDBWithCustomTrait =
-    | DreamFromDBWithCustomAccessory
-    | DreamFromDBWithCustomBody
-    | DreamFromDBWithCustomGlasses
-    | DreamFromDBWithCustomHead;
+export type DreamFromDBWithCustomTrait = BaseDreamFromDB &
+    (
+        | DreamFromDBWithCustomAccessory
+        | DreamFromDBWithCustomBody
+        | DreamFromDBWithCustomGlasses
+        | DreamFromDBWithCustomHead
+    );
 
-type DreamFromDB = BaseDreamFromDB &
-    (DreamFromDBWithCustomTrait | DreamFromDBWithNoCustomTrait);
+type DreamFromDB =
+    | DreamFromDBWithCustomTrait
+    | (BaseDreamFromDB & DreamFromDBWithNoCustomTrait);
 
 export default DreamFromDB;
 

@@ -18,7 +18,7 @@ import { ImageData } from '@noundry/nouns-assets';
 import useArtworkEncoding from '@/hooks/useArtworkEncoding';
 
 interface Props {
-    agreement: ArtworkContributionAgreement;
+    agreement?: ArtworkContributionAgreement;
     dict: Dictionary;
     dream: DreamFromDBWithCustomTrait;
     requestedEth: number;
@@ -87,35 +87,18 @@ export default function SubmitCandidate({
     }, [traitBitmap, getTraitColors]);
 
     const paletteIndex = useMemo(() => {
-        if (!traitColors) return null;
-
-        const paletteAsHexColors = ImageData.palette
-            .filter((color) => color !== '')
-            .map((color) => `#${color}`);
-
-        const idx = getPaletteIndex(traitColors, [
-            paletteAsHexColors as Palette,
-        ]);
-
-        return idx;
-    }, [ImageData.palette, traitColors, getPaletteIndex]);
+        return getPaletteIndex(traitColors, [ImageData.palette as Palette]);
+    }, [ImageData.palette, traitColors]);
 
     const traitColorIndexes = useMemo(() => {
-        const paletteAsHexColors = ImageData.palette
-            .filter((color) => color !== '')
-            .map((color) => `#${color}`);
-
-        return getColorIndexes(traitCanvas, paletteAsHexColors as Palette);
+        return getColorIndexes(traitCanvas, ImageData.palette as Palette);
     }, [ImageData.palette, traitCanvas]);
 
     const compressedEncodedArtwork = useMemo(() => {
-        if (
-            !Array.isArray(traitColorIndexes) ||
-            typeof paletteIndex !== 'number'
-        )
-            return null;
+        if (typeof paletteIndex === 'number')
+            return compressAndEncodeTrait(traitColorIndexes, paletteIndex);
 
-        return compressAndEncodeTrait(traitColorIndexes, paletteIndex);
+        return null;
     }, [traitColorIndexes, paletteIndex]);
 
     const calldatas = useMemo(() => {
@@ -147,6 +130,8 @@ export default function SubmitCandidate({
     }, [compressedEncodedArtwork, functionName]);
 
     const submitCandidate = async () => {
+        if (!agreement) return;
+
         if (!httpDataProxyContract) return;
 
         if (!walletProvider) return;
@@ -173,7 +158,7 @@ export default function SubmitCandidate({
 
             const description = `${writeUp}\n\n${artAtributionAgreement}`;
 
-            const slug = `my-test-proposal-${Date.now()}`;
+            const slug = `probe-dream-${dream.id}-${Date.now()}`;
 
             const proposalIdToUpdate = 0;
 
@@ -187,6 +172,9 @@ export default function SubmitCandidate({
                 signer
             ) as Contract;
 
+            console.log('traitColors:', traitColors);
+            console.log('compressedEncodedArtwork:', compressedEncodedArtwork);
+            console.log('paletteIndex:', paletteIndex);
             console.log('targets:', targets);
             console.log('values:', values);
             console.log('signatures:', signatures);
@@ -244,6 +232,7 @@ export default function SubmitCandidate({
             <Button
                 color="purple"
                 className={requestCompensationStyles.actionBtn}
+                disabled={agreement === undefined}
                 type="button"
                 onClick={submitCandidate}
             >
