@@ -16,6 +16,7 @@ import { formatAbiItem } from 'viem/utils';
 import { Palette } from '@/utils/artwork/types';
 import { ImageData } from '@noundry/nouns-assets';
 import useArtworkEncoding from '@/hooks/useArtworkEncoding';
+import { useRouter } from 'next/navigation';
 
 interface Props {
     agreement?: ArtworkContributionAgreement;
@@ -36,6 +37,7 @@ export default function SubmitCandidate({
     traitCanvas,
     writeUp,
 }: Props) {
+    const router = useRouter();
     const { address } = useAppKitAccount();
     const { httpDataProxyContract } = useContext(DataProxyContext);
     const { walletProvider } = useAppKitProvider('eip155');
@@ -158,7 +160,7 @@ export default function SubmitCandidate({
 
             const description = `${writeUp}\n\n${artAtributionAgreement}`;
 
-            const slug = `probe-dream-${dream.id}-${Date.now()}`;
+            const slug = `probe-dream-${dream.id}`;
 
             const proposalIdToUpdate = 0;
 
@@ -171,17 +173,6 @@ export default function SubmitCandidate({
             const contractWithSigner = httpDataProxyContract.connect(
                 signer
             ) as Contract;
-
-            console.log('traitColors:', traitColors);
-            console.log('compressedEncodedArtwork:', compressedEncodedArtwork);
-            console.log('paletteIndex:', paletteIndex);
-            console.log('targets:', targets);
-            console.log('values:', values);
-            console.log('signatures:', signatures);
-            console.log('calldatas:', calldatas);
-            console.log('description:', description);
-            console.log('slug:', slug);
-            console.log('proposalIdToUpdate:', proposalIdToUpdate);
 
             const gasEstimate =
                 await contractWithSigner.createProposalCandidate.estimateGas(
@@ -199,8 +190,6 @@ export default function SubmitCandidate({
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
 
-            console.log('gasLimit:', gasLimit);
-
             const tx = await contractWithSigner.createProposalCandidate(
                 targets,
                 values,
@@ -215,11 +204,9 @@ export default function SubmitCandidate({
                 }
             );
 
-            const receipt = await tx.wait();
+            await tx.wait();
 
-            console.log('Transaction Receipt:', receipt);
-
-            // TODO
+            router.push(`/nouns/dreams/${dream.id}`);
         } catch (error: any) {
             console.error('error:', error);
 
