@@ -24,40 +24,14 @@ export default function DetailsTraits({
 
             <dl>
                 <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.accessory}:</dt>
+                    <dt className={styles.dt}>{dict.common.head}:</dt>
 
                     <dd className={styles.dd}>
                         <TraitName
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type={NounTraitLayer.Accessory}
-                        />
-                    </dd>
-                </div>
-
-                <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.background}:</dt>
-
-                    <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            noun={noun}
-                            type={NounTraitLayer.Background}
-                        />
-                    </dd>
-                </div>
-
-                <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.body}:</dt>
-
-                    <dd className={styles.dd}>
-                        <TraitName
-                            auction={auction}
-                            dict={dict}
-                            noun={noun}
-                            type={NounTraitLayer.Body}
+                            type={NounTraitLayer.Head}
                         />
                     </dd>
                 </div>
@@ -76,14 +50,40 @@ export default function DetailsTraits({
                 </div>
 
                 <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.head}:</dt>
+                    <dt className={styles.dt}>{dict.common.accessory}:</dt>
 
                     <dd className={styles.dd}>
                         <TraitName
                             auction={auction}
                             dict={dict}
                             noun={noun}
-                            type={NounTraitLayer.Head}
+                            type={NounTraitLayer.Accessory}
+                        />
+                    </dd>
+                </div>
+
+                <div className={styles.dlItem}>
+                    <dt className={styles.dt}>{dict.common.body}:</dt>
+
+                    <dd className={styles.dd}>
+                        <TraitName
+                            auction={auction}
+                            dict={dict}
+                            noun={noun}
+                            type={NounTraitLayer.Body}
+                        />
+                    </dd>
+                </div>
+
+                <div className={styles.dlItem}>
+                    <dt className={styles.dt}>{dict.common.background}:</dt>
+
+                    <dd className={styles.dd}>
+                        <TraitName
+                            auction={auction}
+                            dict={dict}
+                            noun={noun}
+                            type={NounTraitLayer.Background}
                         />
                     </dd>
                 </div>
