@@ -1,0 +1,48 @@
+{
+    "back": "Back",
+    "breadcrumbs": {
+        "dream": "Dream :id",
+        "dreams": "Dreams",
+        "nouns": "Nouns",
+        "propose": "Propose"
+    },
+    "error": {
+        "invalidCustomTrait": "Invalid custom trait. Likely due to size or color mismatch.",
+        "noCustomTrait": "No custom trait. You cannot create a proposal for a dream with no custom trait."
+    },
+    "metadata": {
+        "description": "Create Proposal for Dream :id",
+        "title": "Create Proposal"
+    },
+    "requestCompensation": {
+        "action": {
+            "signArtworkAgreement": "Sign CC0 Waiver",
+            "submitCandidate": "Submit Candidate",
+            "submitProposal": "Submit Proposal"
+        },
+        "artworkAgreementSigned": "CC0 Waiver Signed",
+        "artworkContributionAgreementMessage": "I, the individual controlling Ethereum address :ethAddress, hereby waive all copyright and all related or neighboring rights, together with any associated claims or causes of action, to the extent permitted by law. I have read and understand the terms and intended legal effect of the Nouns Art Contribution Agreement, available at :agreementUrl, and hereby voluntarily elect to apply it to this contribution. Contribution name: :contributionName. Contribution specification: :contributionSpec.",
+        "field": {
+            "eth": {
+                "label": "Request ETH",
+                "placeholder": "Specify ETH amnt"
+            }
+        },
+        "title": "Would you like to request componsation? This will be sent to the wallet you are proposing from right now."
+    },
+    "titleAndDescription": {
+        "field": {
+            "description": {
+                "label": "Description",
+                "placeholder": "Use markdown shortcuts like '#' and '1.' to create headings and lists."
+            },
+            "title": {
+                "label": "Title",
+                "placeholder": "Write your title"
+            }
+        },
+        "next": "Next",
+        "propsalPreviewTitle": "Proposal Preview",
+        "title": "Create a title and write your dream proposal"
+    }
+}

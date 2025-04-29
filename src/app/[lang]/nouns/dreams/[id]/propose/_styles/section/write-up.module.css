@@ -1,0 +1,30 @@
+.container > *:not(:first-child) {
+    margin-top: 1rem;
+}
+
+.markdownPreviewContainer {
+    width: 100%;
+    background-color: #fff;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.markdownPreviewTitle {
+    color: #838383;
+}
+
+.markdownPreview {
+    text-transform: none;
+    max-width: none;
+}
+
+.actions {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.actionBtn {
+    width: 100%;
+}

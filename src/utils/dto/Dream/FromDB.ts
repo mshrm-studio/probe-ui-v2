@@ -1,4 +1,4 @@
-import { isObject } from 'lodash';
+import isObject from 'lodash/isObject';
 import {
     isModelResponse,
     isPaginatedModelListResponse,
@@ -85,14 +85,17 @@ interface DreamFromDBWithNoCustomTrait {
     head: NounTrait;
 }
 
-type DreamFromDB = BaseDreamFromDB &
+export type DreamFromDBWithCustomTrait = BaseDreamFromDB &
     (
         | DreamFromDBWithCustomAccessory
         | DreamFromDBWithCustomBody
         | DreamFromDBWithCustomGlasses
         | DreamFromDBWithCustomHead
-        | DreamFromDBWithNoCustomTrait
     );
+
+type DreamFromDB =
+    | DreamFromDBWithCustomTrait
+    | (BaseDreamFromDB & DreamFromDBWithNoCustomTrait);
 
 export default DreamFromDB;
 
@@ -107,6 +110,17 @@ export interface DreamFromDBListResponse
 
 export const isDreamFromDB = (i: unknown): i is DreamFromDB => {
     return isObject(i) && 'dreamer' in i;
+};
+
+export const isDreamFromDBWithCustomTrait = (
+    i: unknown
+): i is DreamFromDBWithCustomTrait => {
+    return (
+        isDreamFromDB(i) &&
+        typeof i.custom_trait_image === 'string' &&
+        typeof i.custom_trait_image_url === 'string' &&
+        i.custom_trait_layer !== null
+    );
 };
 
 export const isDreamFromDBList = (i: unknown): i is DreamFromDB[] => {

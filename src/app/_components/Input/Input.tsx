@@ -1,19 +1,24 @@
 import styles from '@/app/_styles/input/input.module.css';
 import clsx from 'clsx';
 
-export interface InputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     invalid?: boolean;
+    motif?: 'bordered' | 'borderless';
 }
 
 export default function Input({
     className,
     invalid = false,
+    motif = 'bordered',
     ...props
-}: InputProps) {
+}: Props) {
     return (
         <input
-            className={clsx(styles.input, className)}
+            className={clsx(
+                styles.input,
+                motif === 'bordered' ? styles.bordered : styles.borderless,
+                className
+            )}
             data-invalid={invalid}
             {...props}
         />

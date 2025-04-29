@@ -9,7 +9,8 @@
         "date": "日付",
         "dream": "ドリーム",
         "dreamer": "夢見る者",
-        "new": "新規"
+        "new": "新規",
+        "propose": "提案"
     },
     "metadata": {
         "description": "ドリーム :id の統計を調べる",

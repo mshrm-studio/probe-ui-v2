@@ -25,7 +25,7 @@ export default function DetailsTraitsName({
                     href={`/nouns?accessory=${
                         ImageData.images.accessories[
                             Number(auction.noun.seed.accessory)
-                        ].filename
+                        ]?.filename
                     }`}
                     className="text-link"
                 >
@@ -34,16 +34,14 @@ export default function DetailsTraitsName({
                         data-auction-trait-name={
                             ImageData.images.accessories[
                                 Number(auction.noun.seed.accessory)
-                            ].filename
+                            ]?.filename
                         }
                     >
-                        {
-                            dict.traits[
-                                ImageData.images.accessories[
-                                    Number(auction.noun.seed.accessory)
-                                ].filename
-                            ]
-                        }
+                        {dict.traits[
+                            ImageData.images.accessories[
+                                Number(auction.noun.seed.accessory)
+                            ]?.filename
+                        ] || auction.noun.seed.accessory}
                     </span>
                 </Link>
             );
@@ -77,7 +75,7 @@ export default function DetailsTraitsName({
                 <Link
                     href={`/nouns?body=${
                         ImageData.images.bodies[Number(auction.noun.seed.body)]
-                            .filename
+                            ?.filename
                     }`}
                     className="text-link"
                 >
@@ -86,16 +84,14 @@ export default function DetailsTraitsName({
                         data-auction-trait-name={
                             ImageData.images.bodies[
                                 Number(auction.noun.seed.body)
-                            ].filename
+                            ]?.filename
                         }
                     >
-                        {
-                            dict.traits[
-                                ImageData.images.bodies[
-                                    Number(auction.noun.seed.body)
-                                ].filename
-                            ]
-                        }
+                        {dict.traits[
+                            ImageData.images.bodies[
+                                Number(auction.noun.seed.body)
+                            ]?.filename
+                        ] || auction.noun.seed.body}
                     </span>
                 </Link>
             );
@@ -107,7 +103,7 @@ export default function DetailsTraitsName({
                     href={`/nouns?glasses=${
                         ImageData.images.glasses[
                             Number(auction.noun.seed.glasses)
-                        ].filename
+                        ]?.filename
                     }`}
                     className="text-link"
                 >
@@ -116,16 +112,14 @@ export default function DetailsTraitsName({
                         data-auction-trait-name={
                             ImageData.images.glasses[
                                 Number(auction.noun.seed.glasses)
-                            ].filename
+                            ]?.filename
                         }
                     >
-                        {
-                            dict.traits[
-                                ImageData.images.glasses[
-                                    Number(auction.noun.seed.glasses)
-                                ].filename
-                            ]
-                        }
+                        {dict.traits[
+                            ImageData.images.glasses[
+                                Number(auction.noun.seed.glasses)
+                            ]?.filename
+                        ] || auction.noun.seed.glasses}
                     </span>
                 </Link>
             );
@@ -136,7 +130,7 @@ export default function DetailsTraitsName({
                 <Link
                     href={`/nouns?head=${
                         ImageData.images.heads[Number(auction.noun.seed.head)]
-                            .filename
+                            ?.filename
                     }`}
                     className="text-link"
                 >
@@ -145,16 +139,14 @@ export default function DetailsTraitsName({
                         data-auction-trait-name={
                             ImageData.images.heads[
                                 Number(auction.noun.seed.head)
-                            ].filename
+                            ]?.filename
                         }
                     >
-                        {
-                            dict.traits[
-                                ImageData.images.heads[
-                                    Number(auction.noun.seed.head)
-                                ].filename
-                            ]
-                        }
+                        {dict.traits[
+                            ImageData.images.heads[
+                                Number(auction.noun.seed.head)
+                            ]?.filename
+                        ] || auction.noun.seed.head}
                     </span>
                 </Link>
             );
@@ -169,7 +161,8 @@ export default function DetailsTraitsName({
                     className="text-link"
                 >
                     <span data-db-trait-name={noun.accessory_name}>
-                        {dict.traits[noun.accessory_name]}
+                        {dict.traits[noun.accessory_name] ||
+                            noun.accessory_name}
                     </span>
                 </Link>
             );
@@ -203,7 +196,7 @@ export default function DetailsTraitsName({
                     className="text-link"
                 >
                     <span data-db-trait-name={noun.body_name}>
-                        {dict.traits[noun.body_name]}
+                        {dict.traits[noun.body_name] || noun.body_name}
                     </span>
                 </Link>
             );
@@ -216,7 +209,7 @@ export default function DetailsTraitsName({
                     className="text-link"
                 >
                     <span data-db-trait-name={noun.glasses_name}>
-                        {dict.traits[noun.glasses_name]}
+                        {dict.traits[noun.glasses_name] || noun.glasses_name}
                     </span>
                 </Link>
             );
@@ -229,7 +222,7 @@ export default function DetailsTraitsName({
                     className="text-link"
                 >
                     <span data-db-trait-name={noun.head_name}>
-                        {dict.traits[noun.head_name]}
+                        {dict.traits[noun.head_name] || noun.head_name}
                     </span>
                 </Link>
             );

@@ -2,7 +2,6 @@
 
 import useAuctionClient from '@/hooks/useAuctionClient';
 import Link from 'next/link';
-import { useMemo } from 'react';
 import AuctionFromSubgraph, {
     Bid,
 } from '@/utils/dto/Noun/Auction/FromSubgraph';
@@ -17,16 +16,12 @@ type Props =
 export default function AuctionClient(props: Props) {
     const dict = useDictionary();
 
-    const clientId = useMemo(() => {
-        if ('bid' in props) return props.bid.clientId;
-
-        if (props.auction.clientId) return props.auction.clientId;
-
-        if (props.auction.bids && props.auction.bids.length > 0)
-            return props.auction.bids[0].clientId;
-
-        return null;
-    }, [props]);
+    const clientId =
+        'bid' in props
+            ? props.bid.clientId
+            : props.auction.clientId ??
+              props.auction.bids?.[0]?.clientId ??
+              null;
 
     const client = useAuctionClient(clientId);
 

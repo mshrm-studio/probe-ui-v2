@@ -11,5 +11,8 @@
 @media screen and (min-width: 1280px) {
     .container {
         padding-top: 3rem;
+        max-width: 66.66%;
+        overflow: hidden;
+        word-wrap: break-word;
     }
 }

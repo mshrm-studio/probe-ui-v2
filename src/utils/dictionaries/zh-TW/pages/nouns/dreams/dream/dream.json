@@ -9,7 +9,8 @@
         "date": "日期",
         "dream": "夢境",
         "dreamer": "夢想家",
-        "new": "新"
+        "new": "新",
+        "propose": "提議"
     },
     "metadata": {
         "description": "探查夢境 :id 的統計資訊",

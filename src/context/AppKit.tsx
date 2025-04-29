@@ -36,7 +36,7 @@ const metadata = {
 createAppKit({
     adapters: [new EthersAdapter()],
     metadata,
-    networks: defaultChainId === 1 ? [customMainnet] : [customSepolia],
+    networks: defaultChainId == 1 ? [customMainnet] : [customSepolia],
     projectId,
     features: {
         analytics: true,
