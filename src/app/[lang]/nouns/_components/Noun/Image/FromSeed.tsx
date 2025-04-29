@@ -25,7 +25,6 @@ export default function NounImageFromSeed({ seed }: Props) {
 
     const generateAndSetSvg = useCallback(async () => {
         try {
-            console.log('seed', seed);
             const { parts, background } = getNounData({
                 accessory: Number(seed.accessory),
                 background: Number(seed.background),
@@ -33,8 +32,6 @@ export default function NounImageFromSeed({ seed }: Props) {
                 glasses: Number(seed.glasses),
                 head: Number(seed.head),
             });
-
-            console.log('parts', parts);
 
             // const response = await fetch('/api/nouns/build-svg', {
             //     method: 'POST',
@@ -52,8 +49,6 @@ export default function NounImageFromSeed({ seed }: Props) {
             // const { svg } = await response.json();
 
             const svg = buildSVG(parts, ImageData.palette, background);
-
-            console.log('svg', svg);
 
             setGeneratedSvg(svg);
         } catch (error) {
