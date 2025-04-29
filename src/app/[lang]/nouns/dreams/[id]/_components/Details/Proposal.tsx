@@ -10,6 +10,7 @@ interface Props {
 
 export default function Proposal({ dream }: Props) {
     // const { httpDataProxyContract } = useContext(DataProxyContext);
+
     const { isCandidate } = useContext(ProposalContext);
 
     return <div>isCandidate: {isCandidate ? 'true' : 'false'}</div>;

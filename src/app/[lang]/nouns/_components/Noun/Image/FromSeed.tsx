@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '@/app/[lang]/nouns/_styles/noun/image/from-seed.module.css';
 import NounSeed from '@/utils/dto/Noun/Seed';
 import { useInViewport } from 'react-in-viewport';
-import { getNounData } from '@noundry/nouns-assets';
+import { ImageData, getNounData } from '@noundry/nouns-assets';
+import { buildSVG } from '@nouns/sdk/dist/image/svg-builder';
 
 type Props = {
     seed: NounSeed;
@@ -24,6 +25,7 @@ export default function NounImageFromSeed({ seed }: Props) {
 
     const generateAndSetSvg = useCallback(async () => {
         try {
+            console.log('seed', seed);
             const { parts, background } = getNounData({
                 accessory: Number(seed.accessory),
                 background: Number(seed.background),
@@ -32,20 +34,26 @@ export default function NounImageFromSeed({ seed }: Props) {
                 head: Number(seed.head),
             });
 
-            const response = await fetch('/api/nouns/build-svg', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    RLE_PARTS: parts,
-                    BACKGROUND_COLOR: background,
-                }),
-            });
+            console.log('parts', parts);
 
-            if (!response.ok) {
-                throw new Error('Failed to generate SVG');
-            }
+            // const response = await fetch('/api/nouns/build-svg', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({
+            //         RLE_PARTS: parts,
+            //         BACKGROUND_COLOR: background,
+            //     }),
+            // });
 
-            const { svg } = await response.json();
+            // if (!response.ok) {
+            //     throw new Error('Failed to generate SVG');
+            // }
+
+            // const { svg } = await response.json();
+
+            const svg = buildSVG(parts, ImageData.palette, background);
+
+            console.log('svg', svg);
 
             setGeneratedSvg(svg);
         } catch (error) {

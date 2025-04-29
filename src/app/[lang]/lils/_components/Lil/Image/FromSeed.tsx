@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '@/app/[lang]/lils/_styles/lil/image/from-seed.module.css';
 import LilSeed from '@/utils/dto/Lil/Seed';
 import { useInViewport } from 'react-in-viewport';
-import { getNounData } from '@noundry/lil-nouns-assets';
+import { ImageData, getNounData } from '@noundry/lil-nouns-assets';
+import { buildSVG } from '@nouns/sdk/dist/image/svg-builder';
 
 type Props = {
     seed: LilSeed;
@@ -32,20 +33,22 @@ export default function LilImageFromSeed({ seed }: Props) {
                 head: Number(seed.head),
             });
 
-            const response = await fetch('/api/lils/build-svg', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    RLE_PARTS: parts,
-                    BACKGROUND_COLOR: background,
-                }),
-            });
+            // const response = await fetch('/api/lils/build-svg', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({
+            //         RLE_PARTS: parts,
+            //         BACKGROUND_COLOR: background,
+            //     }),
+            // });
 
-            if (!response.ok) {
-                throw new Error('Failed to generate SVG');
-            }
+            // if (!response.ok) {
+            //     throw new Error('Failed to generate SVG');
+            // }
 
-            const { svg } = await response.json();
+            // const { svg } = await response.json();
+
+            const svg = buildSVG(parts, ImageData.palette, background);
 
             setGeneratedSvg(svg);
         } catch (error) {
