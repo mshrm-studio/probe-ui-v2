@@ -16,37 +16,13 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
 
             <dl>
                 <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.accessory}:</dt>
+                    <dt className={styles.dt}>{dict.common.head}:</dt>
 
                     <dd className={styles.dd}>
                         <TraitName
                             dict={dict}
                             dream={dream}
-                            type={NounTraitLayer.Accessory}
-                        />
-                    </dd>
-                </div>
-
-                <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.background}:</dt>
-
-                    <dd className={styles.dd}>
-                        <TraitName
-                            dict={dict}
-                            dream={dream}
-                            type={NounTraitLayer.Background}
-                        />
-                    </dd>
-                </div>
-
-                <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.body}:</dt>
-
-                    <dd className={styles.dd}>
-                        <TraitName
-                            dict={dict}
-                            dream={dream}
-                            type={NounTraitLayer.Body}
+                            type={NounTraitLayer.Head}
                         />
                     </dd>
                 </div>
@@ -64,13 +40,37 @@ export default function DetailsTraits({ className, dict, dream }: Props) {
                 </div>
 
                 <div className={styles.dlItem}>
-                    <dt className={styles.dt}>{dict.common.head}:</dt>
+                    <dt className={styles.dt}>{dict.common.accessory}:</dt>
 
                     <dd className={styles.dd}>
                         <TraitName
                             dict={dict}
                             dream={dream}
-                            type={NounTraitLayer.Head}
+                            type={NounTraitLayer.Accessory}
+                        />
+                    </dd>
+                </div>
+
+                <div className={styles.dlItem}>
+                    <dt className={styles.dt}>{dict.common.body}:</dt>
+
+                    <dd className={styles.dd}>
+                        <TraitName
+                            dict={dict}
+                            dream={dream}
+                            type={NounTraitLayer.Body}
+                        />
+                    </dd>
+                </div>
+
+                <div className={styles.dlItem}>
+                    <dt className={styles.dt}>{dict.common.background}:</dt>
+
+                    <dd className={styles.dd}>
+                        <TraitName
+                            dict={dict}
+                            dream={dream}
+                            type={NounTraitLayer.Background}
                         />
                     </dd>
                 </div>
