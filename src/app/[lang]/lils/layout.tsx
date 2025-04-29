@@ -12,7 +12,10 @@ export default async function Layout({
 
     return (
         <>
-            <Script src="https://assets.noundry.wtf/lil-nouns/image-data.js" />
+            <Script
+                src="https://assets.noundry.wtf/lil-nouns/image-data.js"
+                strategy="beforeInteractive"
+            />
 
             <div>{children}</div>
         </>

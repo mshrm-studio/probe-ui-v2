@@ -3,7 +3,7 @@ import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import startCase from 'lodash/startCase';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/traits/name.module.css';
-// import ProposeLink from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Traits/ProposeLink';
+import ProposeLink from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Traits/ProposeLink';
 
 interface Props {
     dict: Dictionary;
@@ -28,7 +28,7 @@ export default function DetailsTraitsName({ dict, dream, type }: Props) {
                     {dict.dream.details.new}
                 </span>
 
-                {/* <ProposeLink dict={dict} dream={dream} /> */}
+                <ProposeLink dict={dict} dream={dream} />
             </span>
         );
     }
