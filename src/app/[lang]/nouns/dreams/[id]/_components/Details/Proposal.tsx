@@ -2,7 +2,7 @@
 
 import { ProposalContext } from '@/context/Proposal';
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 interface Props {
     dream: DreamFromDBWithCustomTrait;

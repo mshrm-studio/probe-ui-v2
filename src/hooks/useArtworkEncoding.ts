@@ -134,8 +134,6 @@ const useArtworkEncoding = () => {
         );
 
     const getPaletteIndex = (colors?: HexColor[], palettes?: Palette[]) => {
-        console.log('getPaletteIndex', colors, palettes);
-
         if (!colors || !palettes) return null;
 
         const normalisedColors = colors.map((color) =>
@@ -146,12 +144,6 @@ const useArtworkEncoding = () => {
             palette.map((color) =>
                 color.startsWith('#') ? color : `#${color}`
             )
-        );
-
-        console.log(
-            'getPaletteIndex (normalised)',
-            normalisedColors,
-            normalisedPalettes
         );
 
         for (let i = 0; i < normalisedPalettes.length; i++) {

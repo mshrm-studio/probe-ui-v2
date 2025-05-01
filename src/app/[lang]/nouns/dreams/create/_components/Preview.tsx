@@ -6,6 +6,6 @@ interface Props {
 }
 
 export default function Preview({ seed }: Props) {
-    console.log('[Preview] render with seed:', seed);
+    // console.log('[Preview] render with seed:', seed);
     return <DreamImageFromSeed seed={seed} />;
 }

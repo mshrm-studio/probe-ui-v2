@@ -3,14 +3,12 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import { DataProxyContext } from '@/context/DataProxy';
-import { Interface, keccak256, toUtf8Bytes, TransactionResponse } from 'ethers';
+import { keccak256, toUtf8Bytes, TransactionResponse } from 'ethers';
 import DreamFromDB, {
     isDreamFromDBWithCustomTrait,
 } from '@/utils/dto/Dream/FromDB';
 import { RpcContext } from '@/context/Rpc';
 // import { nounsDataProxyContractABI } from '@/utils/contracts/NounsDataProxyContractABI';
-import { FETCH_PROPOSAL_CANDIDATE } from '@/utils/lib/nouns/subgraph/proposalCandidate';
-import useSubgraphClient from '@/hooks/useSubgraphClient';
 
 interface ProposalContext {
     isCandidate: boolean;
@@ -31,42 +29,18 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     const [isCandidate, setIsCandidate] = useState(false);
     const [transaction, setTransaction] = useState<TransactionResponse>();
 
-    const proposalCandidateId = useMemo(
-        () => keccak256(toUtf8Bytes(`probe-dream-${dream.id}`)),
-        [dream]
-    );
-
     useEffect(() => {
         if (!isDreamFromDBWithCustomTrait(dream)) {
             setIsCandidate(false);
             return;
         }
 
-        if (!httpDataProxyContract || !proposalCandidateId) return;
+        if (!httpDataProxyContract) return;
 
         const fetchDreamIsCandidate = async () => {
             const isCandidate = await httpDataProxyContract.propCandidates(
                 dream.dreamer,
-                proposalCandidateId
-            );
-
-            console.log(
-                'keccak256(toUtf8Bytes(`probe-dream-${dream.id}`))',
                 keccak256(toUtf8Bytes(`probe-dream-${dream.id}`))
-            );
-
-            console.log(
-                'keccak256(toUtf8Bytes(`${dream.dreamer}-probe-dream-${dream.id}`))',
-                keccak256(
-                    toUtf8Bytes(`${dream.dreamer}-probe-dream-${dream.id}`)
-                )
-            );
-
-            console.log(
-                'keccak256((`probe-dream-${dream.id}-${dream.dreamer}`))',
-                keccak256(
-                    toUtf8Bytes(`probe-dream-${dream.id}-${dream.dreamer}`)
-                )
             );
 
             if (typeof isCandidate !== 'boolean') {
@@ -77,46 +51,40 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         };
 
         fetchDreamIsCandidate();
-    }, [dream, httpDataProxyContract, proposalCandidateId]);
+    }, [dream, httpDataProxyContract]);
 
     useEffect(() => {
-        if (!isCandidate || !proposalCandidateId) return;
+        if (!isCandidate) return;
 
         const fetchProposalCandidate = async () => {
-            // Moved to API call.
-            // environment variables only available there.
+            const id = `${dream.dreamer}-probe-dream-${dream.id}`;
 
-            const client = useSubgraphClient();
+            try {
+                const response = await fetch(
+                    `/api/nouns/subgraph/proposal-candidate?id=${id}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
 
-            const response1 = await client
-                .query(FETCH_PROPOSAL_CANDIDATE, { id: proposalCandidateId })
-                .toPromise();
+                console.log('ProposalCandidate response', response);
 
-            const response2 = await client
-                .query(FETCH_PROPOSAL_CANDIDATE, {
-                    id: keccak256(
-                        toUtf8Bytes(`${dream.dreamer}-probe-dream-${dream.id}`)
-                    ),
-                })
-                .toPromise();
+                if (!response.ok) {
+                    throw new Error('Failed to fetch proposal candidate');
+                }
 
-            const response3 = await client
-                .query(FETCH_PROPOSAL_CANDIDATE, {
-                    id: keccak256(
-                        toUtf8Bytes(`probe-dream-${dream.id}-${dream.dreamer}`)
-                    ),
-                })
-                .toPromise();
+                const { result } = await response.json();
 
-            keccak256(toUtf8Bytes(`probe-dream-${dream.id}`));
-
-            console.log('FETCH_PROPOSAL_CANDIDATE response1', response1);
-            console.log('FETCH_PROPOSAL_CANDIDATE response2', response2);
-            console.log('FETCH_PROPOSAL_CANDIDATE response3', response3);
+                console.log('ProposalCandidate result', result);
+            } catch (error) {
+                alert(error);
+                console.error(error);
+            }
         };
 
         fetchProposalCandidate();
-    }, [isCandidate, proposalCandidateId]);
+    }, [dream, isCandidate]);
 
     // useEffect(() => {
     //     if (!isCandidate || !httpProvider || transaction) return;

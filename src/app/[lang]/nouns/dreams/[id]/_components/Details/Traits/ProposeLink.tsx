@@ -15,7 +15,7 @@ interface Props {
 export default function ProposeLink({ dict, dream }: Props) {
     const { isCandidate } = useContext(ProposalContext);
 
-    if (isCandidate) {
+    if (!isCandidate) {
         return (
             <Link
                 href={`/nouns/dreams/${dream.id}/propose`}

@@ -28,10 +28,10 @@ export default function Content({ children, dict }: Props) {
         head: 0,
     });
 
-    console.log('[Content] render. seed:', seed);
+    // console.log('[Content] render. seed:', seed);
 
     const randomize = useCallback(() => {
-        console.log('[randomize] called. old seed:', seed);
+        // console.log('[randomize] called. old seed:', seed);
 
         const { images } = ImageData;
 
@@ -58,7 +58,7 @@ export default function Content({ children, dict }: Props) {
                         : Math.floor(Math.random() * heads.length),
             };
 
-            console.log('[randomize] new seed:', newSeed);
+            // console.log('[randomize] new seed:', newSeed);
 
             return newSeed;
         });
