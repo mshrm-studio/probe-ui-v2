@@ -1,5 +1,6 @@
 .dreamerContainer,
-.traitsContainer {
+.traitsContainer,
+.proposalContainer {
     margin-top: 1.5rem;
 }
 
@@ -12,7 +13,6 @@
     .container {
         padding-top: 3rem;
         max-width: 66.66%;
-        overflow: hidden;
         word-wrap: break-word;
     }
 }

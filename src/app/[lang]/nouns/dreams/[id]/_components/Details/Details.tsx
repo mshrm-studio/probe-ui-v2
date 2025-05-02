@@ -7,7 +7,7 @@ import DreamFromDB, {
 import Dreamer from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Dreamer';
 import DreamDate from '@/app/[lang]/nouns/dreams/[id]/_components/Details/DreamDate';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
-import Proposal from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal';
+import Proposal from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Proposal';
 import DataProxyProvider from '@/context/DataProxy';
 import RpcProvider from '@/context/Rpc';
 import ProposalProvider from '@/context/Proposal';
@@ -28,28 +28,32 @@ export default function Details({ dict, dream }: Props) {
             </div>
 
             <Dreamer
-                dreamer={dream.dreamer}
-                dict={dict}
                 className={styles.dreamerContainer}
+                dict={dict}
+                dreamer={dream.dreamer}
             />
 
             <DreamDate
-                dream={dream}
-                dict={dict}
                 className={styles.dreamDateContainer}
+                dict={dict}
+                dream={dream}
             />
 
             <RpcProvider>
                 <DataProxyProvider>
                     <ProposalProvider dream={dream}>
                         <Traits
-                            dream={dream}
-                            dict={dict}
                             className={styles.traitsContainer}
+                            dict={dict}
+                            dream={dream}
                         />
 
                         {isDreamFromDBWithCustomTrait(dream) && (
-                            <Proposal dream={dream} />
+                            <Proposal
+                                className={styles.proposalContainer}
+                                dict={dict}
+                                dream={dream}
+                            />
                         )}
                     </ProposalProvider>
                 </DataProxyProvider>

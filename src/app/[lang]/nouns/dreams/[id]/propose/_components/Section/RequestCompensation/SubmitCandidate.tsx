@@ -206,8 +206,6 @@ export default function SubmitCandidate({
 
             const txResponse = await tx.wait();
 
-            console.log('txResponse:', txResponse);
-
             router.push(`/nouns/dreams/${dream.id}`);
         } catch (error: any) {
             console.error('error:', error);

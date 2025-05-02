@@ -6,11 +6,15 @@
     },
     "details": {
         "about": "About",
+        "addSignature": "Promote",
         "date": "Date",
         "dream": "Dream",
         "dreamer": "Dreamer",
         "new": "New",
-        "propose": "Propose"
+        "nounRepresented": ":number Noun",
+        "nounsRepresented": ":number Nouns",
+        "propose": "Propose",
+        "sponsors": "Sponsors"
     },
     "metadata": {
         "description": "Probe the stats for Dream :id",

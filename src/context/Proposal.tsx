@@ -8,15 +8,17 @@ import DreamFromDB, {
     isDreamFromDBWithCustomTrait,
 } from '@/utils/dto/Dream/FromDB';
 import { RpcContext } from '@/context/Rpc';
+import NounProposalCandidateFromSubgraph, {
+    isNounProposalCandidateFromSubgraph,
+} from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
 // import { nounsDataProxyContractABI } from '@/utils/contracts/NounsDataProxyContractABI';
 
 interface ProposalContext {
-    isCandidate: boolean;
+    isCandidate?: boolean;
+    proposalCandidate?: NounProposalCandidateFromSubgraph;
 }
 
-export const ProposalContext = createContext<ProposalContext>({
-    isCandidate: false,
-});
+export const ProposalContext = createContext<ProposalContext>({});
 
 type Props = {
     children: React.ReactNode;
@@ -26,8 +28,9 @@ type Props = {
 const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     const { httpProvider } = useContext(RpcContext);
     const { httpDataProxyContract } = useContext(DataProxyContext);
-    const [isCandidate, setIsCandidate] = useState(false);
-    const [transaction, setTransaction] = useState<TransactionResponse>();
+    const [isCandidate, setIsCandidate] = useState<boolean>();
+    const [proposalCandidate, setProposalCandidate] =
+        useState<NounProposalCandidateFromSubgraph>();
 
     useEffect(() => {
         if (!isDreamFromDBWithCustomTrait(dream)) {
@@ -77,8 +80,23 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                 const { result } = await response.json();
 
                 console.log('ProposalCandidate result', result);
+                console.log(
+                    'ProposalCandidate !isNounProposalCandidateFromSubgraph(result.data.proposalCandidate)',
+                    !isNounProposalCandidateFromSubgraph(
+                        result.data.proposalCandidate
+                    )
+                );
+
+                if (
+                    !isNounProposalCandidateFromSubgraph(
+                        result.data.proposalCandidate
+                    )
+                ) {
+                    throw new Error('Invalid data');
+                }
+
+                setProposalCandidate(result.data.proposalCandidate);
             } catch (error) {
-                alert(error);
                 console.error(error);
             }
         };
@@ -150,6 +168,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         <ProposalContext.Provider
             value={{
                 isCandidate,
+                proposalCandidate,
             }}
         >
             {children}

@@ -1,6 +1,7 @@
 import { createClient, gql } from 'urql';
 import { cacheExchange, fetchExchange } from '@urql/core';
 import { NextRequest, NextResponse } from 'next/server';
+import { isNounProposalCandidateFromSubgraph } from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
 
 const client = createClient({
     url: `${process.env.SUBGRAPH_BASE_URL}/${process.env.SUBGRAPH_API_KEY}/subgraphs/id/${process.env.NOUNS_SUBGRAPH_ID}`,
@@ -19,6 +20,64 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const DATA_QUERY = gql`
         query ProposalCandidate($id: ID!) {
             proposalCandidate(id: $id) {
+                latestVersion {
+                    updateMessage
+                    createdBlock
+                    createdTimestamp
+                    id
+                    proposal {
+                        canceled
+                        canceledBlock
+                        canceledTimestamp
+                        createdBlock
+                        createdTimestamp
+                        createdTransactionHash
+                        id
+                        lastUpdatedBlock
+                        lastUpdatedTimestamp
+                        number
+                        proposer
+                        slug
+                    }
+                    content {
+                        calldatas
+                        description
+                        encodedProposalHash
+                        id
+                        proposalIdToUpdate
+                        matchingProposalIds
+                        proposer
+                        signatures
+                        targets
+                        title
+                        values
+                        contentSignatures {
+                            createdTimestamp
+                            sig
+                            signer {
+                                delegatedVotes
+                                delegatedVotesRaw
+                                id
+                                nounsRepresented {
+                                    id
+                                    seed {
+                                        accessory
+                                        background
+                                        body
+                                        glasses
+                                        head
+                                    }
+                                }
+                                tokenHoldersRepresentedAmount
+                            }
+                            sigDigest
+                            reason
+                            id
+                            expirationTimestamp
+                            encodedProposalHash
+                        }
+                    }
+                }
                 number
                 proposer
                 slug
@@ -45,9 +104,18 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
             );
         }
 
+        if (
+            !isNounProposalCandidateFromSubgraph(result.data.proposalCandidate)
+        ) {
+            return NextResponse.json(
+                { error: 'Invalid data' },
+                { status: 500 }
+            );
+        }
+
         return NextResponse.json({ result });
     } catch (error) {
-        console.log('ProposalCandidateContent Error:', error);
+        console.log('ProposalCandidate Error:', error);
         return NextResponse.json(error, { status: 500 });
     }
 }

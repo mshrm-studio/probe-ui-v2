@@ -6,11 +6,15 @@
     },
     "details": {
         "about": "关于",
+        "addSignature": "添加签名",
         "date": "日期",
         "dream": "梦境",
         "dreamer": "梦想家",
         "new": "新",
-        "propose": "提议"
+        "nounRepresented": ":number 名词",
+        "nounsRepresented": ":number 名词",
+        "propose": "提议",
+        "sponsors": "赞助商"
     },
     "metadata": {
         "description": "探查梦境 :id 的统计信息",
