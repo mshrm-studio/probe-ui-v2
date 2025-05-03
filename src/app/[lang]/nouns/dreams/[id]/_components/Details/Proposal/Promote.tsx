@@ -72,11 +72,11 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
             //     a.signer.toLowerCase().localeCompare(b.signer.toLowerCase())
             // );
 
-            // const proposerSignatures = content.contentSignatures.map((cs) => ({
-            //     sig: cs.sig,
-            //     signer: cs.signer.id,
-            //     expirationTimestamp: cs.expirationTimestamp,
-            // }));
+            const proposerSignatures = content.contentSignatures.map((cs) => ({
+                sig: cs.sig,
+                signer: cs.signer.id,
+                expirationTimestamp: cs.expirationTimestamp,
+            }));
 
             const proposeWithClientId = contractWithSigner.getFunction(
                 'propose(address[],uint256[],string[],bytes[],string,uint32)'
