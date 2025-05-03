@@ -87,20 +87,20 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
             );
 
-            // const gasEstimate = await proposeBySigsWithClientId.estimateGas(
-            //     proposerSignatures,
-            //     content.targets,
-            //     content.values,
-            //     content.signatures,
-            //     content.calldatas,
-            //     content.description,
-            //     Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
-            // );
+            const gasEstimate = await proposeBySigsWithClientId.estimateGas(
+                proposerSignatures,
+                content.targets,
+                content.values,
+                content.signatures,
+                content.calldatas,
+                content.description,
+                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
+            );
 
-            // const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
+            const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
 
-            // console.log('gasEstimate', gasEstimate);
-            // console.log('gasLimit', gasLimit);
+            console.log('gasEstimate', gasEstimate);
+            console.log('gasLimit', gasLimit);
 
             const tx = await proposeBySigsWithClientId(
                 proposerSignatures,
@@ -109,7 +109,10 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 content.signatures,
                 content.calldatas,
                 content.description,
-                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
+                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID),
+                {
+                    gasLimit: gasLimit,
+                }
             );
 
             await tx.wait();
