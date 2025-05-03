@@ -52,5 +52,5 @@ export default function EthAddress({ address, shorten = true }: Props) {
         return `${address.slice(0, 4)}...${address.slice(-4)}`;
     }, [address, ensName, shorten]);
 
-    return <span>{textToDisplay}</span>;
+    return <span data-address={address}>{textToDisplay}</span>;
 }
