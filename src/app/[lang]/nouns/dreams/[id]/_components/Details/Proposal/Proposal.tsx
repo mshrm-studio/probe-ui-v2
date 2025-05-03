@@ -46,8 +46,7 @@ export default function Proposal({ className, dict, dream }: Props) {
                     validSignatures={validSignatures}
                 />
 
-                {proposalCandidate.latestVersion.content.contentSignatures
-                    .length >= 2 && (
+                {validSignatures.length >= 2 && (
                     <DaoProxyProvider>
                         <Promote
                             className={styles.promoteContainer}
