@@ -5,7 +5,15 @@ import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/ProposalCandidat
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/signatures/add.module.css';
 import Button from '@/app/_components/Button';
 import clsx from 'clsx';
-import { BrowserProvider, Contract, Eip1193Provider } from 'ethers';
+import {
+    AbiCoder,
+    BrowserProvider,
+    Contract,
+    Eip1193Provider,
+    keccak256,
+    solidityPacked,
+    toUtf8Bytes,
+} from 'ethers';
 import {
     useAppKit,
     useAppKitAccount,
@@ -30,14 +38,6 @@ export default function SignatureList({
     const { httpDataProxyContract } = useContext(DataProxyContext);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        // sig (bytes) the signature bytes.
-        // expirationTimestamp (uint256) the signature's expiration timestamp.
-        // proposer (address) the proposer account that posted the candidate proposal with the provided slug.
-        // slug (string) the slug of the proposal candidate signer signed on.
-        // proposalIdToUpdate (uint256) proposalIdToUpdate (uint256) if this is an update to an existing proposal, the ID of the proposal to update, otherwise 0.
-        // encodedProp (bytes) the abi encoding of the candidate version signed; should be identical to the output of the `NounsDAOProposals.calcProposalEncodeData` function.
-        // reason (string) signer's reason free text.
-
         e.preventDefault();
 
         if (!walletProvider || !httpDataProxyContract) return;
@@ -51,33 +51,8 @@ export default function SignatureList({
             const content = proposalCandidate.latestVersion.content;
             const expirationTimestamp =
                 Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7; // 7 days in seconds
-            const proposer = proposalCandidate.proposer;
-            const slug = proposalCandidate.slug;
-            const proposalIdToUpdate = content.proposalIdToUpdate;
-            const encodedProp = content.encodedProposalHash;
+            // const encodedProp = content.encodedProposalHash;
             const reason = '';
-
-            console.log('expirationTimestamp:', expirationTimestamp);
-            console.log('proposer:', proposer);
-            console.log('slug:', slug);
-            console.log('proposalIdToUpdate:', proposalIdToUpdate);
-            console.log('encodedProp:', encodedProp);
-            console.log('reason:', reason);
-
-            const message = `
-I, ${address}, support proposal '${slug}'.
-
-Encoded proposal hash:
-${encodedProp}
-
-This signature expires at ${new Date(
-                expirationTimestamp * 1000
-            ).toISOString()} (Unix: ${expirationTimestamp})
-
-proposalIdToUpdate: ${proposalIdToUpdate}
-`;
-
-            console.log('message:', message);
 
             const provider = new BrowserProvider(
                 walletProvider as Eip1193Provider
@@ -85,77 +60,135 @@ proposalIdToUpdate: ${proposalIdToUpdate}
 
             const signer = await provider.getSigner();
 
-            const typedData = {
-                types: {
-                    Signature: [
-                        { name: 'proposer', type: 'address' },
-                        { name: 'slug', type: 'string' },
-                        { name: 'proposalIdToUpdate', type: 'uint256' },
-                        { name: 'encodedProp', type: 'bytes32' },
-                        { name: 'expirationTimestamp', type: 'uint256' },
-                        { name: 'reason', type: 'string' },
-                    ],
-                },
-                domain: {
-                    name: 'probe.wtf',
-                    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
-                    verifyingContract: httpDataProxyContract.target,
-                },
-                primaryType: 'Signature',
-                message: {
-                    proposer,
-                    slug,
-                    proposalIdToUpdate,
-                    encodedProp,
-                    expirationTimestamp,
-                    reason,
-                },
+            const domain = {
+                name: 'Nouns DAO',
+                chainId: await signer.provider
+                    .getNetwork()
+                    .then((n) => Number(n.chainId)),
+                verifyingContract: String(
+                    process.env.NEXT_PUBLIC_NOUNS_DAO_PROXY_CONTRACT_ADDRESS
+                ),
             };
 
-            const sig = await (walletProvider as any).signTypedData({
-                method: 'eth_signTypedData_v4',
-                params: [address, JSON.stringify(typedData)],
-            });
+            //     bytes32 public constant PROPOSAL_TYPEHASH =
+            // keccak256(
+            //     'Proposal(address proposer,address[] targets,uint256[] values,string[] signatures,bytes[] calldatas,string description,uint256 expiry)'
+            // );
 
-            // const sig = await signer.signMessage(message.trim());
+            const createProposalTypes = {
+                Proposal: [
+                    { name: 'proposer', type: 'address' },
+                    { name: 'targets', type: 'address[]' },
+                    { name: 'values', type: 'uint256[]' },
+                    { name: 'signatures', type: 'string[]' },
+                    { name: 'calldatas', type: 'bytes[]' },
+                    { name: 'description', type: 'string' },
+                    { name: 'expiry', type: 'uint256' },
+                ],
+            };
 
-            console.log('sig:', sig);
+            //     bytes32 public constant UPDATE_PROPOSAL_TYPEHASH =
+            // keccak256(
+            //     'UpdateProposal(uint256 proposalId,address proposer,address[] targets,uint256[] values,string[] signatures,bytes[] calldatas,string description,uint256 expiry)'
+            // );
+
+            const updateProposalTypes = {
+                UpdateProposal: [
+                    { name: 'proposalId', type: 'uint256' },
+                    { name: 'proposer', type: 'address' },
+                    { name: 'targets', type: 'address[]' },
+                    { name: 'values', type: 'uint256[]' },
+                    { name: 'signatures', type: 'string[]' },
+                    { name: 'calldatas', type: 'bytes[]' },
+                    { name: 'description', type: 'string' },
+                    { name: 'expiry', type: 'uint256' },
+                ],
+            };
+
+            const createProposalValue = {
+                proposer: content.proposer,
+                targets: content.targets,
+                values: content.values,
+                signatures: content.signatures,
+                calldatas: content.calldatas,
+                description: content.description,
+                expiry: expirationTimestamp,
+            };
+
+            const updateProposalValue = {
+                proposalId: Number(content.proposalIdToUpdate),
+                proposer: content.proposer,
+                targets: content.targets,
+                values: content.values,
+                signatures: content.signatures,
+                calldatas: content.calldatas,
+                description: content.description,
+                expiry: expirationTimestamp,
+            };
+
+            const types =
+                content.proposalIdToUpdate == '0'
+                    ? createProposalTypes
+                    : updateProposalTypes;
+
+            const value =
+                content.proposalIdToUpdate == '0'
+                    ? createProposalValue
+                    : updateProposalValue;
+
+            const sig = await signer.signTypedData(domain, types, value);
 
             const contractWithSigner = httpDataProxyContract.connect(
                 signer
             ) as Contract;
 
-            // const gasEstimate =
-            //     await contractWithSigner.addSignature.estimateGas(
-            //         sig,
-            //         expirationTimestamp,
-            //         proposer,
-            //         slug,
-            //         proposalIdToUpdate,
-            //         encodedProp,
-            //         reason
-            //     );
+            const signatureHashes = content.signatures.map((signature) =>
+                keccak256(toUtf8Bytes(signature))
+            );
 
-            // const gasLimit = gasEstimate + BigInt(10_000); // buffer
+            const calldatasHashes = content.calldatas.map((calldata) =>
+                keccak256(calldata)
+            );
+
+            const encodedProp = AbiCoder.defaultAbiCoder().encode(
+                [
+                    'address',
+                    'bytes32',
+                    'bytes32',
+                    'bytes32',
+                    'bytes32',
+                    'bytes32',
+                ],
+                [
+                    value.proposer,
+                    keccak256(solidityPacked(['address[]'], [value.targets])),
+                    keccak256(solidityPacked(['uint256[]'], [value.values])),
+                    keccak256(solidityPacked(['bytes32[]'], [signatureHashes])),
+                    keccak256(solidityPacked(['bytes32[]'], [calldatasHashes])),
+                    keccak256(toUtf8Bytes(content.description)),
+                ]
+            );
+
+            const encodedPropUpdate = solidityPacked(
+                ['uint256', 'bytes'],
+                [Number(content.proposalIdToUpdate), encodedProp]
+            );
 
             const tx = await contractWithSigner.addSignature(
                 sig,
                 expirationTimestamp,
-                proposer,
-                slug,
-                proposalIdToUpdate,
-                encodedProp,
+                value.proposer,
+                proposalCandidate.slug,
+                Number(content.proposalIdToUpdate),
+                content.proposalIdToUpdate == '0'
+                    ? encodedProp
+                    : encodedPropUpdate,
                 reason
-                // {
-                //     value: gasLimit,
-                // }
             );
 
-            const response = await tx.wait();
-
-            console.log('Transaction response:', response);
+            await tx.wait();
         } catch (error: any) {
-            console.error('Error signing message:', error);
+            console.error('Error adding signature:', error);
             alert(error?.info?.error?.message || error.code);
         }
     };

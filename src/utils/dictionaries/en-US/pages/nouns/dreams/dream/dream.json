@@ -6,13 +6,14 @@
     },
     "details": {
         "about": "About",
-        "addSignature": "Promote",
+        "addSignature": "Sponsor",
         "date": "Date",
         "dream": "Dream",
         "dreamer": "Dreamer",
         "new": "New",
         "nounRepresented": ":number Noun",
         "nounsRepresented": ":number Nouns",
+        "promote": "Promote",
         "propose": "Propose",
         "sponsors": "Sponsors"
     },

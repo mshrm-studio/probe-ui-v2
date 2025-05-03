@@ -6,13 +6,14 @@
     },
     "details": {
         "about": "概要",
-        "addSignature": "署名を追加",
+        "addSignature": "スポンサー",
         "date": "日付",
         "dream": "ドリーム",
         "dreamer": "夢見る者",
         "new": "新規",
         "nounRepresented": ":number ナウンズ",
         "nounsRepresented": ":number ナウンズ",
+        "promote": "プロモート",
         "propose": "提案",
         "sponsors": "スポンサー"
     },
