@@ -10,8 +10,9 @@ import {
 } from '@reown/appkit/react';
 import { DaoProxyContext } from '@/context/DaoProxy';
 import { useContext } from 'react';
-import { BrowserProvider, Contract, Eip1193Provider } from 'ethers';
+import { BrowserProvider, Contract, Eip1193Provider, Interface } from 'ethers';
 import clsx from 'clsx';
+import { nounsDaoProxyContractABI } from '@/utils/contracts/NounsDaoProxyContractABI';
 
 interface Props {
     className?: string;
@@ -107,6 +108,10 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
 
             // console.log('gasEstimate', gasEstimate);
             // console.log('gasLimit', gasLimit);
+
+            const iface = new Interface(nounsDaoProxyContractABI);
+            const error = iface.parseError('0x8baa579f');
+            console.log('error', error);
 
             const tx = await proposeBySigsWithClientId(
                 proposerSignatures,

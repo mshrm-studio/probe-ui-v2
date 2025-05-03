@@ -46,14 +46,23 @@ const useArtworkEncoding = () => {
     const compressAndEncodeTrait = (
         traitColorIndexes: number[],
         paletteIndex: number
-    ): EncodedCompressedParts =>
-        compressEncodedArtwork([
+    ): EncodedCompressedParts => {
+        console.log(
+            '[compressAndEncodeTrait] traitColorIndexes',
+            traitColorIndexes
+        );
+
+        console.log('[compressAndEncodeTrait] paletteIndex', paletteIndex);
+
+        return compressEncodedArtwork([
             encodeArtwork(32, 32, traitColorIndexes, paletteIndex),
         ]);
+    };
 
     const compressEncodedArtwork = (
         encodedArtwork: EncodedArtwork[]
     ): EncodedCompressedParts => {
+        console.log('[compressEncodedArtwork] encodedArtwork', encodedArtwork);
         const abiEncodedArtwork = encodeAbiParameters(
             [{ type: 'bytes[]' }],
             [encodedArtwork]
@@ -63,6 +72,18 @@ const useArtworkEncoding = () => {
         const encodedCompressedArtwork = bytesToHex(compressedBytes);
         const originalLength = BigInt(uncompressedBytes.length);
         const itemCount = BigInt(encodedArtwork.length);
+
+        console.log(
+            '[compressEncodedArtwork] encodedCompressedArtwork',
+            encodedCompressedArtwork
+        );
+
+        console.log(
+            '[compressEncodedArtwork] originalLength',
+            originalLength.toString()
+        );
+
+        console.log('[compressEncodedArtwork] itemCount', itemCount.toString());
 
         return [encodedCompressedArtwork, originalLength, itemCount];
     };
@@ -102,6 +123,10 @@ const useArtworkEncoding = () => {
         pixels: number[],
         paletteIndex: number
     ): EncodedArtwork => {
+        console.log('[encodeArtwork] pixels', pixels);
+        console.log('[encodeArtwork] paletteIndex', paletteIndex);
+        console.log('[encodeArtwork] height', height);
+        console.log('[encodeArtwork] width', width);
         const {
             bounds: { top, right, bottom, left },
             pixels: boundedPixels,
@@ -111,10 +136,20 @@ const useArtworkEncoding = () => {
             toHexByte(v)
         );
 
+        console.log('[encodeArtwork] top', top);
+        console.log('[encodeArtwork] right', right);
+        console.log('[encodeArtwork] bottom', bottom);
+        console.log('[encodeArtwork] left', left);
+        console.log('[encodeArtwork] metadata', metadata);
+        console.log('[encodeArtwork] boundedPixels', boundedPixels);
+
         return `0x${metadata.join('')}${rleEncode(boundedPixels)}`;
     };
 
     const getColorIndexes = (canvas: HTMLCanvasElement, palette: Palette) => {
+        console.log('[getColorIndexes] palette', palette);
+        console.log('[getColorIndexes] canvas', canvas);
+
         const paletteDict = getPaletteDict(palette);
 
         return getPixels(canvas).map((color) => {
