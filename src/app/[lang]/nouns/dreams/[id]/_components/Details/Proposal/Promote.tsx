@@ -52,28 +52,14 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
 
             console.log('content', content);
 
-            const proposerSignatures = Array.from(
-                new Map(
-                    content.contentSignatures
-                        .filter(
-                            (cs) =>
-                                Number(cs.expirationTimestamp) >
-                                Math.floor(Date.now() / 1000)
-                        )
-                        .map((cs) => [
-                            cs.signer.id.toLowerCase(),
-                            {
-                                sig: cs.sig,
-                                signer: cs.signer.id,
-                                expirationTimestamp: Number(
-                                    cs.expirationTimestamp
-                                ),
-                            },
-                        ])
-                ).values()
-            ).sort((a, b) =>
-                a.signer.toLowerCase().localeCompare(b.signer.toLowerCase())
-            );
+            const proposerSignatures = content.contentSignatures
+                .filter(
+                    (s) =>
+                        Number(s.expirationTimestamp) >
+                        Math.floor(Date.now() / 1000)
+                )
+                .map((s) => [s.sig, s.signer.id, s.expirationTimestamp])
+                .sort((a, b) => a[1].toString().localeCompare(b[1].toString()));
 
             const proposeBySigsWithClientId = contractWithSigner.getFunction(
                 'proposeBySigs((bytes,address,uint256)[],address[],uint256[],string[],bytes[],string,uint32)'
