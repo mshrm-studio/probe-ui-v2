@@ -33,6 +33,8 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
             return;
         }
 
+        if (address !== proposalCandidate.proposer) return;
+
         if (!walletProvider || !httpDaoProxyContract) return;
 
         try {
@@ -194,6 +196,8 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
             alert(error?.info?.error?.message || error.code);
         }
     };
+
+    if (address !== proposalCandidate.proposer) return null;
 
     return (
         <div className={clsx(className, 'space-y-4')}>
