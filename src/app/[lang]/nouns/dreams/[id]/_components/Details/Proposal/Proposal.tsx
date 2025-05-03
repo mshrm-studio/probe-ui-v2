@@ -37,6 +37,18 @@ export default function Proposal({ className, dict, dream }: Props) {
         );
     }, [proposalCandidate]);
 
+    const validSignaturesNouns = useMemo(() => {
+        const nounIds: number[] = [];
+
+        validSignatures.forEach((sig) => {
+            sig.signer.nounsRepresented.forEach((noun) =>
+                nounIds.push(Number(noun.id))
+            );
+        });
+
+        return nounIds;
+    }, [validSignatures]);
+
     if (proposalCandidate) {
         return (
             <div className={className}>
@@ -47,7 +59,7 @@ export default function Proposal({ className, dict, dream }: Props) {
                     validSignatures={validSignatures}
                 />
 
-                {validSignatures.length >= 2 && (
+                {validSignaturesNouns.length >= 2 && (
                     <DaoProxyProvider>
                         <Promote
                             className={styles.promoteContainer}

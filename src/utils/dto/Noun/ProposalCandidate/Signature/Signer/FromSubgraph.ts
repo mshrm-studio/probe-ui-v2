@@ -1,6 +1,6 @@
 import NounFromSubgraph from '@/utils/dto/Noun/FromSubgraph';
 
-export default interface NounProposalCandidateSignatureDelegateFromSubgraph {
+export default interface NounProposalCandidateSignatureSignerFromSubgraph {
     id: string;
     delegatedVotes: string;
     delegatedVotesRaw: string;
@@ -8,9 +8,9 @@ export default interface NounProposalCandidateSignatureDelegateFromSubgraph {
     tokenHoldersRepresentedAmount: number;
 }
 
-export const isNounProposalCandidateSignatureDelegateFromSubgraph = (
+export const isNounProposalCandidateSignatureSignerFromSubgraph = (
     input: unknown
-): input is NounProposalCandidateSignatureDelegateFromSubgraph => {
+): input is NounProposalCandidateSignatureSignerFromSubgraph => {
     return (
         typeof input === 'object' &&
         input !== null &&
@@ -18,13 +18,13 @@ export const isNounProposalCandidateSignatureDelegateFromSubgraph = (
     );
 };
 
-export const isNounProposalCandidateSignatureDelegateFromSubgraphList = (
+export const isNounProposalCandidateSignatureSignerFromSubgraphList = (
     input: unknown
-): input is NounProposalCandidateSignatureDelegateFromSubgraph[] => {
+): input is NounProposalCandidateSignatureSignerFromSubgraph[] => {
     return (
         Array.isArray(input) &&
         input.every((item) =>
-            isNounProposalCandidateSignatureDelegateFromSubgraph(item)
+            isNounProposalCandidateSignatureSignerFromSubgraph(item)
         )
     );
 };

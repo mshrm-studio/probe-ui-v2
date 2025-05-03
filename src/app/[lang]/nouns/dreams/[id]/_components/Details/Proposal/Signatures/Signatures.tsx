@@ -29,14 +29,12 @@ export default function Proposal({
 
             <SignatureList dict={dict} validSignatures={validSignatures} />
 
-            {validSignatures.length < 2 && (
-                <AddSignature
-                    className={styles.addSignatureContainer}
-                    dict={dict}
-                    dream={dream}
-                    proposalCandidate={proposalCandidate}
-                />
-            )}
+            <AddSignature
+                className={styles.addSignatureContainer}
+                dict={dict}
+                dream={dream}
+                proposalCandidate={proposalCandidate}
+            />
         </div>
     );
 }

@@ -1,8 +1,8 @@
-import NounProposalCandidateSignatureDelegateFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/Signature/Delegate/FromSubgraph';
+import NounProposalCandidateSignatureSignerFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/Signature/Signer/FromSubgraph';
 
 export default interface NounProposalCandidateSignatureFromSubgraph {
     id: string;
-    signer: NounProposalCandidateSignatureDelegateFromSubgraph;
+    signer: NounProposalCandidateSignatureSignerFromSubgraph;
     createdTimestamp: string;
     sig: string;
     sigDigest: string;
