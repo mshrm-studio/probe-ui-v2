@@ -88,7 +88,7 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
             );
 
-            const tx = await proposeBySigsWithClientId(
+            const gasEstimate = await proposeBySigsWithClientId.estimateGas(
                 proposerSignatures,
                 content.targets,
                 content.values,
@@ -96,6 +96,24 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 content.calldatas,
                 content.description,
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
+            );
+
+            const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
+
+            console.log('gasEstimate', gasEstimate);
+            console.log('gasLimit', gasLimit);
+
+            const tx = await proposeBySigsWithClientId(
+                proposerSignatures,
+                content.targets,
+                content.values,
+                content.signatures,
+                content.calldatas,
+                content.description,
+                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID),
+                {
+                    gasLimit,
+                }
             );
 
             await tx.wait();
@@ -144,13 +162,30 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
             );
 
-            const tx = await proposeWithClientId(
+            const gasEstimate = await proposeWithClientId.estimateGas(
                 content.targets,
                 content.values,
                 content.signatures,
                 content.calldatas,
                 content.description,
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
+            );
+
+            const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
+
+            console.log('gasEstimate', gasEstimate);
+            console.log('gasLimit', gasLimit);
+
+            const tx = await proposeWithClientId(
+                content.targets,
+                content.values,
+                content.signatures,
+                content.calldatas,
+                content.description,
+                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID),
+                {
+                    gasLimit,
+                }
             );
 
             await tx.wait();
