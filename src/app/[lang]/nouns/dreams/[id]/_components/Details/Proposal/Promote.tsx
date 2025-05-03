@@ -82,7 +82,7 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 'propose(address[],uint256[],string[],bytes[],string,uint32)'
             );
 
-            // console.log('proposerSignatures', proposerSignatures);
+            console.log('proposerSignatures', proposerSignatures);
             console.log('targets', content.targets);
             console.log('values', content.values);
             console.log('signatures', content.signatures);
