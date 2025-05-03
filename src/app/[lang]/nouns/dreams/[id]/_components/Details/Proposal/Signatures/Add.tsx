@@ -21,15 +21,18 @@ import {
 } from '@reown/appkit/react';
 import { DataProxyContext } from '@/context/DataProxy';
 import { useContext } from 'react';
+import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
+    dream: DreamFromDBWithCustomTrait;
     proposalCandidate: NounProposalCandidateFromSubgraph;
 }
 
 export default function SignatureList({
     className,
     dict,
+    dream,
     proposalCandidate,
 }: Props) {
     const { address, isConnected } = useAppKitAccount();
@@ -192,6 +195,8 @@ export default function SignatureList({
             alert(error?.info?.error?.message || error.code);
         }
     };
+
+    if (dream.dreamer === address) return null;
 
     return (
         <form onSubmit={handleSubmit} className={clsx(className, styles.form)}>

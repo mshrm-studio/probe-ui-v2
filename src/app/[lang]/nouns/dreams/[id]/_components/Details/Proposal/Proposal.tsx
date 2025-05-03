@@ -42,6 +42,7 @@ export default function Proposal({ className, dict, dream }: Props) {
             <div className={className}>
                 <Signatures
                     dict={dict}
+                    dream={dream}
                     proposalCandidate={proposalCandidate}
                     validSignatures={validSignatures}
                 />

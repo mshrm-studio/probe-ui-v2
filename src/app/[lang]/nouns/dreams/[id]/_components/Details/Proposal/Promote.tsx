@@ -26,7 +26,7 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
     const { walletProvider } = useAppKitProvider('eip155');
     const { httpDaoProxyContract } = useContext(DaoProxyContext);
 
-    const handleSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
+    const propose = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!isConnected || !address) {
@@ -130,7 +130,7 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const proposeBySigs = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!isConnected || !address) {
@@ -203,13 +203,13 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
 
     return (
         <div className={clsx(className, 'space-y-4')}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={propose}>
                 <Button type="submit" color="purple">
                     {dict.dream.details.promote}
                 </Button>
             </form>
 
-            <form onSubmit={handleSubmit2}>
+            <form onSubmit={proposeBySigs}>
                 <Button type="submit" color="purple">
                     {dict.dream.details.promote} (bySigs)
                 </Button>
