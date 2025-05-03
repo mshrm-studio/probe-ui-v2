@@ -89,6 +89,7 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
             );
 
             const tx = await proposeBySigsWithClientId(
+                proposerSignatures,
                 content.targets,
                 content.values,
                 content.signatures,
