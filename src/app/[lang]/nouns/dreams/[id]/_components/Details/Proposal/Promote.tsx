@@ -28,12 +28,12 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
     const handleSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!walletProvider || !httpDaoProxyContract) return;
-
         if (!isConnected || !address) {
             open();
             return;
         }
+
+        if (!walletProvider || !httpDaoProxyContract) return;
 
         try {
             const provider = new BrowserProvider(
@@ -107,12 +107,12 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!walletProvider || !httpDaoProxyContract) return;
-
         if (!isConnected || !address) {
             open();
             return;
         }
+
+        if (!walletProvider || !httpDaoProxyContract) return;
 
         try {
             const provider = new BrowserProvider(

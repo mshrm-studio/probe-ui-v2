@@ -40,12 +40,12 @@ export default function SignatureList({
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!walletProvider || !httpDataProxyContract) return;
-
         if (!isConnected || !address) {
             open();
             return;
         }
+
+        if (!walletProvider || !httpDataProxyContract) return;
 
         try {
             const content = proposalCandidate.latestVersion.content;
