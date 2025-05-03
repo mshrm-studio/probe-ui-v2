@@ -17,8 +17,6 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 export default function Proposal({ className, dict, dream }: Props) {
     const { proposalCandidate } = useContext(ProposalContext);
 
-    const now = Math.floor(Date.now() / 1000);
-
     const validSignatures = useMemo(() => {
         const seen = new Set<string>();
 
@@ -26,11 +24,17 @@ export default function Proposal({ className, dict, dream }: Props) {
             proposalCandidate?.latestVersion.content.contentSignatures.filter(
                 (sig) => {
                     const signer = sig.signer.id.toLowerCase();
-                    const isExpired = Number(sig.expirationTimestamp) <= now;
 
-                    if (isExpired || seen.has(signer)) return false;
+                    if (seen.has(signer)) return false;
+
+                    const isExpired =
+                        Number(sig.expirationTimestamp) <=
+                        Math.floor(Date.now() / 1000);
+
+                    if (isExpired) return false;
 
                     seen.add(signer);
+
                     return true;
                 }
             ) || []
@@ -57,6 +61,7 @@ export default function Proposal({ className, dict, dream }: Props) {
                     dream={dream}
                     proposalCandidate={proposalCandidate}
                     validSignatures={validSignatures}
+                    validSignaturesNouns={validSignaturesNouns}
                 />
 
                 {validSignaturesNouns.length >= 2 && (

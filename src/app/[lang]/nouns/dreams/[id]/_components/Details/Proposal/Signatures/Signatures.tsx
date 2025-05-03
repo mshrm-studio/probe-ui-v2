@@ -13,6 +13,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dream: DreamFromDBWithCustomTrait;
     proposalCandidate: NounProposalCandidateFromSubgraph;
     validSignatures: NounProposalCandidateSignatureFromSubgraph[];
+    validSignaturesNouns: number[];
 }
 
 export default function Proposal({
@@ -20,6 +21,7 @@ export default function Proposal({
     dream,
     proposalCandidate,
     validSignatures,
+    validSignaturesNouns,
 }: Props) {
     return (
         <div>
@@ -29,12 +31,14 @@ export default function Proposal({
 
             <SignatureList dict={dict} validSignatures={validSignatures} />
 
-            <AddSignature
-                className={styles.addSignatureContainer}
-                dict={dict}
-                dream={dream}
-                proposalCandidate={proposalCandidate}
-            />
+            {validSignaturesNouns.length < 2 && (
+                <AddSignature
+                    className={styles.addSignatureContainer}
+                    dict={dict}
+                    dream={dream}
+                    proposalCandidate={proposalCandidate}
+                />
+            )}
         </div>
     );
 }
