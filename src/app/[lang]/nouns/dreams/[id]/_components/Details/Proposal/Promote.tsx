@@ -67,7 +67,7 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                         )
                         .map((s) => [
                             s.signer.id.toLowerCase(),
-                            [s.sig, s.signer.id, s.expirationTimestamp],
+                            [s.sig, s.signer.id, Number(s.expirationTimestamp)],
                         ])
                 ).values()
             );
