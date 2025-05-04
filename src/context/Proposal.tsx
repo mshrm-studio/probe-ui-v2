@@ -1,21 +1,23 @@
 'use client';
 
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { DataProxyContext } from '@/context/DataProxy';
 import { keccak256, toUtf8Bytes, TransactionResponse } from 'ethers';
 import DreamFromDB, {
     isDreamFromDBWithCustomTrait,
 } from '@/utils/dto/Dream/FromDB';
-import { RpcContext } from '@/context/Rpc';
 import NounProposalCandidateFromSubgraph, {
     isNounProposalCandidateFromSubgraph,
-} from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
-// import { nounsDataProxyContractABI } from '@/utils/contracts/NounsDataProxyContractABI';
+} from '@/utils/dto/Noun/Proposal/Candidate/FromSubgraph';
+import NounProposalFromSubgraph, {
+    isNounProposalFromSubgraph,
+} from '@/utils/dto/Noun/Proposal/FromSubgraph';
 
 interface ProposalContext {
     isCandidate?: boolean;
     proposalCandidate?: NounProposalCandidateFromSubgraph;
+    proposal?: NounProposalFromSubgraph;
 }
 
 export const ProposalContext = createContext<ProposalContext>({});
@@ -26,11 +28,11 @@ type Props = {
 };
 
 const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
-    const { httpProvider } = useContext(RpcContext);
     const { httpDataProxyContract } = useContext(DataProxyContext);
     const [isCandidate, setIsCandidate] = useState<boolean>();
     const [proposalCandidate, setProposalCandidate] =
         useState<NounProposalCandidateFromSubgraph>();
+    const [proposal, setProposal] = useState<NounProposalFromSubgraph>();
 
     useEffect(() => {
         if (!isDreamFromDBWithCustomTrait(dream)) {
@@ -47,7 +49,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
             );
 
             if (typeof isCandidate !== 'boolean') {
-                throw new Error('Invalid response from propCandidate');
+                throw new Error('Invalid response from propCandidates');
             }
 
             setIsCandidate(isCandidate);
@@ -57,8 +59,6 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     }, [dream, httpDataProxyContract]);
 
     useEffect(() => {
-        if (!isCandidate) return;
-
         const fetchProposalCandidate = async () => {
             const id = `${dream.dreamer}-probe-dream-${dream.id}`;
 
@@ -71,21 +71,13 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                     }
                 );
 
-                console.log('ProposalCandidate response', response);
-
                 if (!response.ok) {
                     throw new Error('Failed to fetch proposal candidate');
                 }
 
                 const { result } = await response.json();
 
-                console.log('ProposalCandidate result', result);
-                console.log(
-                    'ProposalCandidate !isNounProposalCandidateFromSubgraph(result.data.proposalCandidate)',
-                    !isNounProposalCandidateFromSubgraph(
-                        result.data.proposalCandidate
-                    )
-                );
+                console.log('[Proposal] candidate', result);
 
                 if (
                     !isNounProposalCandidateFromSubgraph(
@@ -102,73 +94,50 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         };
 
         fetchProposalCandidate();
-    }, [dream, isCandidate]);
+    }, [dream]);
 
-    // useEffect(() => {
-    //     if (!isCandidate || !httpProvider || transaction) return;
+    useEffect(() => {
+        if (!proposalCandidate) return;
 
-    //     console.log('>>>> useEffect');
-    //     const fetchDreamTransaction = async () => {
-    //         console.log('>>>> getTx');
+        const fetchProposal = async () => {
+            const id = proposalCandidate.number;
 
-    //         // TODO: get the transaction hash from the contract
-    //         const tx = await httpProvider.getTransaction(
-    //             '0x9b7f226659636a35b4a68257e99674bc9a560ddf53244830189e580fc9782567'
-    //         );
+            try {
+                const response = await fetch(
+                    `/api/nouns/subgraph/proposal?id=${id}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
 
-    //         if (tx) setTransaction(tx);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch proposal');
+                }
 
-    //         console.log('tx:', tx);
-    //     };
+                const { result } = await response.json();
 
-    //     fetchDreamTransaction();
-    // }, [isCandidate, httpProvider, transaction]);
+                console.log('[Proposal] proposal', result);
 
-    // useEffect(() => {
-    //     if (!transaction) return;
+                if (!isNounProposalFromSubgraph(result.data.proposal)) {
+                    throw new Error('Invalid data');
+                }
 
-    //     // Create an Interface instance with your contract's ABI
-    //     const iface = new Interface(nounsDataProxyContractABI);
+                setProposal(result.data.proposal);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-    //     try {
-    //         // Parse the transaction data. Note: include value if relevant.
-    //         const parsedTx = iface.parseTransaction({
-    //             data: transaction.data,
-    //             value: transaction.value,
-    //         });
-
-    //         if (!parsedTx) return;
-
-    //         console.log('Decoded transaction data:', parsedTx);
-
-    //         // 1. Extract parameter names
-    //         const paramNames = parsedTx.fragment.inputs.map(
-    //             (input) => input.name
-    //         );
-
-    //         // 2. Extract parameter values
-    //         const paramValues = parsedTx.args;
-
-    //         // 3. Combine them into a neat object
-    //         const decodedParams: any = {};
-    //         for (let i = 0; i < paramNames.length; i++) {
-    //             decodedParams[paramNames[i]] = paramValues[i];
-    //         }
-
-    //         console.log('Function name:', parsedTx.name);
-    //         console.log('Decoded params:', decodedParams);
-    //         // parsedTx.name gives the function name (e.g. "createProposalCandidate")
-    //         // parsedTx.args contains the decoded arguments
-    //     } catch (err) {
-    //         console.error('Error decoding transaction data:', err);
-    //     }
-    // }, [transaction]);
+        fetchProposal();
+    }, [proposalCandidate]);
 
     return (
         <ProposalContext.Provider
             value={{
                 isCandidate,
                 proposalCandidate,
+                proposal,
             }}
         >
             {children}

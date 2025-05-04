@@ -7,6 +7,9 @@
     "details": {
         "about": "關於",
         "addSignature": "添加簽名",
+        "castVoteAbstain": "棄權",
+        "castVoteAgainst": "反對",
+        "castVoteFor": "贊成",
         "date": "日期",
         "dream": "夢境",
         "dreamer": "夢想家",

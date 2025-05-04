@@ -2,10 +2,10 @@
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/signatures/signatures.module.css';
-import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
+import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/Proposal/Candidate/FromSubgraph';
 import SignatureList from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Signatures/List';
 import AddSignature from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Signatures/Add';
-import NounProposalCandidateSignatureFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/Signature/FromSubgraph';
+import NounProposalCandidateSignatureFromSubgraph from '@/utils/dto/Noun/Proposal/Candidate/Signature/FromSubgraph';
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

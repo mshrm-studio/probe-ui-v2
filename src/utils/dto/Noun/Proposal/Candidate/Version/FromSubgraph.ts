@@ -1,4 +1,4 @@
-import NounProposalCandidateContent from '@/utils/dto/Noun/ProposalCandidate/Content/FromSubgraph';
+import NounProposalCandidateContent from '@/utils/dto/Noun/Proposal/Candidate/Content/FromSubgraph';
 
 export default interface NounProposalCandidateVersionFromSubgraph {
     createdBlock: string; // EG "8234426"

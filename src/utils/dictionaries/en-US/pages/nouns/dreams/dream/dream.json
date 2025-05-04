@@ -7,6 +7,9 @@
     "details": {
         "about": "About",
         "addSignature": "Sponsor",
+        "castVoteAbstain": "Abstain",
+        "castVoteAgainst": "Cast Vote Against",
+        "castVoteFor": "Cast Vote For",
         "date": "Date",
         "dream": "Dream",
         "dreamer": "Dreamer",

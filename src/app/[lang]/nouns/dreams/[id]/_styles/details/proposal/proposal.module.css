@@ -1,3 +1,4 @@
-.promoteContainer {
+.promoteContainer,
+.castVoteContainer {
     margin-top: 0.625rem;
 }

@@ -2,7 +2,7 @@
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import Button from '@/app/_components/Button';
-import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
+import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/Proposal/Candidate/FromSubgraph';
 import {
     useAppKit,
     useAppKitAccount,
@@ -11,20 +11,27 @@ import {
 import { DaoProxyContext } from '@/context/DaoProxy';
 import { useContext } from 'react';
 import { BrowserProvider, Contract, Eip1193Provider, Interface } from 'ethers';
-import clsx from 'clsx';
 import { nounsDaoProxyContractABI } from '@/utils/contracts/NounsDaoProxyContractABI';
+import { AccountContext } from '@/context/Account';
 
 interface Props {
     className?: string;
     dict: Dictionary;
     proposalCandidate: NounProposalCandidateFromSubgraph;
+    validSignaturesNouns: number[];
 }
 
-export default function Promote({ className, dict, proposalCandidate }: Props) {
+export default function Promote({
+    className,
+    dict,
+    proposalCandidate,
+    validSignaturesNouns,
+}: Props) {
     const { address, isConnected } = useAppKitAccount();
     const { open } = useAppKit();
     const { walletProvider } = useAppKitProvider('eip155');
     const { httpDaoProxyContract } = useContext(DaoProxyContext);
+    const { account } = useContext(AccountContext);
 
     const propose = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -94,25 +101,6 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
             );
 
-            // const gasEstimate = await proposeBySigsWithClientId.estimateGas(
-            //     proposerSignatures,
-            //     content.targets,
-            //     content.values,
-            //     content.signatures,
-            //     content.calldatas,
-            //     content.description,
-            //     Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
-            // );
-
-            // const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
-
-            // console.log('gasEstimate', gasEstimate);
-            // console.log('gasLimit', gasLimit);
-
-            const iface = new Interface(nounsDaoProxyContractABI);
-            const error = iface.parseError('0x8baa579f');
-            console.log('error', error);
-
             const tx = await proposeBySigsWithClientId(
                 proposerSignatures,
                 content.targets,
@@ -125,7 +113,8 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
 
             await tx.wait();
         } catch (error: any) {
-            console.error('Error promoting candidate:', error);
+            console.error(error);
+
             alert(error?.info?.error?.message || error.code);
         }
     };
@@ -159,30 +148,6 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
                 'propose(address[],uint256[],string[],bytes[],string,uint32)'
             );
 
-            console.log('targets', content.targets);
-            console.log('values', content.values);
-            console.log('signatures', content.signatures);
-            console.log('calldatas', content.calldatas);
-            console.log('description', content.description);
-            console.log(
-                'clientId',
-                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
-            );
-
-            // const gasEstimate = await proposeWithClientId.estimateGas(
-            //     content.targets,
-            //     content.values,
-            //     content.signatures,
-            //     content.calldatas,
-            //     content.description,
-            //     Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
-            // );
-
-            // const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
-
-            // console.log('gasEstimate', gasEstimate);
-            // console.log('gasLimit', gasLimit);
-
             const tx = await proposeWithClientId(
                 content.targets,
                 content.values,
@@ -194,26 +159,34 @@ export default function Promote({ className, dict, proposalCandidate }: Props) {
 
             await tx.wait();
         } catch (error: any) {
-            console.error('Error promoting candidate:', error);
+            console.error(error);
             alert(error?.info?.error?.message || error.code);
         }
     };
 
     if (address !== proposalCandidate.proposer) return null;
 
-    return (
-        <div className={clsx(className, 'space-y-4')}>
-            <form onSubmit={propose}>
-                <Button type="submit" color="purple">
-                    {dict.dream.details.promote}
-                </Button>
-            </form>
+    if (
+        validSignaturesNouns.length < 4 &&
+        Number(account?.delegate?.delegatedVotes || '0') < 4
+    )
+        return null;
 
-            <form onSubmit={proposeBySigs}>
-                <Button type="submit" color="purple">
-                    {dict.dream.details.promote} (bySigs)
-                </Button>
-            </form>
+    return (
+        <div className={className}>
+            {Number(account?.delegate?.delegatedVotes || '0') > 3 ? (
+                <form onSubmit={propose}>
+                    <Button type="submit" color="purple">
+                        {dict.dream.details.promote}
+                    </Button>
+                </form>
+            ) : (
+                <form onSubmit={proposeBySigs}>
+                    <Button type="submit" color="purple">
+                        {dict.dream.details.promote}
+                    </Button>
+                </form>
+            )}
         </div>
     );
 }

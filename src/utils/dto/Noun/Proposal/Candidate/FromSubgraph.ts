@@ -1,4 +1,4 @@
-import NounProposalCandidateVersionFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/Version/FromSubgraph';
+import NounProposalCandidateVersionFromSubgraph from '@/utils/dto/Noun/Proposal/Candidate/Version/FromSubgraph';
 
 export default interface NounProposalCandidateFromSubgraph {
     canceled: boolean;

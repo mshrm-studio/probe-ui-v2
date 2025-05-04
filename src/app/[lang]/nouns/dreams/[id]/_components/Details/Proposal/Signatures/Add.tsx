@@ -1,7 +1,7 @@
 'use client';
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
+import NounProposalCandidateFromSubgraph from '@/utils/dto/Noun/Proposal/Candidate/FromSubgraph';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/signatures/add.module.css';
 import Button from '@/app/_components/Button';
 import clsx from 'clsx';
@@ -22,6 +22,7 @@ import {
 import { DataProxyContext } from '@/context/DataProxy';
 import { useContext } from 'react';
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
+import { AccountContext } from '@/context/Account';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -39,6 +40,7 @@ export default function SignatureList({
     const { open } = useAppKit();
     const { walletProvider } = useAppKitProvider('eip155');
     const { httpDataProxyContract } = useContext(DataProxyContext);
+    const { account } = useContext(AccountContext);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -200,7 +202,11 @@ export default function SignatureList({
 
     return (
         <form onSubmit={handleSubmit} className={clsx(className, styles.form)}>
-            <Button type="submit" color="purple">
+            <Button
+                disabled={account?.delegate?.delegatedVotes === '0'}
+                type="submit"
+                color="purple"
+            >
                 {dict.dream.details.addSignature}
             </Button>
         </form>

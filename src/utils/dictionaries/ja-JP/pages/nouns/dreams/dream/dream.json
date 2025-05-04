@@ -7,6 +7,9 @@
     "details": {
         "about": "概要",
         "addSignature": "スポンサー",
+        "castVoteAbstain": "棄権",
+        "castVoteAgainst": "反対",
+        "castVoteFor": "賛成",
         "date": "日付",
         "dream": "ドリーム",
         "dreamer": "夢見る者",

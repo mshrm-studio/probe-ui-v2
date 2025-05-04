@@ -1,4 +1,4 @@
-import NounProposalCandidateSignature from '@/utils/dto/Noun/ProposalCandidate/Signature/FromSubgraph';
+import NounProposalCandidateSignature from '@/utils/dto/Noun/Proposal/Candidate/Signature/FromSubgraph';
 
 export default interface NounProposalCandidateContentFromSubgraph {
     id: string;

@@ -7,7 +7,9 @@ import { useContext, useMemo } from 'react';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/proposal.module.css';
 import Signatures from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Signatures/Signatures';
 import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Promote';
+import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote';
 import DaoProxyProvider from '@/context/DaoProxy';
+import AccountProvider from '@/context/Account';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -15,7 +17,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function Proposal({ className, dict, dream }: Props) {
-    const { proposalCandidate } = useContext(ProposalContext);
+    const { proposalCandidate, proposal } = useContext(ProposalContext);
 
     const validSignatures = useMemo(() => {
         const seen = new Set<string>();
@@ -56,23 +58,31 @@ export default function Proposal({ className, dict, dream }: Props) {
     if (proposalCandidate) {
         return (
             <div className={className}>
-                <Signatures
-                    dict={dict}
-                    dream={dream}
-                    proposalCandidate={proposalCandidate}
-                    validSignatures={validSignatures}
-                    validSignaturesNouns={validSignaturesNouns}
-                />
+                <AccountProvider>
+                    <Signatures
+                        dict={dict}
+                        dream={dream}
+                        proposalCandidate={proposalCandidate}
+                        validSignatures={validSignatures}
+                        validSignaturesNouns={validSignaturesNouns}
+                    />
 
-                {validSignaturesNouns.length >= 2 && (
                     <DaoProxyProvider>
-                        <Promote
-                            className={styles.promoteContainer}
-                            dict={dict}
-                            proposalCandidate={proposalCandidate}
-                        />
+                        {proposal?.status === 'ACTIVE' ? (
+                            <CastVote
+                                className={styles.castVoteContainer}
+                                dict={dict}
+                            />
+                        ) : (
+                            <Promote
+                                className={styles.promoteContainer}
+                                dict={dict}
+                                proposalCandidate={proposalCandidate}
+                                validSignaturesNouns={validSignaturesNouns}
+                            />
+                        )}
                     </DaoProxyProvider>
-                )}
+                </AccountProvider>
             </div>
         );
     }

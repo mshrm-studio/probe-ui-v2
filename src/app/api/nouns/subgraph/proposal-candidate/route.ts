@@ -1,7 +1,7 @@
 import { createClient, gql } from 'urql';
 import { cacheExchange, fetchExchange } from '@urql/core';
 import { NextRequest, NextResponse } from 'next/server';
-import { isNounProposalCandidateFromSubgraph } from '@/utils/dto/Noun/ProposalCandidate/FromSubgraph';
+import { isNounProposalCandidateFromSubgraph } from '@/utils/dto/Noun/Proposal/Candidate/FromSubgraph';
 
 const client = createClient({
     url: `${process.env.SUBGRAPH_BASE_URL}/${process.env.SUBGRAPH_API_KEY}/subgraphs/id/${process.env.NOUNS_SUBGRAPH_ID}`,
