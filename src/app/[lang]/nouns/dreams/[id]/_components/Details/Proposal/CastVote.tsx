@@ -53,7 +53,7 @@ export default function CastVote({ className, dict }: Props) {
             // The support value for the vote. 0=against, 1=for, 2=abstain
 
             const tx = await castRefundableVoteWithClientId(
-                proposal.id,
+                Number(proposal.id),
                 support === 'for' ? 1 : support === 'against' ? 0 : 2,
                 Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
             );
