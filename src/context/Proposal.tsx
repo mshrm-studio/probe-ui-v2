@@ -99,8 +99,13 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     useEffect(() => {
         if (!proposalCandidate) return;
 
+        const matchingProposalIds =
+            proposalCandidate.latestVersion.content.matchingProposalIds;
+
+        if (matchingProposalIds.length === 0) return;
+
         const fetchProposal = async () => {
-            const id = proposalCandidate.number;
+            const id = matchingProposalIds[0];
 
             try {
                 const response = await fetch(

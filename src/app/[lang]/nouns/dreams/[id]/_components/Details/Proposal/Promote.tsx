@@ -33,7 +33,7 @@ export default function Promote({
     const { httpDaoProxyContract } = useContext(DaoProxyContext);
     const { account } = useContext(AccountContext);
 
-    const propose = async (e: React.FormEvent<HTMLFormElement>) => {
+    const proposeBySigs = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!isConnected || !address) {
@@ -112,6 +112,8 @@ export default function Promote({
             );
 
             await tx.wait();
+
+            window.location.reload();
         } catch (error: any) {
             console.error(error);
 
@@ -119,7 +121,7 @@ export default function Promote({
         }
     };
 
-    const proposeBySigs = async (e: React.FormEvent<HTMLFormElement>) => {
+    const propose = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!isConnected || !address) {
@@ -142,8 +144,6 @@ export default function Promote({
 
             const content = proposalCandidate.latestVersion.content;
 
-            console.log('content', content);
-
             const proposeWithClientId = contractWithSigner.getFunction(
                 'propose(address[],uint256[],string[],bytes[],string,uint32)'
             );
@@ -158,6 +158,8 @@ export default function Promote({
             );
 
             await tx.wait();
+
+            window.location.reload();
         } catch (error: any) {
             console.error(error);
             alert(error?.info?.error?.message || error.code);
@@ -173,15 +175,18 @@ export default function Promote({
         return null;
 
     return (
-        <div className={className}>
+        <div
+            className={className}
+            data-delegated-votes={account?.delegate?.delegatedVotes}
+        >
             {Number(account?.delegate?.delegatedVotes || '0') > 3 ? (
-                <form onSubmit={propose}>
+                <form onSubmit={propose} data-method="propose">
                     <Button type="submit" color="purple">
                         {dict.dream.details.promote}
                     </Button>
                 </form>
             ) : (
-                <form onSubmit={proposeBySigs}>
+                <form onSubmit={proposeBySigs} data-method="proposeBySigs">
                     <Button type="submit" color="purple">
                         {dict.dream.details.promote}
                     </Button>

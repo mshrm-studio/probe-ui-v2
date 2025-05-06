@@ -62,11 +62,11 @@ export default async function Page({ params }: Props) {
 
                 <main className={styles.main}>
                     <div className={styles.imgContainer}>
-                        <Image dream={dream} />
+                        <Image dict={dict} dream={dream} />
                     </div>
 
                     <div className={styles.detailsContainer}>
-                        <Details dream={dream} dict={dict} />
+                        <Details dict={dict} dream={dream} />
                     </div>
                 </main>
             </Background>

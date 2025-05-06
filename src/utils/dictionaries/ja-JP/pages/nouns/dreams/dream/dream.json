@@ -17,11 +17,19 @@
         "nounRepresented": ":number ナウンズ",
         "nounsRepresented": ":number ナウンズ",
         "promote": "プロモート",
+        "proposalCancelled": "提案キャンセル",
+        "proposalDefeated": "提案否決",
+        "proposalExecuted": "提案実行",
+        "proposalPending": "提案保留中",
+        "proposalQueued": "提案キュー",
+        "proposalSucceeded": "提案成功",
+        "proposalVetoed": "提案拒否",
         "propose": "提案",
         "sponsors": "スポンサー"
     },
     "metadata": {
         "description": "ドリーム :id の統計を調べる",
         "title": "ドリーム :id"
-    }
+    },
+    "randomize": "ランダム化"
 }

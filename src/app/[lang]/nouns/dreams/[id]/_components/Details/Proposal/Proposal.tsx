@@ -59,21 +59,67 @@ export default function Proposal({ className, dict, dream }: Props) {
         return (
             <div className={className}>
                 <AccountProvider>
-                    <Signatures
-                        dict={dict}
-                        dream={dream}
-                        proposalCandidate={proposalCandidate}
-                        validSignatures={validSignatures}
-                        validSignaturesNouns={validSignaturesNouns}
-                    />
+                    {proposal === undefined && (
+                        <Signatures
+                            dict={dict}
+                            dream={dream}
+                            proposalCandidate={proposalCandidate}
+                            validSignatures={validSignatures}
+                            validSignaturesNouns={validSignaturesNouns}
+                        />
+                    )}
 
                     <DaoProxyProvider>
-                        {proposal?.status === 'ACTIVE' ? (
+                        {proposal?.status === 'CANCELLED' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalCancelled}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'DEFEATED' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalDefeated}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'EXECUTED' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalExecuted}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'PENDING' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalPending}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'SUCCEEDED' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalSucceeded}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'QUEUED' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalQueued}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'VETOED' && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>{dict.dream.details.proposalVetoed}</p>
+                            </div>
+                        )}
+
+                        {proposal?.status === 'ACTIVE' && (
                             <CastVote
                                 className={styles.castVoteContainer}
                                 dict={dict}
                             />
-                        ) : (
+                        )}
+
+                        {proposal === undefined && (
                             <Promote
                                 className={styles.promoteContainer}
                                 dict={dict}

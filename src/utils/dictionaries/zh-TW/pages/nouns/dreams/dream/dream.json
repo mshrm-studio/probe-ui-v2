@@ -17,11 +17,19 @@
         "nounRepresented": ":number 名詞",
         "nounsRepresented": ":number 名詞",
         "promote": "推廣",
+        "proposalCancelled": "提案已取消",
+        "proposalDefeated": "提案已否決",
+        "proposalExecuted": "提案已執行",
+        "proposalPending": "提案待定",
+        "proposalQueued": "提案已排隊",
+        "proposalSucceeded": "提案成功",
+        "proposalVetoed": "提案已否決",
         "propose": "提議",
         "sponsors": "贊助商"
     },
     "metadata": {
         "description": "探查夢境 :id 的統計資訊",
         "title": "夢境 :id"
-    }
+    },
+    "randomize": "隨機化"
 }
