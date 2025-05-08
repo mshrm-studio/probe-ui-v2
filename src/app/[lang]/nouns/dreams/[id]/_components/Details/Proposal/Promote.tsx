@@ -181,13 +181,13 @@ export default function Promote({
         >
             {Number(account?.delegate?.delegatedVotes || '0') > 3 ? (
                 <form onSubmit={propose} data-method="propose">
-                    <Button type="submit" color="purple">
+                    <Button type="submit" color="purple" size="lg">
                         {dict.dream.details.promote}
                     </Button>
                 </form>
             ) : (
                 <form onSubmit={proposeBySigs} data-method="proposeBySigs">
-                    <Button type="submit" color="purple">
+                    <Button type="submit" color="purple" size="lg">
                         {dict.dream.details.promote}
                     </Button>
                 </form>

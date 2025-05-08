@@ -57,10 +57,17 @@ export default function CustomTraitForm({
                 <div>
                     <InputFile
                         label={dict.create.customTraitForm.addTrait}
+                        sizeStyle="lg"
                         onChange={handleTraitUpload}
                     />
                 </div>
             )}
+
+            <div>
+                <p className="text-sm text-center">
+                    {dict.create.customTraitForm.fileNameIsTraitName}
+                </p>
+            </div>
 
             <canvas
                 ref={setCanvas}

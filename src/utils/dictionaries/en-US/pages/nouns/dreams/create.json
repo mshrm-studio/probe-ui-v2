@@ -1,6 +1,7 @@
 {
     "customTraitForm": {
         "addTrait": "Add Trait",
+        "fileNameIsTraitName": "The file name is used as the trait name",
         "traitType": "Trait Type"
     },
     "metadata": {

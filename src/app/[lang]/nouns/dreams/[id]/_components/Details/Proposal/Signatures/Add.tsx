@@ -206,6 +206,7 @@ export default function SignatureList({
                 disabled={account?.delegate?.delegatedVotes === '0'}
                 type="submit"
                 color="purple"
+                size="lg"
             >
                 {dict.dream.details.addSignature}
             </Button>

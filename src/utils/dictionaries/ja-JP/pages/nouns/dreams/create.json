@@ -1,6 +1,7 @@
 {
     "customTraitForm": {
         "addTrait": "特性を追加",
+        "fileNameIsTraitName": "ファイル名が特性名として使用されます",
         "traitType": "特性の種類"
     },
     "metadata": {

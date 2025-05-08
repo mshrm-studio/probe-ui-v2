@@ -74,7 +74,7 @@ export default function Content({ children, dict }: Props) {
                         <Preview seed={seed} />
 
                         <div className={styles.randomiseBtnContainer}>
-                            <Button color="white" onClick={randomize}>
+                            <Button color="white" size="lg" onClick={randomize}>
                                 {dict.create.randomize}
                             </Button>
                         </div>

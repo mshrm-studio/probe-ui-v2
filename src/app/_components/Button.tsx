@@ -6,6 +6,7 @@ export interface ButtonProps
     children: React.ReactNode;
     color?: 'purple' | 'yellow' | 'white';
     processing?: boolean;
+    size?: 'base' | 'lg';
 }
 
 export default function Button({
@@ -14,11 +15,17 @@ export default function Button({
     color = 'yellow',
     disabled,
     processing,
+    size = 'base',
     ...props
 }: ButtonProps) {
     return (
         <button
-            className={clsx(styles.button, styles[color], className)}
+            className={clsx(
+                styles.button,
+                styles[color],
+                styles[size],
+                className
+            )}
             disabled={disabled || processing}
             {...props}
         >

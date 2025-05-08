@@ -7,7 +7,6 @@ import { Dictionary } from '@/app/[lang]/dictionaries';
 import React, { useEffect, useState } from 'react';
 import styles from '@/app/[lang]/nouns/dreams/[id]/propose/_styles/section/write-up.module.css';
 import clsx from 'clsx';
-import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import Button from '@/app/_components/Button';
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 
@@ -38,9 +37,10 @@ export default function WriteUp({
     );
 
     useEffect(() => {
-        const imagePreview = `![Trait Image](${traitCanvas.toDataURL(
+        const imagePreview = `[![Trait Image](${traitCanvas.toDataURL(
             'image/png'
-        )})`;
+        )})](https://www.probe.wtf/nouns/dreams/${dream.id})`;
+
         const proposalClient = `### Proposal submitted via [probe.wtf](https://www.probe.wtf)`;
 
         const footer = `${imagePreview}\n\n${proposalClient}`;
@@ -103,6 +103,7 @@ export default function WriteUp({
                 <Button
                     color="purple"
                     className={styles.actionBtn}
+                    size="lg"
                     onClick={goToNextSection}
                 >
                     {dict.propose.titleAndDescription.next}

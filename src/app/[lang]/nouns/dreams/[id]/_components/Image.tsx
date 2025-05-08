@@ -97,7 +97,7 @@ export default function Image({ dict, dream }: Props) {
             <DreamImageFromSeed seed={seed} />
 
             <div className={styles.randomiseBtnContainer}>
-                <Button color="white" onClick={randomize}>
+                <Button color="white" size="lg" onClick={randomize}>
                     {dict.dream.randomize}
                 </Button>
             </div>

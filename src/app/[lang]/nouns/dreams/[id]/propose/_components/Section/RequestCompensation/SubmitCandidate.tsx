@@ -165,8 +165,6 @@ export default function SubmitCandidate({
                 await httpDataProxyContract.createCandidateCost();
             // returns 10000000000000000n
 
-            console.log('createCandidateCost:', createCandidateCost);
-
             const artAtributionAgreement = `## Nouns Art Contribution Agreement\n\n**Signer**: ${agreement.signer}\n\n**Message**: ${agreement.message}\n\n**Signature**: ${agreement.signature}`;
 
             const description = `${writeUp}\n\n${artAtributionAgreement}`;
@@ -189,11 +187,6 @@ export default function SubmitCandidate({
             const values = transactions.map((tx) => tx.value);
             const signatures = transactions.map((tx) => tx.signature);
             const calldatas = transactions.map((tx) => tx.calldata);
-
-            console.log('targets:', targets);
-            console.log('values:', values);
-            console.log('signatures:', signatures);
-            console.log('calldatas:', calldatas);
 
             const gasEstimate =
                 await contractWithSigner.createProposalCandidate.estimateGas(
@@ -229,7 +222,7 @@ export default function SubmitCandidate({
 
             router.push(`/nouns/dreams/${dream.id}`);
         } catch (error: any) {
-            console.error('error:', error);
+            console.error(error);
 
             alert(error?.info?.error?.message || error?.message);
         }
@@ -241,6 +234,7 @@ export default function SubmitCandidate({
                 color="purple"
                 className={requestCompensationStyles.actionBtn}
                 disabled={agreement === undefined}
+                size="lg"
                 type="button"
                 onClick={submitCandidate}
             >
