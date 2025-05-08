@@ -39,9 +39,9 @@ export default function WriteUp({
     useEffect(() => {
         const imagePreview = `[![Trait Image](${traitCanvas.toDataURL(
             'image/png'
-        )})](https://www.probe.wtf/nouns/dreams/${dream.id})`;
+        )})](${process.env.NEXT_PUBLIC_URL}/nouns/dreams/${dream.id})`;
 
-        const proposalClient = `### Proposal submitted via [probe.wtf](https://www.probe.wtf)`;
+        const proposalClient = `### Proposal submitted via [probe.wtf](${process.env.NEXT_PUBLIC_URL})`;
 
         const footer = `${imagePreview}\n\n${proposalClient}`;
 
