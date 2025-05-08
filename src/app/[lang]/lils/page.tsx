@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description,
         openGraph: {
             description,
-            siteName: process.env.NEXT_PUBLIC_URL,
+            siteName: 'probe.wtf',
             title,
             url: `${process.env.NEXT_PUBLIC_URL}/${lang}/lils`,
         },
