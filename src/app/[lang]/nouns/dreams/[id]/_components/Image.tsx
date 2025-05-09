@@ -1,6 +1,8 @@
 'use client';
 
-import DreamFromDB from '@/utils/dto/Dream/FromDB';
+import DreamFromDB, {
+    isDreamFromDBWithCustomTrait,
+} from '@/utils/dto/Dream/FromDB';
 import { DreamImageFromSeed } from '@/app/[lang]/nouns/dreams/_components/Dream/Image/FromSeed';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { useCallback, useEffect, useState } from 'react';
@@ -96,11 +98,13 @@ export default function Image({ dict, dream }: Props) {
         <div className={styles.container}>
             <DreamImageFromSeed seed={seed} />
 
-            <div className={styles.randomiseBtnContainer}>
-                <Button color="white" size="lg" onClick={randomize}>
-                    {dict.dream.randomize}
-                </Button>
-            </div>
+            {isDreamFromDBWithCustomTrait(dream) && (
+                <div className={styles.randomiseBtnContainer}>
+                    <Button color="white" onClick={randomize}>
+                        {dict.dream.randomize}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }

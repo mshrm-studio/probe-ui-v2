@@ -13,41 +13,30 @@ import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { nounsDescriptorContractABI } from '@/utils/contracts/NounsDescriptorContractABI';
 import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
-import { Palette } from '@/utils/artwork/types';
-import { ImageData } from '@noundry/nouns-assets';
-import useArtworkEncoding from '@/hooks/useArtworkEncoding';
 import { useRouter } from 'next/navigation';
-import { TRANSPARENT_HEX } from '@/utils/artwork/constants';
+import { EncodedCompressedParts } from '@/hooks/useArtworkEncoding';
 
 interface Props {
     agreement?: ArtworkContributionAgreement;
+    compressedEncodedArtwork: EncodedCompressedParts | null;
     dict: Dictionary;
     dream: DreamFromDBWithCustomTrait;
     requestedEth: number;
-    traitBitmap: ImageBitmap;
-    traitCanvas: HTMLCanvasElement;
     writeUp: string;
 }
 
 export default function SubmitCandidate({
     agreement,
+    compressedEncodedArtwork,
     dict,
     dream,
     requestedEth,
-    traitBitmap,
-    traitCanvas,
     writeUp,
 }: Props) {
     const router = useRouter();
     const { address } = useAppKitAccount();
     const { httpDataProxyContract } = useContext(DataProxyContext);
     const { walletProvider } = useAppKitProvider('eip155');
-    const {
-        compressAndEncodeTrait,
-        getColorIndexes,
-        getPaletteIndex,
-        getTraitColors,
-    } = useArtworkEncoding();
 
     const functionName = useMemo(() => {
         switch (dream.custom_trait_layer) {
@@ -63,29 +52,6 @@ export default function SubmitCandidate({
                 return null;
         }
     }, [dream.custom_trait_layer]);
-
-    const traitColors = useMemo(() => {
-        return getTraitColors(traitBitmap);
-    }, [traitBitmap, getTraitColors]);
-
-    const paletteIndex = useMemo(() => {
-        return getPaletteIndex(traitColors, [ImageData.palette as Palette]);
-    }, [ImageData.palette, traitColors]);
-
-    const traitColorIndexes = useMemo(() => {
-        const palette = ImageData.palette.map((color) =>
-            color === '' ? TRANSPARENT_HEX : `#${color}`
-        );
-
-        return getColorIndexes(traitCanvas, palette as Palette);
-    }, [ImageData.palette, traitCanvas]);
-
-    const compressedEncodedArtwork = useMemo(() => {
-        if (typeof paletteIndex === 'number')
-            return compressAndEncodeTrait(traitColorIndexes, paletteIndex);
-
-        return null;
-    }, [traitColorIndexes, paletteIndex]);
 
     const encodedTraitCalldata = useMemo(() => {
         if (!compressedEncodedArtwork || !functionName) return null;

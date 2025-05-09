@@ -7,6 +7,8 @@
         "propose": "Propose"
     },
     "error": {
+        "artworkCompressionFailed": "Artwork compression failed.",
+        "colorPaletteNotFound": "Color palette not found. Make sure every color in the trait is present in one of the Nouns color palettes.",
         "invalidCustomTrait": "Invalid custom trait. Likely due to size or color mismatch.",
         "noCustomTrait": "No custom trait. You cannot create a proposal for a dream with no custom trait."
     },
