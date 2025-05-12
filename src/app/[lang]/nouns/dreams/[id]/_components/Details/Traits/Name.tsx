@@ -34,12 +34,16 @@ export default function DetailsTraitsName({ dict, dream, type }: Props) {
     }
 
     if (dream.accessory && type === NounTraitLayer.Accessory) {
-        return <span>{dict.traits[dream.accessory.name]}</span>;
+        return (
+            <span data-trait-name={dream.accessory.name}>
+                {dict.traits[dream.accessory.name]}
+            </span>
+        );
     }
 
     if (type === NounTraitLayer.Background) {
         return (
-            <span>
+            <span data-trait-id={dream.background_seed_id}>
                 {
                     dict.traits[
                         `background-${
@@ -52,15 +56,27 @@ export default function DetailsTraitsName({ dict, dream, type }: Props) {
     }
 
     if (dream.body && type === NounTraitLayer.Body) {
-        return <span>{dict.traits[dream.body.name]}</span>;
+        return (
+            <span data-trait-name={dream.body.name}>
+                {dict.traits[dream.body.name]}
+            </span>
+        );
     }
 
     if (dream.glasses && type === NounTraitLayer.Glasses) {
-        return <span>{dict.traits[dream.glasses.name]}</span>;
+        return (
+            <span data-trait-name={dream.glasses.name}>
+                {dict.traits[dream.glasses.name]}
+            </span>
+        );
     }
 
     if (dream.head && type === NounTraitLayer.Head) {
-        return <span>{dict.traits[dream.head.name]}</span>;
+        return (
+            <span data-trait-name={dream.head.name}>
+                {dict.traits[dream.head.name]}
+            </span>
+        );
     }
 
     return null;
