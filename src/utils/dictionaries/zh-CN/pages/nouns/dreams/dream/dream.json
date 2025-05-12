@@ -6,14 +6,30 @@
     },
     "details": {
         "about": "关于",
+        "addSignature": "添加签名",
+        "castVoteAbstain": "弃权",
+        "castVoteAgainst": "反对",
+        "castVoteFor": "赞成",
         "date": "日期",
         "dream": "梦境",
         "dreamer": "梦想家",
         "new": "新",
-        "propose": "提议"
+        "nounRepresented": ":number 名词",
+        "nounsRepresented": ":number 名词",
+        "promote": "推广",
+        "proposalCancelled": "提案已取消",
+        "proposalDefeated": "提案已否决",
+        "proposalExecuted": "提案已执行",
+        "proposalPending": "提案待定",
+        "proposalQueued": "提案已排队",
+        "proposalSucceeded": "提案成功",
+        "proposalVetoed": "提案已否决",
+        "propose": "提议",
+        "sponsors": "赞助商"
     },
     "metadata": {
         "description": "探查梦境 :id 的统计信息",
         "title": "梦境 :id"
-    }
+    },
+    "randomize": "随机化"
 }

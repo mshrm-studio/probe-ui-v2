@@ -1,0 +1,21 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.randomiseBtnContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+@media screen and (min-width: 1280px) {
+    .randomiseBtnContainer {
+        padding-right: 2.5rem;
+    }
+}

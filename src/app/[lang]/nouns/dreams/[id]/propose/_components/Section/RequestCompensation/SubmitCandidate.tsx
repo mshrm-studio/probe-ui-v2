@@ -13,40 +13,30 @@ import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { nounsDescriptorContractABI } from '@/utils/contracts/NounsDescriptorContractABI';
 import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
-import { Palette } from '@/utils/artwork/types';
-import { ImageData } from '@noundry/nouns-assets';
-import useArtworkEncoding from '@/hooks/useArtworkEncoding';
 import { useRouter } from 'next/navigation';
+import { EncodedCompressedParts } from '@/hooks/useArtworkEncoding';
 
 interface Props {
     agreement?: ArtworkContributionAgreement;
+    compressedEncodedArtwork: EncodedCompressedParts | null;
     dict: Dictionary;
     dream: DreamFromDBWithCustomTrait;
     requestedEth: number;
-    traitBitmap: ImageBitmap;
-    traitCanvas: HTMLCanvasElement;
     writeUp: string;
 }
 
 export default function SubmitCandidate({
     agreement,
+    compressedEncodedArtwork,
     dict,
     dream,
     requestedEth,
-    traitBitmap,
-    traitCanvas,
     writeUp,
 }: Props) {
     const router = useRouter();
     const { address } = useAppKitAccount();
     const { httpDataProxyContract } = useContext(DataProxyContext);
     const { walletProvider } = useAppKitProvider('eip155');
-    const {
-        compressAndEncodeTrait,
-        getColorIndexes,
-        getPaletteIndex,
-        getTraitColors,
-    } = useArtworkEncoding();
 
     const functionName = useMemo(() => {
         switch (dream.custom_trait_layer) {
@@ -63,7 +53,17 @@ export default function SubmitCandidate({
         }
     }, [dream.custom_trait_layer]);
 
-    const signatures = useMemo(() => {
+    const encodedTraitCalldata = useMemo(() => {
+        if (!compressedEncodedArtwork || !functionName) return null;
+
+        return encodeFunctionData({
+            abi: nounsDescriptorContractABI,
+            functionName,
+            args: compressedEncodedArtwork,
+        }).substring(10);
+    }, [compressedEncodedArtwork, functionName]);
+
+    const encodedTraitSignature = useMemo(() => {
         if (!functionName || !nounsDescriptorContractABI) return null;
 
         // BELOW REQUIRED IF REQUESTING A NOUN
@@ -77,34 +77,11 @@ export default function SubmitCandidate({
 
         if (!item) return null;
 
-        if (requestedEth > 0) {
-            return [formatAbiItem(item), ''];
-        }
-
-        return [formatAbiItem(item)];
+        return formatAbiItem(item);
     }, [functionName, nounsDescriptorContractABI]);
 
-    const traitColors = useMemo(() => {
-        return getTraitColors(traitBitmap);
-    }, [traitBitmap, getTraitColors]);
-
-    const paletteIndex = useMemo(() => {
-        return getPaletteIndex(traitColors, [ImageData.palette as Palette]);
-    }, [ImageData.palette, traitColors]);
-
-    const traitColorIndexes = useMemo(() => {
-        return getColorIndexes(traitCanvas, ImageData.palette as Palette);
-    }, [ImageData.palette, traitCanvas]);
-
-    const compressedEncodedArtwork = useMemo(() => {
-        if (typeof paletteIndex === 'number')
-            return compressAndEncodeTrait(traitColorIndexes, paletteIndex);
-
-        return null;
-    }, [traitColorIndexes, paletteIndex]);
-
-    const calldatas = useMemo(() => {
-        if (!compressedEncodedArtwork || !functionName) return null;
+    const transactions = useMemo(() => {
+        if (!encodedTraitCalldata) return null;
 
         // ADD THIS WHEN REQUESTING A NOUN
         // encodeFunctionData({
@@ -117,44 +94,42 @@ export default function SubmitCandidate({
         //     ],
         // })
 
-        return [
-            // 1) Encode the descriptor call (e.g. addHeads, addAccessories, etc.)
-            encodeFunctionData({
-                abi: nounsDescriptorContractABI,
-                functionName,
-                args: compressedEncodedArtwork,
-            }).substring(10),
-            // 2) when requesting ETH, leave empty,
-            '',
-            // 3) Empty for array harmony
-            '',
-        ].map((calldata) => `0x${calldata}` as `0x${string}`);
-    }, [compressedEncodedArtwork, functionName]);
+        // BELOW REQUIRED IF REQUESTING A NOUN
+        // safeTransferFrom(address,address,uint256)
+
+        const base = [
+            {
+                address:
+                    process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS,
+                value: '0',
+                calldata: `0x${encodedTraitCalldata}`,
+                signature: encodedTraitSignature,
+            },
+        ];
+
+        if (requestedEth > 0) {
+            return base.concat([
+                {
+                    address,
+                    value: parseEther(String(requestedEth)).toString(),
+                    calldata: '0x',
+                    signature: '',
+                },
+            ]);
+        }
+
+        return base;
+    }, [address, encodedTraitCalldata, encodedTraitSignature, requestedEth]);
 
     const submitCandidate = async () => {
-        if (!agreement) return;
+        if (!agreement || !transactions) return;
 
-        if (!httpDataProxyContract) return;
-
-        if (!walletProvider) return;
+        if (!httpDataProxyContract || !walletProvider) return;
 
         try {
             const createCandidateCost =
                 await httpDataProxyContract.createCandidateCost();
             // returns 10000000000000000n
-
-            console.log('createCandidateCost:', createCandidateCost);
-
-            const targets = [
-                process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS,
-            ];
-
-            const values: (BigInt | string)[] = ['0'];
-
-            if (requestedEth > 0) {
-                targets.push(address);
-                values.push(parseEther(String(requestedEth)));
-            }
 
             const artAtributionAgreement = `## Nouns Art Contribution Agreement\n\n**Signer**: ${agreement.signer}\n\n**Message**: ${agreement.message}\n\n**Signature**: ${agreement.signature}`;
 
@@ -173,6 +148,11 @@ export default function SubmitCandidate({
             const contractWithSigner = httpDataProxyContract.connect(
                 signer
             ) as Contract;
+
+            const targets = transactions.map((tx) => tx.address);
+            const values = transactions.map((tx) => tx.value);
+            const signatures = transactions.map((tx) => tx.signature);
+            const calldatas = transactions.map((tx) => tx.calldata);
 
             const gasEstimate =
                 await contractWithSigner.createProposalCandidate.estimateGas(
@@ -208,7 +188,7 @@ export default function SubmitCandidate({
 
             router.push(`/nouns/dreams/${dream.id}`);
         } catch (error: any) {
-            console.error('error:', error);
+            console.error(error);
 
             alert(error?.info?.error?.message || error?.message);
         }
@@ -220,6 +200,7 @@ export default function SubmitCandidate({
                 color="purple"
                 className={requestCompensationStyles.actionBtn}
                 disabled={agreement === undefined}
+                size="lg"
                 type="button"
                 onClick={submitCandidate}
             >

@@ -128,7 +128,9 @@ export default function Form({
                         setSeed={setSeed}
                     />
 
-                    <Button type="submit">{dict.create.seedForm.dream}</Button>
+                    <Button size="lg" type="submit">
+                        {dict.create.seedForm.dream}
+                    </Button>
                 </>
             )}
         </form>

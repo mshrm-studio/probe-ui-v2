@@ -224,7 +224,12 @@ export default function SeedForm({
             />
 
             {!customTrait && (
-                <Button color="purple" type="button" onClick={switchForm}>
+                <Button
+                    color="purple"
+                    size="lg"
+                    type="button"
+                    onClick={switchForm}
+                >
                     {dict.create.seedForm.uploadTrait}
                 </Button>
             )}

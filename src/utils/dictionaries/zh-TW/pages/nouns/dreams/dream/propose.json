@@ -1,0 +1,50 @@
+{
+    "back": "返回",
+    "breadcrumbs": {
+        "dream": "夢 :id",
+        "dreams": "夢",
+        "nouns": "Nouns",
+        "propose": "提案"
+    },
+    "error": {
+        "artworkCompressionFailed": "作品壓縮失敗。",
+        "colorPaletteNotFound": "找不到調色盤。請確認特徵中的每種顏色皆存在於 Nouns 的調色盤之一中。",
+        "invalidCustomTrait": "自定義特徵無效。可能是尺寸或顏色不相符。",
+        "noCustomTrait": "沒有自定義特徵。無法為沒有自定義特徵的夢建立提案。"
+    },
+    "metadata": {
+        "description": "為夢 :id 建立提案",
+        "title": "建立提案"
+    },
+    "requestCompensation": {
+        "action": {
+            "signArtworkAgreement": "簽署 CC0 放棄書",
+            "submitCandidate": "提交候選",
+            "submitProposal": "提交提案"
+        },
+        "artworkAgreementSigned": "已簽署 CC0 放棄書",
+        "artworkContributionAgreementMessage": "本人，控制以太坊地址 :ethAddress 的個人，在法律允許的範圍內，特此放棄所有著作權及其相關或鄰接權，以及任何相關的索賠或訴訟原因。我已閱讀並理解位於 :agreementUrl 的《Nouns 藝術貢獻協議》條款及其法律效力，並自願選擇將其適用於此次貢獻。貢獻名稱：:contributionName。貢獻規格: :contributionSpec。",
+        "field": {
+            "eth": {
+                "label": "請求 ETH",
+                "placeholder": "指定 ETH 金額"
+            }
+        },
+        "title": "是否要請求補償？將發送至您目前用於提案的錢包。"
+    },
+    "titleAndDescription": {
+        "field": {
+            "description": {
+                "label": "描述",
+                "placeholder": "使用「#」和「1.」等 Markdown 快捷鍵來建立標題及清單。"
+            },
+            "title": {
+                "label": "標題",
+                "placeholder": "輸入標題"
+            }
+        },
+        "next": "下一步",
+        "propsalPreviewTitle": "提案預覽",
+        "title": "建立標題並撰寫您的夢境提案"
+    }
+}

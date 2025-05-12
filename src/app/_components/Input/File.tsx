@@ -1,21 +1,26 @@
 import styles from '@/app/_styles/input/file.module.css';
 import clsx from 'clsx';
 
-export interface InputProps
+export interface InputFileProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     invalid?: boolean;
     label: string;
+    sizeStyle?: 'base' | 'lg';
 }
 
-export default function Input({
+export default function InputFile({
     className,
     accept,
     invalid = false,
     label,
+    sizeStyle = 'base',
     ...props
-}: InputProps) {
+}: InputFileProps) {
     return (
-        <label htmlFor={label} className={clsx(styles.container, className)}>
+        <label
+            htmlFor={label}
+            className={clsx(styles.container, styles[sizeStyle], className)}
+        >
             <span>{label}</span>
 
             <input

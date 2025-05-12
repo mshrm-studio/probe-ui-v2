@@ -1,0 +1,51 @@
+{
+    "back": "戻る",
+    "breadcrumbs": {
+        "dream": "夢 :id",
+        "dreams": "夢",
+        "nouns": "Nouns",
+        "propose": "提案"
+    },
+    "error": {
+        "artworkCompressionFailed": "アートワークの圧縮に失敗しました。",
+        "colorPaletteNotFound": "カラーパレットが見つかりません。トレイト内のすべての色が Nouns のカラーパレットに含まれていることを確認してください。",
+        "invalidCustomTrait": "カスタム属性が無効です。サイズまたは色の不一致が原因の可能性があります。",
+        "noCustomTrait": "カスタム属性がありません。カスタム属性がない夢には提案を作成できません。"
+    },
+    "metadata": {
+        "description": "夢 :id の提案を作成",
+        "title": "提案を作成"
+    },
+    "requestCompensation": {
+        "action": {
+            "signArtworkAgreement": "CC0放棄同意書に署名",
+            "submitCandidate": "候補を送信",
+            "submitProposal": "提案を提出"
+        },
+        "artworkAgreementSigned": "CC0放棄に署名済み",
+        "artworkContributionAgreementMessage": "私は、Ethereumアドレス :ethAddress を管理する個人として、法の許す限り、著作権および関連・隣接権、ならびにそれに伴う請求権または訴因を放棄します。:agreementUrl に掲載されている Nouns Art Contribution Agreement の条項と法的効果を読み理解したうえで、本貢献に適用することを自発的に選択します。貢献名: :contributionName。貢献仕様: :contributionSpec。",
+
+        "field": {
+            "eth": {
+                "label": "ETHを請求",
+                "placeholder": "ETHの金額を指定"
+            }
+        },
+        "title": "報酬を請求しますか？ 現在提案に使用しているウォレットに送金されます。"
+    },
+    "titleAndDescription": {
+        "field": {
+            "description": {
+                "label": "説明",
+                "placeholder": "「#」や「1.」のMarkdownショートカットで見出しやリストを作成できます。"
+            },
+            "title": {
+                "label": "タイトル",
+                "placeholder": "タイトルを入力"
+            }
+        },
+        "next": "次へ",
+        "propsalPreviewTitle": "提案プレビュー",
+        "title": "タイトルを作成し、夢の提案を書きましょう"
+    }
+}

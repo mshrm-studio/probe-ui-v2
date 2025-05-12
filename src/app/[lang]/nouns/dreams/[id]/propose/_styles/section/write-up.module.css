@@ -28,3 +28,22 @@
 .actionBtn {
     width: 100%;
 }
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: calc(65ch + 2rem);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .actions {
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .actionBtn {
+        width: auto;
+    }
+}

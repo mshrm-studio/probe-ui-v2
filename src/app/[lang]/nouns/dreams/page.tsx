@@ -51,7 +51,9 @@ export default async function Page({ params }: Props) {
                                 {dict.dreams.createDream}
                             </span>
 
-                            <Button type="button">{dict.dreams.dream}</Button>
+                            <Button size="lg" type="button">
+                                {dict.dreams.dream}
+                            </Button>
                         </Link>
                     </div>
                 </main>

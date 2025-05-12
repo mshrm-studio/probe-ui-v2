@@ -102,6 +102,7 @@ export default function SignArtworkAgreement({
                     color="purple"
                     className={requestCompensationStyles.actionBtn}
                     type="button"
+                    size="lg"
                     onClick={signArtworkAgreement}
                 >
                     {

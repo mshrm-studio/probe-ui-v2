@@ -1,6 +1,7 @@
 {
     "customTraitForm": {
         "addTrait": "添加特征",
+        "fileNameIsTraitName": "文件名用作特征名称",
         "traitType": "特征类型"
     },
     "metadata": {

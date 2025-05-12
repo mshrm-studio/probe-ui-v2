@@ -6,14 +6,30 @@
     },
     "details": {
         "about": "About",
+        "addSignature": "Sponsor",
+        "castVoteAbstain": "Abstain",
+        "castVoteAgainst": "Cast Vote Against",
+        "castVoteFor": "Cast Vote For",
         "date": "Date",
         "dream": "Dream",
         "dreamer": "Dreamer",
         "new": "New",
-        "propose": "Propose"
+        "nounRepresented": ":number Noun",
+        "nounsRepresented": ":number Nouns",
+        "promote": "Promote",
+        "proposalCancelled": "Proposal cancelled",
+        "proposalDefeated": "Proposal defeated",
+        "proposalExecuted": "Proposal executed",
+        "proposalPending": "Proposal pending",
+        "proposalQueued": "Proposal queued",
+        "proposalSucceeded": "Proposal succeeded",
+        "proposalVetoed": "Proposal vetoed",
+        "propose": "Propose",
+        "sponsors": "Sponsors"
     },
     "metadata": {
         "description": "Probe the stats for Dream :id",
         "title": "Dream :id"
-    }
+    },
+    "randomize": "Randomize"
 }

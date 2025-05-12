@@ -2,6 +2,12 @@
     margin-top: 1rem;
 }
 
+.errorContainer {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #f00;
+}
+
 .actions {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -13,4 +19,28 @@
 
 .actionBtn {
     width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: calc(65ch + 2rem);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .actions {
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .actionContainer:not(:first-child) {
+        margin-top: 0rem;
+        margin-left: 1rem;
+    }
+
+    .actionBtn {
+        width: auto;
+    }
 }

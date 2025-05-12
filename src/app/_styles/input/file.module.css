@@ -1,7 +1,6 @@
 .container {
     box-shadow: 8px 6px 0px 0px #000000;
     border: 2px;
-    height: 35px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     font-size: 1.25rem;
@@ -13,4 +12,12 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.base {
+    height: 35px;
+}
+
+.lg {
+    height: 46px;
 }

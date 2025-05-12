@@ -8,6 +8,16 @@
     font-weight: 700;
 }
 
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.button:not(:disabled):active {
+    box-shadow: none;
+}
+
+/* COLOR */
 .button.purple {
     background-color: #4c48e3;
     border-color: #4c48e3;
@@ -24,11 +34,8 @@
     border-color: #ffffff;
 }
 
-.button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-.button:not(:disabled):active {
-    box-shadow: none;
+/* SIZE */
+.button.lg {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }

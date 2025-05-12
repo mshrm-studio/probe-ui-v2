@@ -27,7 +27,7 @@ type ColorIndex = number;
 
 type EncodedArtwork = `0x${string}`;
 
-type EncodedCompressedParts = [
+export type EncodedCompressedParts = [
     encodedCompressedArtwork: EncodedArtwork,
     originalLength: bigint,
     itemCount: bigint
@@ -46,10 +46,11 @@ const useArtworkEncoding = () => {
     const compressAndEncodeTrait = (
         traitColorIndexes: number[],
         paletteIndex: number
-    ): EncodedCompressedParts =>
-        compressEncodedArtwork([
+    ): EncodedCompressedParts => {
+        return compressEncodedArtwork([
             encodeArtwork(32, 32, traitColorIndexes, paletteIndex),
         ]);
+    };
 
     const compressEncodedArtwork = (
         encodedArtwork: EncodedArtwork[]
@@ -102,6 +103,10 @@ const useArtworkEncoding = () => {
         pixels: number[],
         paletteIndex: number
     ): EncodedArtwork => {
+        console.log('[encodeArtwork] pixels', pixels);
+        console.log('[encodeArtwork] paletteIndex', paletteIndex);
+        console.log('[encodeArtwork] height', height);
+        console.log('[encodeArtwork] width', width);
         const {
             bounds: { top, right, bottom, left },
             pixels: boundedPixels,
@@ -134,8 +139,6 @@ const useArtworkEncoding = () => {
         );
 
     const getPaletteIndex = (colors?: HexColor[], palettes?: Palette[]) => {
-        console.log('getPaletteIndex', colors, palettes);
-
         if (!colors || !palettes) return null;
 
         const normalisedColors = colors.map((color) =>
@@ -146,12 +149,6 @@ const useArtworkEncoding = () => {
             palette.map((color) =>
                 color.startsWith('#') ? color : `#${color}`
             )
-        );
-
-        console.log(
-            'getPaletteIndex (normalised)',
-            normalisedColors,
-            normalisedPalettes
         );
 
         for (let i = 0; i < normalisedPalettes.length; i++) {
