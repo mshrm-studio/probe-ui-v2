@@ -152,10 +152,18 @@ export default function SubmitCandidate({
             const signatures = transactions.map((tx) => tx.signature);
             const calldatas = transactions.map((tx) => tx.calldata);
 
-            const value =
+            const costToPropose =
                 Number(account?.delegate?.delegatedVotes || '0') > 0
                     ? 0
                     : createCandidateCost;
+
+            console.log('slug', slug);
+            console.log('targets', targets);
+            console.log('values', values);
+            console.log('signatures', signatures);
+            console.log('calldatas', calldatas);
+            console.log('createCandidateCost', createCandidateCost);
+            console.log('costToPropose', costToPropose);
 
             const gasEstimate =
                 await contractWithSigner.createProposalCandidate.estimateGas(
@@ -167,11 +175,14 @@ export default function SubmitCandidate({
                     slug,
                     proposalIdToUpdate,
                     {
-                        value,
+                        value: costToPropose,
                     }
                 );
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
+
+            console.log('gasEstimate', gasEstimate);
+            console.log('gasLimit', gasLimit);
 
             const tx = await contractWithSigner.createProposalCandidate(
                 targets,
@@ -182,7 +193,7 @@ export default function SubmitCandidate({
                 slug,
                 proposalIdToUpdate,
                 {
-                    value,
+                    value: costToPropose,
                     gasLimit,
                 }
             );
