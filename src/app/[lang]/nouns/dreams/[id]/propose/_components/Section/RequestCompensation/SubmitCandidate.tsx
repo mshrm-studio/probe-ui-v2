@@ -144,17 +144,18 @@ export default function SubmitCandidate({
             // returns 10000000000000000n
 
             const artAtributionAgreement = `## Nouns Art Contribution Agreement\n\n**Signer**: ${agreement.signer}\n\n**Message**: ${agreement.message}\n\n**Signature**: ${agreement.signature}`;
-
             const description = `${writeUp}\n\n${artAtributionAgreement}`;
-
             const slug = `probe-dream-${dream.id}`;
-
             const proposalIdToUpdate = 0;
-
             const targets = transactions.map((tx) => tx.address);
             const values = transactions.map((tx) => tx.value);
             const signatures = transactions.map((tx) => tx.signature);
             const calldatas = transactions.map((tx) => tx.calldata);
+
+            const value =
+                Number(account?.delegate?.delegatedVotes || '0') > 0
+                    ? 0
+                    : createCandidateCost;
 
             const gasEstimate =
                 await contractWithSigner.createProposalCandidate.estimateGas(
@@ -166,7 +167,7 @@ export default function SubmitCandidate({
                     slug,
                     proposalIdToUpdate,
                     {
-                        value: createCandidateCost,
+                        value,
                     }
                 );
 
@@ -181,10 +182,7 @@ export default function SubmitCandidate({
                 slug,
                 proposalIdToUpdate,
                 {
-                    value:
-                        Number(account?.delegate?.delegatedVotes || '0') > 0
-                            ? 0
-                            : createCandidateCost,
+                    value,
                     gasLimit,
                 }
             );
