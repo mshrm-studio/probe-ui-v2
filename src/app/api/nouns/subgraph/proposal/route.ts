@@ -95,7 +95,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
         return NextResponse.json({ result });
     } catch (error) {
-        console.log('Proposal error:', error);
+        console.error(error);
         return NextResponse.json(error, { status: 500 });
     }
 }

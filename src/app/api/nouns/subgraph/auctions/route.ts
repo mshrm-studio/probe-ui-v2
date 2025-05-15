@@ -28,23 +28,43 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
     `;
 
     try {
-        const result = await client.query(DATA_QUERY, {}).toPromise();
+        const result = await client
+            .query(DATA_QUERY, {}, { requestPolicy: 'network-only' })
+            .toPromise();
 
         if (result.error) {
             return NextResponse.json(
                 { error: result.error.message },
-                { status: 500 }
+                {
+                    status: 500,
+                    headers: {
+                        'Cache-Control': 'no-store',
+                    },
+                }
             );
         }
 
         if (!isAuctionFromSubgraphList(result.data.auctions)) {
             return NextResponse.json(
                 { error: 'Invalid data' },
-                { status: 500 }
+                {
+                    status: 500,
+                    headers: {
+                        'Cache-Control': 'no-store',
+                    },
+                }
             );
         }
 
-        return NextResponse.json({ result });
+        return NextResponse.json(
+            { result },
+            {
+                status: 200,
+                headers: {
+                    'Cache-Control': 'no-store',
+                },
+            }
+        );
     } catch (error) {
         return NextResponse.json(error, { status: 500 });
     }

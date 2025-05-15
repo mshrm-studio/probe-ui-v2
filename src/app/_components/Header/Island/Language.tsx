@@ -41,6 +41,7 @@ export default function HeaderLanguage({ dict }: Props) {
                     className={popoverStyles.imgContainer}
                     objectFit="contain"
                     sizes="15px"
+                    unoptimized
                 />
             </PopoverButton>
 

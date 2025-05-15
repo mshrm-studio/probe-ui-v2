@@ -10,8 +10,7 @@ import {
 } from '@reown/appkit/react';
 import { DaoProxyContext } from '@/context/DaoProxy';
 import { useContext } from 'react';
-import { BrowserProvider, Contract, Eip1193Provider, Interface } from 'ethers';
-import { nounsDaoProxyContractABI } from '@/utils/contracts/NounsDaoProxyContractABI';
+import { BrowserProvider, Contract, Eip1193Provider } from 'ethers';
 import { AccountContext } from '@/context/Account';
 
 interface Props {
@@ -58,8 +57,6 @@ export default function Promote({
 
             const content = proposalCandidate.latestVersion.content;
 
-            console.log('content', content);
-
             const proposerSignatures = Array.from(
                 new Map(
                     content.contentSignatures
@@ -88,17 +85,6 @@ export default function Promote({
 
             const proposeBySigsWithClientId = contractWithSigner.getFunction(
                 'proposeBySigs((bytes,address,uint256)[],address[],uint256[],string[],bytes[],string,uint32)'
-            );
-
-            console.log('proposerSignatures', proposerSignatures);
-            console.log('targets', content.targets);
-            console.log('values', content.values);
-            console.log('signatures', content.signatures);
-            console.log('calldatas', content.calldatas);
-            console.log('description', content.description);
-            console.log(
-                'clientId',
-                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
             );
 
             const tx = await proposeBySigsWithClientId(
