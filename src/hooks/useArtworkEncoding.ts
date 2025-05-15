@@ -103,10 +103,6 @@ const useArtworkEncoding = () => {
         pixels: number[],
         paletteIndex: number
     ): EncodedArtwork => {
-        console.log('[encodeArtwork] pixels', pixels);
-        console.log('[encodeArtwork] paletteIndex', paletteIndex);
-        console.log('[encodeArtwork] height', height);
-        console.log('[encodeArtwork] width', width);
         const {
             bounds: { top, right, bottom, left },
             pixels: boundedPixels,

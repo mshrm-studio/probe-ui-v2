@@ -77,8 +77,6 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
 
                 const { result } = await response.json();
 
-                console.log('[Proposal] candidate', result);
-
                 if (
                     !isNounProposalCandidateFromSubgraph(
                         result.data.proposalCandidate
@@ -121,8 +119,6 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                 }
 
                 const { result } = await response.json();
-
-                console.log('[Proposal] proposal', result);
 
                 if (!isNounProposalFromSubgraph(result.data.proposal)) {
                     throw new Error('Invalid data');

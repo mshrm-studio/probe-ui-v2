@@ -15,6 +15,7 @@ import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
 import { useRouter } from 'next/navigation';
 import { EncodedCompressedParts } from '@/hooks/useArtworkEncoding';
+import { AccountContext } from '@/context/Account';
 
 interface Props {
     agreement?: ArtworkContributionAgreement;
@@ -34,6 +35,7 @@ export default function SubmitCandidate({
     writeUp,
 }: Props) {
     const router = useRouter();
+    const { account } = useContext(AccountContext);
     const { address } = useAppKitAccount();
     const { httpDataProxyContract } = useContext(DataProxyContext);
     const { walletProvider } = useAppKitProvider('eip155');
@@ -122,23 +124,11 @@ export default function SubmitCandidate({
     }, [address, encodedTraitCalldata, encodedTraitSignature, requestedEth]);
 
     const submitCandidate = async () => {
-        if (!agreement || !transactions) return;
+        if (!account || !agreement || !transactions) return;
 
         if (!httpDataProxyContract || !walletProvider) return;
 
         try {
-            const createCandidateCost =
-                await httpDataProxyContract.createCandidateCost();
-            // returns 10000000000000000n
-
-            const artAtributionAgreement = `## Nouns Art Contribution Agreement\n\n**Signer**: ${agreement.signer}\n\n**Message**: ${agreement.message}\n\n**Signature**: ${agreement.signature}`;
-
-            const description = `${writeUp}\n\n${artAtributionAgreement}`;
-
-            const slug = `probe-dream-${dream.id}`;
-
-            const proposalIdToUpdate = 0;
-
             const provider = new BrowserProvider(
                 walletProvider as Eip1193Provider
             );
@@ -149,10 +139,31 @@ export default function SubmitCandidate({
                 signer
             ) as Contract;
 
+            const createCandidateCost =
+                await contractWithSigner.createCandidateCost();
+            // returns 10000000000000000n
+
+            const artAtributionAgreement = `## Nouns Art Contribution Agreement\n\n**Signer**: ${agreement.signer}\n\n**Message**: ${agreement.message}\n\n**Signature**: ${agreement.signature}`;
+            const description = `${writeUp}\n\n${artAtributionAgreement}`;
+            const slug = `probe-dream-${dream.id}`;
+            const proposalIdToUpdate = 0;
             const targets = transactions.map((tx) => tx.address);
             const values = transactions.map((tx) => tx.value);
             const signatures = transactions.map((tx) => tx.signature);
             const calldatas = transactions.map((tx) => tx.calldata);
+
+            const costToPropose =
+                Number(account?.delegate?.delegatedVotes || '0') > 0
+                    ? 0
+                    : createCandidateCost;
+
+            console.log('slug', slug);
+            console.log('targets', targets);
+            console.log('values', values);
+            console.log('signatures', signatures);
+            console.log('calldatas', calldatas);
+            console.log('createCandidateCost', createCandidateCost);
+            console.log('costToPropose', costToPropose);
 
             const gasEstimate =
                 await contractWithSigner.createProposalCandidate.estimateGas(
@@ -164,11 +175,14 @@ export default function SubmitCandidate({
                     slug,
                     proposalIdToUpdate,
                     {
-                        value: createCandidateCost,
+                        value: costToPropose,
                     }
                 );
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
+
+            console.log('gasEstimate', gasEstimate);
+            console.log('gasLimit', gasLimit);
 
             const tx = await contractWithSigner.createProposalCandidate(
                 targets,
@@ -179,7 +193,7 @@ export default function SubmitCandidate({
                 slug,
                 proposalIdToUpdate,
                 {
-                    value: createCandidateCost,
+                    value: costToPropose,
                     gasLimit,
                 }
             );

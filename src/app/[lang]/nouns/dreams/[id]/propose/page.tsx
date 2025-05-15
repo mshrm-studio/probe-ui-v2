@@ -11,6 +11,7 @@ import DreamFromDB, { isDreamFromDBResponse } from '@/utils/dto/Dream/FromDB';
 import RpcProvider from '@/context/Rpc';
 import DataProxyProvider from '@/context/DataProxy';
 import Content from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Content';
+import AccountProvider from '@/context/Account';
 
 async function fetchFallbackData(id: string): Promise<DreamFromDB | undefined> {
     const api = useApi();
@@ -43,34 +44,36 @@ export default async function Page({ params }: Props) {
         <DictionaryProvider dictionary={dict}>
             <RpcProvider>
                 <DataProxyProvider>
-                    <Background dream={dream}>
-                        <Header
-                            lang={lang}
-                            islandAlign="center"
-                            breadcrumbs={[
-                                {
-                                    label: dict.propose.breadcrumbs.nouns,
-                                    href: '/nouns',
-                                },
-                                {
-                                    label: dict.propose.breadcrumbs.dreams,
-                                    href: `/nouns/dreams`,
-                                },
-                                {
-                                    label: id,
-                                    href: `/nouns/dreams/${id}`,
-                                },
-                                {
-                                    label: dict.propose.breadcrumbs.propose,
-                                    href: `/nouns/dreams/${id}/propose`,
-                                },
-                            ]}
-                        />
+                    <AccountProvider>
+                        <Background dream={dream}>
+                            <Header
+                                lang={lang}
+                                islandAlign="center"
+                                breadcrumbs={[
+                                    {
+                                        label: dict.propose.breadcrumbs.nouns,
+                                        href: '/nouns',
+                                    },
+                                    {
+                                        label: dict.propose.breadcrumbs.dreams,
+                                        href: `/nouns/dreams`,
+                                    },
+                                    {
+                                        label: id,
+                                        href: `/nouns/dreams/${id}`,
+                                    },
+                                    {
+                                        label: dict.propose.breadcrumbs.propose,
+                                        href: `/nouns/dreams/${id}/propose`,
+                                    },
+                                ]}
+                            />
 
-                        <main className={styles.main}>
-                            <Content dict={dict} dream={dream} />
-                        </main>
-                    </Background>
+                            <main className={styles.main}>
+                                <Content dict={dict} dream={dream} />
+                            </main>
+                        </Background>
+                    </AccountProvider>
                 </DataProxyProvider>
             </RpcProvider>
         </DictionaryProvider>
