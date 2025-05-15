@@ -77,7 +77,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     `;
 
     try {
-        const result = await client.query(DATA_QUERY, { id }).toPromise();
+        const result = await client
+            .query(DATA_QUERY, { id }, { requestPolicy: 'network-only' })
+            .toPromise();
 
         if (result.error) {
             return NextResponse.json(
@@ -93,7 +95,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
             );
         }
 
-        return NextResponse.json({ result });
+        return NextResponse.json({
+            result,
+            headers: {
+                'Cache-Control': 'no-store',
+            },
+        });
     } catch (error) {
         console.error(error);
         return NextResponse.json(error, { status: 500 });
