@@ -157,11 +157,11 @@ export default function SubmitCandidate({
                     ? 0
                     : createCandidateCost;
 
-            console.log('slug', slug);
-            console.log('targets', targets);
-            console.log('values', values);
-            console.log('signatures', signatures);
-            console.log('calldatas', calldatas);
+            console.log('account', account);
+            console.log(
+                'account?.delegate?.delegatedVotes',
+                account?.delegate?.delegatedVotes
+            );
             console.log('createCandidateCost', createCandidateCost);
             console.log('costToPropose', costToPropose);
 
