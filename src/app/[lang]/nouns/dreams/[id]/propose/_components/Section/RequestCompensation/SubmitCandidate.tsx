@@ -154,7 +154,7 @@ export default function SubmitCandidate({
 
             const costToPropose =
                 Number(account?.delegate?.delegatedVotes || '0') > 0
-                    ? 0
+                    ? parseEther('0')
                     : createCandidateCost;
 
             console.log('account', account);
