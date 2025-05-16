@@ -15,7 +15,7 @@ import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
 import { useRouter } from 'next/navigation';
 import { EncodedCompressedParts } from '@/hooks/useArtworkEncoding';
-import { AccountContext } from '@/context/Account';
+import { TokenContext } from '@/context/Token';
 
 interface Props {
     agreement?: ArtworkContributionAgreement;
@@ -35,9 +35,9 @@ export default function SubmitCandidate({
     writeUp,
 }: Props) {
     const router = useRouter();
-    const { account } = useContext(AccountContext);
     const { address } = useAppKitAccount();
     const { httpDataProxyContract } = useContext(DataProxyContext);
+    const { httpTokenContract } = useContext(TokenContext);
     const { walletProvider } = useAppKitProvider('eip155');
 
     const functionName = useMemo(() => {
@@ -124,9 +124,10 @@ export default function SubmitCandidate({
     }, [address, encodedTraitCalldata, encodedTraitSignature, requestedEth]);
 
     const submitCandidate = async () => {
-        if (!account || !agreement || !transactions) return;
+        if (!agreement || !transactions) return;
 
-        if (!httpDataProxyContract || !walletProvider) return;
+        if (!httpDataProxyContract || !httpTokenContract || !walletProvider)
+            return;
 
         try {
             const provider = new BrowserProvider(
@@ -135,12 +136,20 @@ export default function SubmitCandidate({
 
             const signer = await provider.getSigner();
 
-            const contractWithSigner = httpDataProxyContract.connect(
+            const dataProxyContractWithSigner = httpDataProxyContract.connect(
                 signer
             ) as Contract;
 
+            const tokenContractWithSigner = httpTokenContract.connect(
+                signer
+            ) as Contract;
+
+            const currentVotes = await tokenContractWithSigner.getCurrentVotes(
+                address
+            );
+
             const createCandidateCost =
-                await contractWithSigner.createCandidateCost();
+                await dataProxyContractWithSigner.createCandidateCost();
             // returns 10000000000000000n
 
             const artAtributionAgreement = `## Nouns Art Contribution Agreement\n\n**Signer**: ${agreement.signer}\n\n**Message**: ${agreement.message}\n\n**Signature**: ${agreement.signature}`;
@@ -153,20 +162,14 @@ export default function SubmitCandidate({
             const calldatas = transactions.map((tx) => tx.calldata);
 
             const costToPropose =
-                Number(account?.delegate?.delegatedVotes || '0') > 0
-                    ? parseEther('0')
-                    : createCandidateCost;
+                currentVotes > 0 ? parseEther('0') : createCandidateCost;
 
-            console.log('account', account);
-            console.log(
-                'account?.delegate?.delegatedVotes',
-                account?.delegate?.delegatedVotes
-            );
+            console.log('currentVotes', currentVotes);
             console.log('createCandidateCost', createCandidateCost);
             console.log('costToPropose', costToPropose);
 
             const gasEstimate =
-                await contractWithSigner.createProposalCandidate.estimateGas(
+                await dataProxyContractWithSigner.createProposalCandidate.estimateGas(
                     targets,
                     values,
                     signatures,
@@ -184,19 +187,20 @@ export default function SubmitCandidate({
             console.log('gasEstimate', gasEstimate);
             console.log('gasLimit', gasLimit);
 
-            const tx = await contractWithSigner.createProposalCandidate(
-                targets,
-                values,
-                signatures,
-                calldatas,
-                description,
-                slug,
-                proposalIdToUpdate,
-                {
-                    value: costToPropose,
-                    gasLimit,
-                }
-            );
+            const tx =
+                await dataProxyContractWithSigner.createProposalCandidate(
+                    targets,
+                    values,
+                    signatures,
+                    calldatas,
+                    description,
+                    slug,
+                    proposalIdToUpdate,
+                    {
+                        value: costToPropose,
+                        gasLimit,
+                    }
+                );
 
             await tx.wait();
 
