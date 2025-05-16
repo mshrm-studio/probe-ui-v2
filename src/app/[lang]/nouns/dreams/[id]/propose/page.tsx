@@ -11,7 +11,7 @@ import DreamFromDB, { isDreamFromDBResponse } from '@/utils/dto/Dream/FromDB';
 import RpcProvider from '@/context/Rpc';
 import DataProxyProvider from '@/context/DataProxy';
 import Content from '@/app/[lang]/nouns/dreams/[id]/propose/_components/Content';
-import AccountProvider from '@/context/Account';
+import TokenProvider from '@/context/Token';
 
 async function fetchFallbackData(id: string): Promise<DreamFromDB | undefined> {
     const api = useApi();
@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
         <DictionaryProvider dictionary={dict}>
             <RpcProvider>
                 <DataProxyProvider>
-                    <AccountProvider>
+                    <TokenProvider>
                         <Background dream={dream}>
                             <Header
                                 lang={lang}
@@ -73,7 +73,7 @@ export default async function Page({ params }: Props) {
                                 <Content dict={dict} dream={dream} />
                             </main>
                         </Background>
-                    </AccountProvider>
+                    </TokenProvider>
                 </DataProxyProvider>
             </RpcProvider>
         </DictionaryProvider>
