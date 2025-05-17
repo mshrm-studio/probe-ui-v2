@@ -9,6 +9,7 @@ import Signatures from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Propo
 import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Promote';
 import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote';
 import DaoProxyProvider from '@/context/DaoProxy';
+import ProposalPending from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Pending';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -88,7 +89,7 @@ export default function Proposal({ className, dict, dream }: Props) {
 
                     {proposal?.status === 'PENDING' && (
                         <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalPending}</p>
+                            <ProposalPending dict={dict} proposal={proposal} />
                         </div>
                     )}
 
