@@ -11,6 +11,8 @@ import Proposal from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposa
 import DataProxyProvider from '@/context/DataProxy';
 import RpcProvider from '@/context/Rpc';
 import ProposalProvider from '@/context/Proposal';
+import TokenProvider from '@/context/Token';
+import CurrentVotesProvider from '@/context/CurrentVotes';
 
 interface Props {
     dict: Dictionary;
@@ -49,11 +51,15 @@ export default function Details({ dict, dream }: Props) {
                         />
 
                         {isDreamFromDBWithCustomTrait(dream) && (
-                            <Proposal
-                                className={styles.proposalContainer}
-                                dict={dict}
-                                dream={dream}
-                            />
+                            <TokenProvider>
+                                <CurrentVotesProvider>
+                                    <Proposal
+                                        className={styles.proposalContainer}
+                                        dict={dict}
+                                        dream={dream}
+                                    />
+                                </CurrentVotesProvider>
+                            </TokenProvider>
                         )}
                     </ProposalProvider>
                 </DataProxyProvider>

@@ -7,10 +7,15 @@
         "propose": "提案"
     },
     "error": {
+        "agreementNotSigned": "您必须签署 CC0 放弃书才能提交提案。",
         "artworkCompressionFailed": "作品压缩失败。",
         "colorPaletteNotFound": "未找到调色板。请确保特征中的每种颜色都存在于 Nouns 的调色板之一中。",
+        "currentVotesNotKnown": "当前投票未知。这可能是由于系统错误。",
+        "dataProxyContractNotAvailable": "数据代理合约不可用。这可能是由于系统错误。",
         "invalidCustomTrait": "自定义特征无效。可能是尺寸或颜色不匹配。",
-        "noCustomTrait": "没有自定义特征。无法为没有自定义特征的梦创建提案。"
+        "noCustomTrait": "没有自定义特征。无法为没有自定义特征的梦创建提案。",
+        "transactionsNotPrepared": "提案交易未准备好。这可能是由于编码特征调用数据的系统错误。",
+        "walletNotAvailable": "钱包不可用。这可能是由于系统错误。"
     },
     "metadata": {
         "description": "为梦 :id 创建提案",

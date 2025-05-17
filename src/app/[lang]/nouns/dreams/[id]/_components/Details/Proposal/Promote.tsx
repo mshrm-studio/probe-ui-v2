@@ -11,7 +11,7 @@ import {
 import { DaoProxyContext } from '@/context/DaoProxy';
 import { useContext } from 'react';
 import { BrowserProvider, Contract, Eip1193Provider } from 'ethers';
-import { AccountContext } from '@/context/Account';
+import { CurrentVotesContext } from '@/context/CurrentVotes';
 
 interface Props {
     className?: string;
@@ -30,7 +30,7 @@ export default function Promote({
     const { open } = useAppKit();
     const { walletProvider } = useAppKitProvider('eip155');
     const { httpDaoProxyContract } = useContext(DaoProxyContext);
-    const { account } = useContext(AccountContext);
+    const { currentVotes } = useContext(CurrentVotesContext);
 
     const proposeBySigs = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -152,20 +152,15 @@ export default function Promote({
         }
     };
 
+    if (typeof currentVotes !== 'number') return null;
+
     if (address !== proposalCandidate.proposer) return null;
 
-    if (
-        validSignaturesNouns.length < 4 &&
-        Number(account?.delegate?.delegatedVotes || '0') < 4
-    )
-        return null;
+    if (validSignaturesNouns.length < 4 && currentVotes < 4) return null;
 
     return (
-        <div
-            className={className}
-            data-delegated-votes={account?.delegate?.delegatedVotes}
-        >
-            {Number(account?.delegate?.delegatedVotes || '0') > 3 ? (
+        <div className={className} data-current-votes={currentVotes}>
+            {currentVotes > 3 ? (
                 <form onSubmit={propose} data-method="propose">
                     <Button type="submit" color="purple" size="lg">
                         {dict.dream.details.promote}
