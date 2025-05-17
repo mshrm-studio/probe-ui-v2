@@ -66,7 +66,7 @@ export default function ProposalPending({ dict, proposal }: Props) {
     if (startTime) {
         return (
             <p>
-                {dict.dream.details.proposalPendingStartsAt}:{' '}
+                {dict.dream.details.proposalPendingStartsAt}:<br />
                 <LocalisedDateTime dateTime={startTime} />
             </p>
         );
