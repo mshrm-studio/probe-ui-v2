@@ -69,11 +69,17 @@ export default function CastVote({ className, dict }: Props) {
 
     return (
         <div className={clsx(className, 'flex space-x-2 items-center')}>
-            <button type="button">{dict.dream.details.castVoteFor}</button>
+            <button type="button" onClick={() => castVote('for')}>
+                {dict.dream.details.castVoteFor}
+            </button>
 
-            <button type="button">{dict.dream.details.castVoteAgainst}</button>
+            <button type="button" onClick={() => castVote('against')}>
+                {dict.dream.details.castVoteAgainst}
+            </button>
 
-            <button type="button">{dict.dream.details.castVoteAbstain}</button>
+            <button type="button" onClick={() => castVote('abstain')}>
+                {dict.dream.details.castVoteAbstain}
+            </button>
         </div>
     );
 }

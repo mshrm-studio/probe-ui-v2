@@ -22,7 +22,7 @@ import {
 import { DataProxyContext } from '@/context/DataProxy';
 import { useContext } from 'react';
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
-import { AccountContext } from '@/context/Account';
+import { CurrentVotesContext } from '@/context/CurrentVotes';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -40,7 +40,7 @@ export default function SignatureList({
     const { open } = useAppKit();
     const { walletProvider } = useAppKitProvider('eip155');
     const { httpDataProxyContract } = useContext(DataProxyContext);
-    const { account } = useContext(AccountContext);
+    const { currentVotes } = useContext(CurrentVotesContext);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -193,17 +193,20 @@ export default function SignatureList({
 
             await tx.wait();
         } catch (error: any) {
-            console.error('Error adding signature:', error);
+            console.error(error);
+
             alert(error?.info?.error?.message || error.code);
         }
     };
+
+    if (typeof currentVotes !== 'number') return null;
 
     if (dream.dreamer === address) return null;
 
     return (
         <form onSubmit={handleSubmit} className={clsx(className, styles.form)}>
             <Button
-                disabled={account?.delegate?.delegatedVotes === '0'}
+                disabled={currentVotes === undefined || currentVotes === 0}
                 type="submit"
                 color="purple"
                 size="lg"

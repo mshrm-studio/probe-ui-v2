@@ -7,10 +7,15 @@
         "propose": "提案"
     },
     "error": {
+        "agreementNotSigned": "您必須簽署 CC0 放棄書才能提交提案。",
         "artworkCompressionFailed": "作品壓縮失敗。",
         "colorPaletteNotFound": "找不到調色盤。請確認特徵中的每種顏色皆存在於 Nouns 的調色盤之一中。",
+        "currentVotesNotKnown": "當前投票未知。這可能是由於系統錯誤。",
+        "dataProxyContractNotAvailable": "數據代理合約不可用。這可能是由於系統錯誤。",
         "invalidCustomTrait": "自定義特徵無效。可能是尺寸或顏色不相符。",
-        "noCustomTrait": "沒有自定義特徵。無法為沒有自定義特徵的夢建立提案。"
+        "noCustomTrait": "沒有自定義特徵。無法為沒有自定義特徵的夢建立提案。",
+        "transactionsNotPrepared": "提案交易未準備好。這可能是由於編碼特徵調用數據的系統錯誤。",
+        "walletNotAvailable": "錢包不可用。這可能是由於系統錯誤。"
     },
     "metadata": {
         "description": "為夢 :id 建立提案",

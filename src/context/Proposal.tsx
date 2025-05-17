@@ -59,6 +59,8 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     }, [dream, httpDataProxyContract]);
 
     useEffect(() => {
+        if (!isCandidate) return;
+
         const fetchProposalCandidate = async () => {
             const id = `${dream.dreamer}-probe-dream-${dream.id}`;
 
@@ -92,7 +94,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         };
 
         fetchProposalCandidate();
-    }, [dream]);
+    }, [dream, isCandidate]);
 
     useEffect(() => {
         if (!proposalCandidate) return;

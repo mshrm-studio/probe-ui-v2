@@ -15,7 +15,7 @@ import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
 import { useRouter } from 'next/navigation';
 import { EncodedCompressedParts } from '@/hooks/useArtworkEncoding';
-import { TokenContext } from '@/context/Token';
+import { CurrentVotesContext } from '@/context/CurrentVotes';
 
 interface Props {
     agreement?: ArtworkContributionAgreement;
@@ -37,7 +37,7 @@ export default function SubmitCandidate({
     const router = useRouter();
     const { address } = useAppKitAccount();
     const { httpDataProxyContract } = useContext(DataProxyContext);
-    const { httpTokenContract } = useContext(TokenContext);
+    const { currentVotes } = useContext(CurrentVotesContext);
     const { walletProvider } = useAppKitProvider('eip155');
 
     const functionName = useMemo(() => {
@@ -124,10 +124,30 @@ export default function SubmitCandidate({
     }, [address, encodedTraitCalldata, encodedTraitSignature, requestedEth]);
 
     const submitCandidate = async () => {
-        if (!agreement || !transactions) return;
-
-        if (!httpDataProxyContract || !httpTokenContract || !walletProvider)
+        if (!agreement) {
+            alert(dict.propose.error.agreementNotSigned);
             return;
+        }
+
+        if (!transactions) {
+            alert(dict.propose.error.transactionsNotPrepared);
+            return;
+        }
+
+        if (typeof currentVotes !== 'number') {
+            alert(dict.propose.error.currentVotesNotKnown);
+            return;
+        }
+
+        if (!httpDataProxyContract || !walletProvider) {
+            alert(dict.propose.error.dataProxyContractNotAvailable);
+            return;
+        }
+
+        if (!walletProvider) {
+            alert(dict.propose.error.walletProviderNotAvailable);
+            return;
+        }
 
         try {
             const provider = new BrowserProvider(
@@ -139,14 +159,6 @@ export default function SubmitCandidate({
             const dataProxyContractWithSigner = httpDataProxyContract.connect(
                 signer
             ) as Contract;
-
-            const tokenContractWithSigner = httpTokenContract.connect(
-                signer
-            ) as Contract;
-
-            const currentVotes = await tokenContractWithSigner.getCurrentVotes(
-                address
-            );
 
             const createCandidateCost =
                 await dataProxyContractWithSigner.createCandidateCost();
