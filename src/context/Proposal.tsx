@@ -126,6 +126,8 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                     throw new Error('Invalid data');
                 }
 
+                console.log('proposal', result.data.proposal);
+
                 setProposal(result.data.proposal);
             } catch (error) {
                 console.error(error);
