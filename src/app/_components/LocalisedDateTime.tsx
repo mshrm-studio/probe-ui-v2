@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 
 interface Props extends React.HTMLAttributes<HTMLSpanElement> {
-    dateTime: string;
+    dateTime: string | number;
     format?: Intl.DateTimeFormatOptions;
 }
 

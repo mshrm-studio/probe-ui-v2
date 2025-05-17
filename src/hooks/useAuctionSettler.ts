@@ -9,6 +9,7 @@ const useAuctionSettler = (blockNumber?: number | null) => {
     const { httpAuctionHouseContract: contract } =
         useContext(AuctionHouseContext);
     const [settledByAddress, setSettledByAddress] = useState<string>();
+    const [settledByTimestamp, setSettledByTimestamp] = useState<number>();
 
     useEffect(() => {
         if (!blockNumber || !contract || !provider) return;
@@ -32,20 +33,25 @@ const useAuctionSettler = (blockNumber?: number | null) => {
                         if (transaction) {
                             setSettledByAddress(transaction.from);
                         }
+
+                        const block = await provider.getBlock(
+                            auctionEvent.blockNumber
+                        );
+
+                        if (block) {
+                            setSettledByTimestamp(block.timestamp);
+                        }
                     }
                 }
             } catch (error) {
-                console.error(
-                    'Failed to fetch "AuctionSettled" token contract events:',
-                    error
-                );
+                console.error(error);
             }
         };
 
         fetchSettledEvents();
     }, [contract, blockNumber, provider]);
 
-    return settledByAddress;
+    return { settledByAddress, settledByTimestamp };
 };
 
 export default useAuctionSettler;

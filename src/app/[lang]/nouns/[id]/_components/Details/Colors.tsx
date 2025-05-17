@@ -1,6 +1,7 @@
 import { Dictionary } from '@/app/[lang]/dictionaries';
 import NounFromDB from '@/utils/dto/Noun/FromDB';
 import styles from '@/app/[lang]/nouns/[id]/_styles/details/colors.module.css';
+import Link from 'next/link';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -17,12 +18,16 @@ export default function DetailsColors({ className, dict, noun }: Props) {
             <div className={styles.colorSquares}>
                 {Object.entries(noun.color_histogram).map(
                     ([color, count], idx) => (
-                        <div
+                        <Link
+                            href={`/nouns?color=${encodeURIComponent(color)}`}
                             key={idx}
-                            style={{ backgroundColor: color }}
-                            className={styles.colorSquare}
-                            title={`${color} (${count})`}
-                        ></div>
+                        >
+                            <div
+                                style={{ backgroundColor: color }}
+                                className={styles.colorSquare}
+                                title={`${color} (${count})`}
+                            ></div>
+                        </Link>
                     )
                 )}
             </div>
