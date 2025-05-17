@@ -5,6 +5,7 @@ import { RpcContext } from '@/context/Rpc';
 import NounProposalFromSubgraph from '@/utils/dto/Noun/Proposal/FromSubgraph';
 import { useContext, useEffect, useState } from 'react';
 import LocalisedDateTime from '@/app/_components/LocalisedDateTime';
+import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/pending.module.css';
 
 interface Props {
     dict: Dictionary;
@@ -25,33 +26,14 @@ export default function ProposalPending({ dict, proposal }: Props) {
             try {
                 const currentBlock = await provider.getBlock('latest');
 
-                console.log('[proposalPending] currentBlock', currentBlock);
-
                 if (currentBlock) {
                     const currentTime = currentBlock.timestamp;
-                    console.log('[proposalPending] currentTime', currentTime);
                     const currentNumber = currentBlock.number;
-                    console.log(
-                        '[proposalPending] currentNumber',
-                        currentNumber
-                    );
                     const blocksUntilStart =
                         Number(proposal.startBlock) - currentNumber;
-                    console.log(
-                        '[proposalPending] blocksUntilStart',
-                        blocksUntilStart
-                    );
                     const averageBlockTime = 12; // Approx. seconds per block on Ethereum mainnet
-                    console.log(
-                        '[proposalPending] averageBlockTime',
-                        averageBlockTime
-                    );
                     const estimatedStartTime =
                         currentTime + blocksUntilStart * averageBlockTime;
-                    console.log(
-                        '[proposalPending] estimatedStartTime',
-                        estimatedStartTime
-                    );
 
                     setStartTime(estimatedStartTime);
                 }
@@ -65,7 +47,7 @@ export default function ProposalPending({ dict, proposal }: Props) {
 
     if (startTime) {
         return (
-            <p>
+            <p className={styles.container}>
                 {dict.dream.details.proposalPendingStartsAt}:<br />
                 <LocalisedDateTime dateTime={startTime} />
             </p>
