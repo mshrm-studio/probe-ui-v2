@@ -20,6 +20,7 @@
         "proposalCancelled": "Proposal cancelled",
         "proposalDefeated": "Proposal defeated",
         "proposalExecuted": "Proposal executed",
+        "proposalPendingStartsAt": "Proposal pending. Voting starts at",
         "proposalPending": "Proposal pending",
         "proposalQueued": "Proposal queued",
         "proposalSucceeded": "Proposal succeeded",

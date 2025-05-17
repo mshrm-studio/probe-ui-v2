@@ -20,6 +20,7 @@
         "proposalCancelled": "提案已取消",
         "proposalDefeated": "提案已否決",
         "proposalExecuted": "提案已執行",
+        "proposalPendingStartsAt": "提案待定。投票開始於",
         "proposalPending": "提案待定",
         "proposalQueued": "提案已排隊",
         "proposalSucceeded": "提案成功",
