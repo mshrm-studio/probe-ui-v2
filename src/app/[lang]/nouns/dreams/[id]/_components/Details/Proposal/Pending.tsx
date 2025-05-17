@@ -23,14 +23,37 @@ export default function ProposalPending({ dict, proposal }: Props) {
 
         const fetchProposal = async () => {
             try {
-                const block = await provider.getBlock(
-                    Number(proposal.startBlock)
-                );
+                const currentBlock = await provider.getBlock('latest');
 
-                console.log('[proposalPending] block', block);
+                console.log('[proposalPending] currentBlock', currentBlock);
 
-                if (block) {
-                    setStartTime(block.timestamp);
+                if (currentBlock) {
+                    const currentTime = currentBlock.timestamp;
+                    console.log('[proposalPending] currentTime', currentTime);
+                    const currentNumber = currentBlock.number;
+                    console.log(
+                        '[proposalPending] currentNumber',
+                        currentNumber
+                    );
+                    const blocksUntilStart =
+                        Number(proposal.startBlock) - currentNumber;
+                    console.log(
+                        '[proposalPending] blocksUntilStart',
+                        blocksUntilStart
+                    );
+                    const averageBlockTime = 12; // Approx. seconds per block on Ethereum mainnet
+                    console.log(
+                        '[proposalPending] averageBlockTime',
+                        averageBlockTime
+                    );
+                    const estimatedStartTime =
+                        currentTime + blocksUntilStart * averageBlockTime;
+                    console.log(
+                        '[proposalPending] estimatedStartTime',
+                        estimatedStartTime
+                    );
+
+                    setStartTime(estimatedStartTime);
                 }
             } catch (error) {
                 console.error(error);
