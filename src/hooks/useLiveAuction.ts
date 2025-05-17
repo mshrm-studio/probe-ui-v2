@@ -23,16 +23,6 @@ const useLiveAuction = () => {
             const { nounId, amount, startTime, endTime, bidder, settled } =
                 await httpContract.auction();
 
-            console.log(
-                'AuctionFromContract:',
-                nounId,
-                amount,
-                startTime,
-                endTime,
-                bidder,
-                settled
-            );
-
             setAuction({
                 nounId: Number(nounId),
                 amount: formatEther(amount),
@@ -42,7 +32,7 @@ const useLiveAuction = () => {
                 settled,
             });
         } catch (error) {
-            console.error('Failed to fetch auction details:', error);
+            console.error(error);
         }
     }, [httpContract]);
 
@@ -52,39 +42,8 @@ const useLiveAuction = () => {
         value: string,
         extended: boolean
     ) => {
-        console.log(
-            '[useLiveAuction] handleAuctionBid',
-            sender,
-            value,
-            extended
-        );
-
-        // EG 0xf193C62Bf66A2da6f4fa5Cacad6F75DcF7D7fA96 1000000000000n false
-
-        console.log(
-            '[useLiveAuction] handleAuctionBid, setAuction with following:',
-            {
-                amount: formatEther(value),
-                bidder: sender,
-            }
-        );
-
         setAuction((prev) => {
-            console.log(
-                '[useLiveAuction] Inside setAuction callback, prev =',
-                prev
-            );
-
             if (!prev) return prev;
-
-            console.log(
-                '[useLiveAuction] Inside setAuction callback, setting state =',
-                {
-                    ...prev,
-                    amount: formatEther(value),
-                    bidder: sender,
-                }
-            );
 
             return {
                 ...prev,
@@ -114,7 +73,7 @@ const useLiveAuction = () => {
 
     // Subscribe to auction bid events and clean up on unmount
     useEffect(() => {
-        if (!wsContract) return;
+        if (!wsContract || !auction || auction?.settled) return;
 
         wsContract.on('AuctionBid', (nounId, sender, value, extended) => {
             handleAuctionBid(nounId, sender, value, extended);

@@ -59,9 +59,7 @@ export default function Details({ auction, dict, noun }: Props) {
                         </>
                     )}
 
-                    {auction && auction.settled === false && (
-                        <Auction auction={auction} dict={dict} />
-                    )}
+                    {auction && <Auction auction={auction} dict={dict} />}
 
                     {noun && (
                         <Colors

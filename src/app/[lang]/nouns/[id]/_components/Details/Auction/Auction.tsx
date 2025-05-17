@@ -23,6 +23,11 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
     const liveAuction = useLiveAuction();
 
     const calculateTimeRemaining = useCallback(() => {
+        if (auction.settled) {
+            setTimeRemaining('0');
+            return;
+        }
+
         const endTime = liveAuction
             ? DateTime.fromSeconds(Number(liveAuction.endTime))
             : DateTime.fromSeconds(Number(auction.endTime));
@@ -61,12 +66,17 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
     }, [auction, dict, lang, liveAuction]);
 
     useEffect(() => {
+        if (auction.settled) {
+            setTimeRemaining('0');
+            return;
+        }
+
         calculateTimeRemaining();
 
         const interval = setInterval(calculateTimeRemaining, 1000);
 
         return () => clearInterval(interval);
-    }, [calculateTimeRemaining]);
+    }, [auction, calculateTimeRemaining]);
 
     return (
         <div className={className}>
@@ -81,17 +91,17 @@ export default function DetailsAuction({ auction, className, dict }: Props) {
                             dict={dict}
                         />
                     </div>
-
-                    <div className={styles.bidsContainer}>
-                        <Bids auction={auction} dict={dict} />
-                    </div>
-
-                    {liveAuction && (
-                        <div className={styles.formContainer}>
-                            <Form auction={liveAuction} dict={dict} />
-                        </div>
-                    )}
                 </>
+            )}
+
+            <div className={styles.bidsContainer}>
+                <Bids auction={auction} dict={dict} />
+            </div>
+
+            {timeRemaining !== '0' && liveAuction && (
+                <div className={styles.formContainer}>
+                    <Form auction={liveAuction} dict={dict} />
+                </div>
             )}
         </div>
     );
