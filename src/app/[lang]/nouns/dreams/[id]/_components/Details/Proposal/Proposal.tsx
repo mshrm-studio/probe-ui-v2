@@ -9,7 +9,6 @@ import Signatures from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Propo
 import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Promote';
 import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote';
 import DaoProxyProvider from '@/context/DaoProxy';
-import AccountProvider from '@/context/Account';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -58,77 +57,75 @@ export default function Proposal({ className, dict, dream }: Props) {
     if (proposalCandidate) {
         return (
             <div className={className}>
-                <AccountProvider>
-                    {proposal === undefined && (
-                        <Signatures
+                {proposal === undefined && (
+                    <Signatures
+                        dict={dict}
+                        dream={dream}
+                        proposalCandidate={proposalCandidate}
+                        validSignatures={validSignatures}
+                        validSignaturesNouns={validSignaturesNouns}
+                    />
+                )}
+
+                <DaoProxyProvider>
+                    {proposal?.status === 'CANCELLED' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalCancelled}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'DEFEATED' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalDefeated}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'EXECUTED' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalExecuted}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'PENDING' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalPending}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'SUCCEEDED' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalSucceeded}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'QUEUED' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalQueued}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'VETOED' && (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalVetoed}</p>
+                        </div>
+                    )}
+
+                    {proposal?.status === 'ACTIVE' && (
+                        <CastVote
+                            className={styles.castVoteContainer}
                             dict={dict}
-                            dream={dream}
-                            proposalCandidate={proposalCandidate}
-                            validSignatures={validSignatures}
-                            validSignaturesNouns={validSignaturesNouns}
                         />
                     )}
 
-                    <DaoProxyProvider>
-                        {proposal?.status === 'CANCELLED' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalCancelled}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'DEFEATED' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalDefeated}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'EXECUTED' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalExecuted}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'PENDING' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalPending}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'SUCCEEDED' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalSucceeded}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'QUEUED' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalQueued}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'VETOED' && (
-                            <div className={styles.proposalStatusContainer}>
-                                <p>{dict.dream.details.proposalVetoed}</p>
-                            </div>
-                        )}
-
-                        {proposal?.status === 'ACTIVE' && (
-                            <CastVote
-                                className={styles.castVoteContainer}
-                                dict={dict}
-                            />
-                        )}
-
-                        {proposal === undefined && (
-                            <Promote
-                                className={styles.promoteContainer}
-                                dict={dict}
-                                proposalCandidate={proposalCandidate}
-                                validSignaturesNouns={validSignaturesNouns}
-                            />
-                        )}
-                    </DaoProxyProvider>
-                </AccountProvider>
+                    {proposal === undefined && (
+                        <Promote
+                            className={styles.promoteContainer}
+                            dict={dict}
+                            proposalCandidate={proposalCandidate}
+                            validSignaturesNouns={validSignaturesNouns}
+                        />
+                    )}
+                </DaoProxyProvider>
             </div>
         );
     }
