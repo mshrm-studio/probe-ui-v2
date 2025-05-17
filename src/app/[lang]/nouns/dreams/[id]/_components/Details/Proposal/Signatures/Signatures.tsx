@@ -24,7 +24,10 @@ export default function Proposal({
     validSignaturesNouns,
 }: Props) {
     return (
-        <div>
+        <div
+            data-valid-signatures={validSignatures.length}
+            data-valid-signatures-nouns={validSignaturesNouns.length}
+        >
             <div className={styles.heading}>
                 {dict.dream.details.sponsors} ({validSignatures.length})
             </div>
