@@ -23,7 +23,11 @@ export default function ProposalPending({ dict, proposal }: Props) {
 
         const fetchProposal = async () => {
             try {
-                const block = await provider.getBlock(proposal.startBlock);
+                const block = await provider.getBlock(
+                    Number(proposal.startBlock)
+                );
+
+                console.log('[proposalPending] block', block);
 
                 if (block) {
                     setStartTime(block.timestamp);
