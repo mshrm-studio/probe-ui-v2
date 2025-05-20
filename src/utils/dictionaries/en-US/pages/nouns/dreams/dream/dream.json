@@ -25,12 +25,17 @@
         "proposalQueued": "Proposal queued",
         "proposalSucceeded": "Proposal succeeded",
         "proposalVetoed": "Proposal vetoed",
+        "proposal": "Proposal",
         "propose": "Propose",
+        "quorum": "Quorum",
         "reason": {
             "placeholder": "Enter the reason for your voting decision here.",
             "label": "Vote with reason"
         },
         "sponsors": "Sponsors",
+        "voteAbstain": "Abstain",
+        "voteAgainst": "No",
+        "voteFor": "Yes",
         "vote": "Vote"
     },
     "metadata": {

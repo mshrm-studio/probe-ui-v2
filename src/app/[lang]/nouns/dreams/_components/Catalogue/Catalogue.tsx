@@ -16,6 +16,7 @@ import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import fetchDreams from '@/utils/lib/nouns/dreams/list';
 import DreamList from '@/app/[lang]/nouns/dreams/_components/Dream/List/List';
 import Controls from '@/app/[lang]/nouns/dreams/_components/Catalogue/Controls/Controls';
+import { ProposalsContext } from '@/context/Proposals';
 
 export default function DreamsCatalogue() {
     const { show: showControls } = useContext(FilterDisplayContext);
@@ -32,7 +33,8 @@ export default function DreamsCatalogue() {
     const search = searchParams.get('search');
     const sort_method = searchParams.get('sort_method');
     const sort_property = searchParams.get('sort_property');
-    const { page, setPage } = useCatalogueScroll({ fetching, meta });
+    const { page } = useCatalogueScroll({ fetching, meta });
+    const { activeProposals } = useContext(ProposalsContext);
 
     const initFetchDreams = useCallback(
         async (pageNumber?: number) => {
@@ -113,7 +115,7 @@ export default function DreamsCatalogue() {
         <div>
             {showControls && <Controls className={styles.controlsContainer} />}
 
-            <DreamList dreams={dreams} />
+            <DreamList activeProposals={activeProposals} dreams={dreams} />
 
             {fetching && (
                 <div className={styles.fetchingImgContainer}>

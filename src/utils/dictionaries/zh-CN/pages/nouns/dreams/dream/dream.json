@@ -25,12 +25,17 @@
         "proposalQueued": "提案已排队",
         "proposalSucceeded": "提案成功",
         "proposalVetoed": "提案已否决",
+        "proposal": "提案",
         "propose": "提议",
+        "quorum": "法定人数",
         "reason": {
             "placeholder": "在这里输入您投票决定的理由。",
             "label": "带理由投票"
         },
         "sponsors": "赞助商",
+        "voteAbstain": "弃权",
+        "voteAgainst": "反对",
+        "voteFor": "赞成",
         "vote": "投票"
     },
     "metadata": {

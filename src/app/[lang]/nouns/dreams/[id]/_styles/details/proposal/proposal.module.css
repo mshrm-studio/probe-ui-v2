@@ -1,4 +1,10 @@
 .promoteContainer,
+.proposalTitleContainer,
+.voteTallyContainer,
 .castVoteContainer {
     margin-top: 0.625rem;
+}
+
+.proposalTitle {
+    font-size: 0.6875rem;
 }

@@ -1,22 +1,22 @@
 'use client';
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import { ProposalContext } from '@/context/Proposal';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/cast-vote/cast-vote.module.css';
 import Button from '@/app/_components/Button';
 import Form from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote/Form';
 import Dialog from '@/app/_components/Dialog/Dialog';
+import NounProposalFromSubgraph from '@/utils/dto/Noun/Proposal/FromSubgraph';
 
 interface Props {
     className?: string;
     dict: Dictionary;
+    proposal: NounProposalFromSubgraph;
 }
 
-export default function CastVoteForm({ className, dict }: Props) {
+export default function CastVoteForm({ className, dict, proposal }: Props) {
     const [showForm, setShowForm] = useState(false);
-    const { proposal } = useContext(ProposalContext);
 
     if (proposal?.status !== 'ACTIVE') return null;
 

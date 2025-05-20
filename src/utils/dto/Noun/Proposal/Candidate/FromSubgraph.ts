@@ -19,12 +19,7 @@ export default interface NounProposalCandidateFromSubgraph {
 export const isNounProposalCandidateFromSubgraph = (
     input: unknown
 ): input is NounProposalCandidateFromSubgraph => {
-    return (
-        typeof input === 'object' &&
-        input !== null &&
-        'proposer' in input &&
-        'slug' in input
-    );
+    return typeof input === 'object' && input !== null && 'slug' in input;
 };
 
 export const isNounProposalCandidateFromSubgraphList = (

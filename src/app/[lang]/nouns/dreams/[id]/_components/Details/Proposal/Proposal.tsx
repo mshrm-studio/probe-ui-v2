@@ -8,6 +8,7 @@ import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/prop
 import Signatures from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Signatures/Signatures';
 import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Promote';
 import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote/CastVote';
+import VoteTally from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/VoteTally/VoteTally';
 import DaoProxyProvider from '@/context/DaoProxy';
 import ProposalPending from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Pending';
 
@@ -112,10 +113,27 @@ export default function Proposal({ className, dict, dream }: Props) {
                     )}
 
                     {proposal?.status === 'ACTIVE' && (
-                        <CastVote
-                            className={styles.castVoteContainer}
-                            dict={dict}
-                        />
+                        <>
+                            <div className={styles.proposalTitleContainer}>
+                                <h2 className={styles.proposalTitle}>
+                                    {dict.dream.details.proposal} {proposal.id}{' '}
+                                    ({dict.dream.details.quorum}{' '}
+                                    {proposal.quorumVotes})
+                                </h2>
+                            </div>
+
+                            <VoteTally
+                                className={styles.voteTallyContainer}
+                                dict={dict}
+                                proposal={proposal}
+                            />
+
+                            <CastVote
+                                className={styles.castVoteContainer}
+                                dict={dict}
+                                proposal={proposal}
+                            />
+                        </>
                     )}
 
                     {proposal === undefined && (

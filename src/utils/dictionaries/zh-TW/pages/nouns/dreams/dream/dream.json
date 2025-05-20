@@ -25,12 +25,17 @@
         "proposalQueued": "提案已排隊",
         "proposalSucceeded": "提案成功",
         "proposalVetoed": "提案已否決",
+        "proposal": "提案",
         "propose": "提議",
+        "quorum": "法定人數",
         "reason": {
             "placeholder": "在這裡輸入您投票決定的理由。",
             "label": "帶理由投票"
         },
         "sponsors": "贊助商",
+        "voteAbstain": "棄權",
+        "voteAgainst": "反對",
+        "voteFor": "贊成",
         "vote": "投票"
     },
     "metadata": {

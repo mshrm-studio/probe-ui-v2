@@ -6,14 +6,16 @@ import { DreamImageFromSeed } from '@/app/[lang]/nouns/dreams/_components/Dream/
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
+    activeProposal: boolean;
     dream: DreamFromDB;
 }
 
-export default function DreamListItem({ dream }: Props) {
+export default function DreamListItem({ activeProposal, dream }: Props) {
     return (
         <Link href={`/nouns/dreams/${dream.id}`}>
             <div
                 className={styles.container}
+                aria-live={activeProposal ? 'assertive' : 'off'}
                 style={{ animationDelay: `${(Math.random() * 2).toFixed(2)}s` }}
             >
                 <DreamImageFromSeed
