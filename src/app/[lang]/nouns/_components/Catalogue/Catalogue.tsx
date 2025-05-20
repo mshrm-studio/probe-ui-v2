@@ -18,10 +18,14 @@ import fetchNouns from '@/utils/lib/nouns/list';
 import AuctionFromSubgraph, {
     isAuctionFromSubgraphList,
 } from '@/utils/dto/Noun/Auction/FromSubgraph';
-import useDictionary from '@/hooks/useDictionary';
+import useCatalogueScroll from '@/hooks/useCatalogueScroll';
+import { Dictionary } from '@/app/[lang]/dictionaries';
 
-export default function NounsCatalogue() {
-    const dict = useDictionary();
+interface Props {
+    dict: Dictionary;
+}
+
+export default function NounsCatalogue({ dict }: Props) {
     const { show: showControls } = useContext(FilterDisplayContext);
     const [error, setError] = useState('');
     const [fetching, setFetching] = useState(false);
@@ -29,7 +33,6 @@ export default function NounsCatalogue() {
     const [nouns, setNouns] = useState<NounFromDB[]>([]);
     const [auctions, setAuctions] = useState<AuctionFromSubgraph[]>([]);
     const searchParams = useSearchParams();
-    const [page, setPage] = useState(1);
     const accessory = searchParams.get('accessory');
     const background = searchParams.get('background');
     const body = searchParams.get('body');
@@ -40,7 +43,7 @@ export default function NounsCatalogue() {
     const settler = searchParams.get('settler');
     const sort_method = searchParams.get('sort_method');
     const sort_property = searchParams.get('sort_property');
-    const [lastScrollTop, setLastScrollTop] = useState(0);
+    const { page } = useCatalogueScroll({ fetching, meta });
 
     const initFetchNouns = useCallback(
         async (pageNumber?: number) => {
@@ -118,35 +121,6 @@ export default function NounsCatalogue() {
     useEffect(() => {
         initFetchNouns(page);
     }, [page]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (fetching || !meta) return;
-
-            const tolerance = 300;
-            const scrollTop = document.documentElement.scrollTop;
-            const scrolled = window.innerHeight + scrollTop;
-            const totalHeight = document.documentElement.offsetHeight;
-
-            const isNearBottom = totalHeight - scrolled <= tolerance;
-            const isScrollingDown = scrollTop > lastScrollTop;
-            setLastScrollTop(scrollTop);
-
-            if (!isNearBottom || !isScrollingDown) return;
-
-            const lastPage = meta.last_page;
-
-            if (page <= meta.current_page && page < lastPage) {
-                setPage((prev) => Math.min(prev + 1, lastPage));
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [fetching, lastScrollTop, meta]);
 
     useEffect(() => {
         const fetchAuctions = async () => {

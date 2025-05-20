@@ -29,7 +29,9 @@ export async function GET(_req: NextRequest) {
             );
         }
 
-        return NextResponse.json({ result });
+        const response = NextResponse.json({ result });
+        response.headers.set('Cache-Control', 'no-store');
+        return response;
     } catch (error) {
         return NextResponse.json(error, { status: 500 });
     }

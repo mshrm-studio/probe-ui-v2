@@ -46,3 +46,17 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+.voteBadge {
+    background-color: #ffef2e;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.8125rem;
+    transform: translateX(1rem) translateY(-1rem);
+    z-index: 1;
+}

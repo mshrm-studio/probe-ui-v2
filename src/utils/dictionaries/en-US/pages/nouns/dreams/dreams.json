@@ -10,6 +10,11 @@
                 "mostRecent": "Most Recent",
                 "oldest": "Oldest"
             }
+        },
+        "list": {
+            "item": {
+                "vote": "Vote"
+            }
         }
     },
     "createDream": "Create Dream",

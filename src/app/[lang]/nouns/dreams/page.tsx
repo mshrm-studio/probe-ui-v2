@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
                 <main className={styles.main}>
                     <Suspense>
                         <ProposalsProvider>
-                            <DreamCatalogue />
+                            <DreamCatalogue dict={dict} />
                         </ProposalsProvider>
                     </Suspense>
 

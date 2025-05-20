@@ -4,11 +4,12 @@ import { urqlClient } from '@/utils/lib/urqlClient';
 import { isNounProposalFromSubgraphList } from '@/utils/dto/Noun/Proposal/FromSubgraph';
 
 export async function GET(_req: NextRequest): Promise<NextResponse> {
-    const clientId = process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID;
+    const clientId = Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID);
+    const status = 'ACTIVE';
 
     const DATA_QUERY = gql`
-        query Proposals($clientId: String!) {
-            proposals(where: { status: ACTIVE, clientId: $clientId }) {
+        query Proposals($clientId: Int!, $status: ProposalStatus!) {
+            proposals(where: { clientId: $clientId, status: $status }) {
                 clientId
                 id
                 status
@@ -19,7 +20,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
 
     try {
         const result = await urqlClient
-            .query(DATA_QUERY, { clientId })
+            .query(DATA_QUERY, { clientId, status })
             .toPromise();
 
         if (result.error) {

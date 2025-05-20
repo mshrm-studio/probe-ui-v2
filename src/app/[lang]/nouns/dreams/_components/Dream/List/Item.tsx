@@ -4,13 +4,15 @@ import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import LocalisedNumber from '@/app/_components/LocalisedNumber';
 import { DreamImageFromSeed } from '@/app/[lang]/nouns/dreams/_components/Dream/Image/FromSeed';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
+import { Dictionary } from '@/app/[lang]/dictionaries';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     activeProposal: boolean;
+    dict: Dictionary;
     dream: DreamFromDB;
 }
 
-export default function DreamListItem({ activeProposal, dream }: Props) {
+export default function DreamListItem({ activeProposal, dict, dream }: Props) {
     return (
         <Link href={`/nouns/dreams/${dream.id}`}>
             <div
@@ -48,6 +50,12 @@ export default function DreamListItem({ activeProposal, dream }: Props) {
                 <label className={styles.label}>
                     <LocalisedNumber number={dream.id} removeCommasAndPeriods />
                 </label>
+
+                {activeProposal && (
+                    <div className={styles.voteBadge}>
+                        {dict.dreams.catalogue.list.item.vote}
+                    </div>
+                )}
             </div>
         </Link>
     );

@@ -36,7 +36,7 @@ export default async function Page({ params }: Props) {
 
                 <main className={styles.main}>
                     <Suspense>
-                        <NounCatalogue />
+                        <NounCatalogue dict={dict} />
                     </Suspense>
                 </main>
             </FilterDisplayProvider>

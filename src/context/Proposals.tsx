@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { act, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import NounProposalCandidateFromSubgraph, {
@@ -52,6 +52,10 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
     }, [proposalCandidates, proposals]);
 
     useEffect(() => {
+        console.log('[context/Proposals] activeProposals', activeProposals);
+    }, [activeProposals]);
+
+    useEffect(() => {
         const fetchProposalCandidates = async () => {
             try {
                 const response = await fetch(
@@ -75,6 +79,11 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
                 ) {
                     throw new Error('Invalid data');
                 }
+
+                console.log(
+                    '[context/Proposals] proposalCandidates',
+                    result.data.proposalCandidates
+                );
 
                 setProposalCandidates(result.data.proposalCandidates);
             } catch (error) {
@@ -107,9 +116,12 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
                     throw new Error('Invalid data');
                 }
 
-                console.log('proposals', result.data.proposals);
+                console.log(
+                    '[context/Proposals] proposals',
+                    result.data.proposals
+                );
 
-                setProposals(result.data.proposal);
+                setProposals(result.data.proposals);
             } catch (error) {
                 console.error(error);
             }

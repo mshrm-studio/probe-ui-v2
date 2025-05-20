@@ -17,8 +17,13 @@ import fetchDreams from '@/utils/lib/nouns/dreams/list';
 import DreamList from '@/app/[lang]/nouns/dreams/_components/Dream/List/List';
 import Controls from '@/app/[lang]/nouns/dreams/_components/Catalogue/Controls/Controls';
 import { ProposalsContext } from '@/context/Proposals';
+import { Dictionary } from '@/app/[lang]/dictionaries';
 
-export default function DreamsCatalogue() {
+interface Props {
+    dict: Dictionary;
+}
+
+export default function DreamsCatalogue({ dict }: Props) {
     const { show: showControls } = useContext(FilterDisplayContext);
     const [error, setError] = useState('');
     const [fetching, setFetching] = useState(false);
@@ -115,7 +120,11 @@ export default function DreamsCatalogue() {
         <div>
             {showControls && <Controls className={styles.controlsContainer} />}
 
-            <DreamList activeProposals={activeProposals} dreams={dreams} />
+            <DreamList
+                activeProposals={activeProposals}
+                dict={dict}
+                dreams={dreams}
+            />
 
             {fetching && (
                 <div className={styles.fetchingImgContainer}>

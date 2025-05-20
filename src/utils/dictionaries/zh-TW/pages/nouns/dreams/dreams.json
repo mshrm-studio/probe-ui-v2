@@ -10,6 +10,11 @@
                 "mostRecent": "最新",
                 "oldest": "最舊"
             }
+        },
+        "list": {
+            "item": {
+                "vote": "投票"
+            }
         }
     },
     "createDream": "創建夢想",

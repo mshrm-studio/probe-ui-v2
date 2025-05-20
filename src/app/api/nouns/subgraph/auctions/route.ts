@@ -49,15 +49,9 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
             );
         }
 
-        return NextResponse.json(
-            { result },
-            {
-                status: 200,
-                headers: {
-                    'Cache-Control': 'no-store',
-                },
-            }
-        );
+        const response = NextResponse.json({ result });
+        response.headers.set('Cache-Control', 'no-store');
+        return response;
     } catch (error) {
         return NextResponse.json(error, { status: 500 });
     }
