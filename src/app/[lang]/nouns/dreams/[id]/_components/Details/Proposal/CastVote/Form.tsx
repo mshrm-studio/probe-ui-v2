@@ -9,12 +9,7 @@ import {
     useAppKitAccount,
     useAppKitProvider,
 } from '@reown/appkit/react';
-import {
-    BrowserProvider,
-    Contract,
-    ContractMethod,
-    Eip1193Provider,
-} from 'ethers';
+import { BrowserProvider, Contract, Eip1193Provider } from 'ethers';
 import clsx from 'clsx';
 import Button from '@/app/_components/Button';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/cast-vote/form.module.css';
@@ -117,8 +112,6 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
             alert(error?.info?.error?.message || error.code);
         }
     };
-
-    if (proposal?.status !== 'ACTIVE' || currentVotes === 0) return null;
 
     return (
         <div className={clsx(className, styles.container)}>
