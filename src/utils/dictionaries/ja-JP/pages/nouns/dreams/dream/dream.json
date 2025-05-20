@@ -25,12 +25,17 @@
         "proposalQueued": "提案キュー",
         "proposalSucceeded": "提案成功",
         "proposalVetoed": "提案拒否",
+        "proposal": "提案",
         "propose": "提案",
+        "quorum": "クォーラム",
         "reason": {
             "placeholder": "ここに投票理由を入力してください。",
             "label": "理由付き投票"
         },
         "sponsors": "スポンサー",
+        "voteAbstain": "棄権",
+        "voteAgainst": "反対",
+        "voteFor": "賛成",
         "vote": "投票"
     },
     "metadata": {
