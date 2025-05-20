@@ -24,6 +24,18 @@ const CurrentVotesProvider: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         async function fetchCurrentVotes() {
+            console.log('[context/CurrentVotes] fetchCurrentVotes');
+
+            console.log('[context/CurrentVotes] address', address);
+            console.log(
+                '[context/CurrentVotes] httpTokenContract',
+                httpTokenContract
+            );
+            console.log(
+                '[context/CurrentVotes] walletProvider',
+                walletProvider
+            );
+
             if (!address || !httpTokenContract || !walletProvider) return;
 
             setCurrentVotes(undefined);
@@ -41,6 +53,12 @@ const CurrentVotesProvider: React.FC<Props> = ({ children }) => {
 
                 const votes = await tokenContractWithSigner.getCurrentVotes(
                     address
+                );
+
+                console.log('[context/CurrentVotes] votes', votes);
+                console.log(
+                    '[context/CurrentVotes] typeof votes',
+                    typeof votes
                 );
 
                 setCurrentVotes(votes);

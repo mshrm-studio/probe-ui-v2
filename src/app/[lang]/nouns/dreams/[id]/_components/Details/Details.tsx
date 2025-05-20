@@ -13,6 +13,7 @@ import RpcProvider from '@/context/Rpc';
 import ProposalProvider from '@/context/Proposal';
 import TokenProvider from '@/context/Token';
 import CurrentVotesProvider from '@/context/CurrentVotes';
+import DaoProxyProvider from '@/context/DaoProxy';
 
 interface Props {
     dict: Dictionary;
@@ -53,11 +54,13 @@ export default function Details({ dict, dream }: Props) {
                         {isDreamFromDBWithCustomTrait(dream) && (
                             <TokenProvider>
                                 <CurrentVotesProvider>
-                                    <Proposal
-                                        className={styles.proposalContainer}
-                                        dict={dict}
-                                        dream={dream}
-                                    />
+                                    <DaoProxyProvider>
+                                        <Proposal
+                                            className={styles.proposalContainer}
+                                            dict={dict}
+                                            dream={dream}
+                                        />
+                                    </DaoProxyProvider>
                                 </CurrentVotesProvider>
                             </TokenProvider>
                         )}
