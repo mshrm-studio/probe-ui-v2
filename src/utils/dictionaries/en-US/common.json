@@ -5,6 +5,12 @@
     "color": "Color",
     "copied": "Copied",
     "copy": "Copy",
+    "error": {
+        "currentVotesNotKnown": "Current votes not known. This is likely due to a system error.",
+        "dataProxyContractNotAvailable": "Data proxy contract not available. This is likely due to a system error.",
+        "daoProxyContractNotAvailable": "DAO proxy contract not available. This is likely due to a system error.",
+        "walletNotAvailable": "Wallet not available. This is likely due to a system error."
+    },
     "glasses": "Glasses",
     "head": "Head",
     "none": "None",

@@ -1,12 +1,7 @@
-import { createClient, gql } from 'urql';
-import { cacheExchange, fetchExchange } from '@urql/core';
+import { gql } from 'urql';
+import { urqlClient } from '@/utils/lib/urqlClient';
 import { NextRequest, NextResponse } from 'next/server';
 import { isNounProposalCandidateFromSubgraph } from '@/utils/dto/Noun/Proposal/Candidate/FromSubgraph';
-
-const client = createClient({
-    url: `${process.env.SUBGRAPH_BASE_URL}/${process.env.SUBGRAPH_API_KEY}/subgraphs/id/${process.env.NOUNS_SUBGRAPH_ID}`,
-    exchanges: [cacheExchange, fetchExchange],
-});
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const { searchParams } = new URL(req.url);
@@ -95,7 +90,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     `;
 
     try {
-        const result = await client.query(DATA_QUERY, { id }).toPromise();
+        const result = await urqlClient.query(DATA_QUERY, { id }).toPromise();
 
         if (result.error) {
             return NextResponse.json(
@@ -113,7 +108,12 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
             );
         }
 
-        return NextResponse.json({ result });
+        return NextResponse.json({
+            result,
+            headers: {
+                'Cache-Control': 'no-store',
+            },
+        });
     } catch (error) {
         console.error(error);
         return NextResponse.json(error, { status: 500 });

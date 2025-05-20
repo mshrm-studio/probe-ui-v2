@@ -1,12 +1,7 @@
-import { createClient, gql } from 'urql';
-import { cacheExchange, fetchExchange } from '@urql/core';
+import { gql } from 'urql';
 import { NextRequest, NextResponse } from 'next/server';
+import { urqlClient } from '@/utils/lib/urqlClient';
 import { isNounProposalFromSubgraph } from '@/utils/dto/Noun/Proposal/FromSubgraph';
-
-const client = createClient({
-    url: `${process.env.SUBGRAPH_BASE_URL}/${process.env.SUBGRAPH_API_KEY}/subgraphs/id/${process.env.NOUNS_SUBGRAPH_ID}`,
-    exchanges: [cacheExchange, fetchExchange],
-});
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const { searchParams } = new URL(req.url);
@@ -77,9 +72,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     `;
 
     try {
-        const result = await client
-            .query(DATA_QUERY, { id }, { requestPolicy: 'network-only' })
-            .toPromise();
+        const result = await urqlClient.query(DATA_QUERY, { id }).toPromise();
 
         if (result.error) {
             return NextResponse.json(

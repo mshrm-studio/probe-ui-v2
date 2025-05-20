@@ -8,8 +8,8 @@
         "about": "About",
         "addSignature": "Sponsor",
         "castVoteAbstain": "Abstain",
-        "castVoteAgainst": "Cast Vote Against",
-        "castVoteFor": "Cast Vote For",
+        "castVoteAgainst": "No",
+        "castVoteFor": "Yes",
         "date": "Date",
         "dream": "Dream",
         "dreamer": "Dreamer",
@@ -26,7 +26,12 @@
         "proposalSucceeded": "Proposal succeeded",
         "proposalVetoed": "Proposal vetoed",
         "propose": "Propose",
-        "sponsors": "Sponsors"
+        "reason": {
+            "placeholder": "Enter the reason for your voting decision here.",
+            "label": "Vote with reason"
+        },
+        "sponsors": "Sponsors",
+        "vote": "Vote"
     },
     "metadata": {
         "description": "Probe the stats for Dream :id",

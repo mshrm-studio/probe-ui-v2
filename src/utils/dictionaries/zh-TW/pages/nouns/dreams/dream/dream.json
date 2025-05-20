@@ -26,7 +26,12 @@
         "proposalSucceeded": "提案成功",
         "proposalVetoed": "提案已否決",
         "propose": "提議",
-        "sponsors": "贊助商"
+        "reason": {
+            "placeholder": "在這裡輸入您投票決定的理由。",
+            "label": "帶理由投票"
+        },
+        "sponsors": "贊助商",
+        "vote": "投票"
     },
     "metadata": {
         "description": "探查夢境 :id 的統計資訊",

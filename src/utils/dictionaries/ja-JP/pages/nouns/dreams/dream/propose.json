@@ -10,12 +10,9 @@
         "agreementNotSigned": "CC0放棄に署名する必要があります。",
         "artworkCompressionFailed": "アートワークの圧縮に失敗しました。",
         "colorPaletteNotFound": "カラーパレットが見つかりません。トレイト内のすべての色が Nouns のカラーパレットに含まれていることを確認してください。",
-        "currentVotesNotKnown": "現在の投票数が不明です。これはシステムエラーが原因の可能性があります。",
-        "dataProxyContractNotAvailable": "データプロキシコントラクトが利用できません。これはシステムエラーが原因の可能性があります。",
         "invalidCustomTrait": "カスタム属性が無効です。サイズまたは色の不一致が原因の可能性があります。",
         "noCustomTrait": "カスタム属性がありません。カスタム属性がない夢には提案を作成できません。",
-        "transactionsNotPrepared": "提案トランザクションが準備されていません。これは、トレイトコールデータのエンコードにシステムエラーが原因の可能性があります。",
-        "walletNotAvailable": "ウォレットが利用できません。これはシステムエラーが原因の可能性があります。"
+        "transactionsNotPrepared": "提案トランザクションが準備されていません。これは、トレイトコールデータのエンコードにシステムエラーが原因の可能性があります。"
     },
     "metadata": {
         "description": "夢 :id の提案を作成",

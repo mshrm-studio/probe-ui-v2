@@ -8,13 +8,13 @@ import useApi from '@/hooks/useApi';
 import Details from '@/app/[lang]/nouns/[id]/_components/Details/Details';
 import Image from '@/app/[lang]/nouns/[id]/_components/Image';
 import styles from '@/app/[lang]/nouns/[id]/_styles/page.module.css';
-import useSubgraphClient from '@/hooks/useSubgraphClient';
 import { FETCH_AUCTION } from '@/utils/lib/nouns/subgraph/auction';
 import { notFound } from 'next/navigation';
 import AuctionFromSubgraph, {
     isAuctionFromSubgraph,
 } from '@/utils/dto/Noun/Auction/FromSubgraph';
 import Background from '@/app/[lang]/nouns/[id]/_components/Background';
+import { urqlClient } from '@/utils/lib/urqlClient';
 
 async function fetchFallbackData(id: string): Promise<{
     auction: AuctionFromSubgraph | undefined;
@@ -24,7 +24,6 @@ async function fetchFallbackData(id: string): Promise<{
     let result: any;
 
     const api = useApi();
-    const client = useSubgraphClient();
 
     try {
         response = await api.get(`/nouns/${id}`);
@@ -33,7 +32,7 @@ async function fetchFallbackData(id: string): Promise<{
     }
 
     try {
-        result = await client.query(FETCH_AUCTION, { id }).toPromise();
+        result = await urqlClient.query(FETCH_AUCTION, { id }).toPromise();
     } catch (error) {
         result = null;
     }

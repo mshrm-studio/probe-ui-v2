@@ -5,6 +5,12 @@
     "color": "色",
     "copied": "コピーしました",
     "copy": "コピー",
+    "error": {
+        "currentVotesNotKnown": "現在の投票数は不明です。システムエラーが原因の可能性があります。",
+        "dataProxyContractNotAvailable": "データプロキシコントラクトが利用できません。システムエラーが原因の可能性があります。",
+        "daoProxyContractNotAvailable": "DAOプロキシコントラクトが利用できません。システムエラーが原因の可能性があります。",
+        "walletNotAvailable": "ウォレットが利用できません。システムエラーが原因の可能性があります。"
+    },
     "glasses": "メガネ",
     "head": "頭",
     "none": "なし",
