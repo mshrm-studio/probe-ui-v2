@@ -14,7 +14,7 @@ export default function Textarea({
 }: Props) {
     return (
         <textarea
-            className={clsx(styles.textarea, className)}
+            className={clsx(className, styles.textarea)}
             data-invalid={invalid}
             {...props}
         />

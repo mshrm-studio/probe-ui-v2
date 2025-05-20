@@ -1,0 +1,30 @@
+.voteReasonTextarea {
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.voteReasonTextarea::placeholder {
+    color: #838383 !important;
+}
+
+.voteButtonsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.voteButtonsContainer > *:not(:last-child) {
+    margin-bottom: 0.75rem;
+}
+
+.forAgainstButtonsContainer {
+    display: flex;
+}
+
+.forAgainstButtonsContainer > *:not(:last-child) {
+    margin-right: 0.75rem;
+}
+
+.forAgainstButton {
+    flex-grow: 1;
+}

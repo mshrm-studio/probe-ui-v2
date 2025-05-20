@@ -4,15 +4,23 @@ import {
     DialogTitle,
 } from '@headlessui/react';
 import styles from '@/app/_styles/dialog/dialog.module.css';
+import clsx from 'clsx';
 
 interface Props {
     children: React.ReactNode;
     open: boolean;
+    panelClassName?: string;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    title: string;
+    title?: string;
 }
 
-export default function Dialog({ children, open, setOpen, title }: Props) {
+export default function Dialog({
+    children,
+    open,
+    panelClassName,
+    setOpen,
+    title,
+}: Props) {
     return (
         <HeadlessDialog
             open={open}
@@ -20,8 +28,12 @@ export default function Dialog({ children, open, setOpen, title }: Props) {
             className={styles.dialog}
         >
             <div className={styles.panelContainer}>
-                <DialogPanel className={styles.panel}>
-                    <DialogTitle className={styles.title}>{title}</DialogTitle>
+                <DialogPanel className={clsx(styles.panel, panelClassName)}>
+                    {title && (
+                        <DialogTitle className={styles.title}>
+                            {title}
+                        </DialogTitle>
+                    )}
 
                     {children}
                 </DialogPanel>

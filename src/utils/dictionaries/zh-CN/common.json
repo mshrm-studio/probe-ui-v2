@@ -5,6 +5,12 @@
     "color": "颜色",
     "copied": "已复制",
     "copy": "复制",
+    "error": {
+        "currentVotesNotKnown": "当前投票未知。这可能是由于系统错误。",
+        "dataProxyContractNotAvailable": "数据代理合约不可用。这可能是由于系统错误。",
+        "daoProxyContractNotAvailable": "DAO代理合约不可用。这可能是由于系统错误。",
+        "walletNotAvailable": "钱包不可用。这可能是由于系统错误。"
+    },
     "glasses": "眼镜",
     "head": "头部",
     "none": "无",

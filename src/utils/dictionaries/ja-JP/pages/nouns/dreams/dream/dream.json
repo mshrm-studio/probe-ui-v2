@@ -26,7 +26,12 @@
         "proposalSucceeded": "提案成功",
         "proposalVetoed": "提案拒否",
         "propose": "提案",
-        "sponsors": "スポンサー"
+        "reason": {
+            "placeholder": "ここに投票理由を入力してください。",
+            "label": "理由付き投票"
+        },
+        "sponsors": "スポンサー",
+        "vote": "投票"
     },
     "metadata": {
         "description": "ドリーム :id の統計を調べる",

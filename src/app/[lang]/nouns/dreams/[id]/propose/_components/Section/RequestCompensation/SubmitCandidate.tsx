@@ -135,17 +135,17 @@ export default function SubmitCandidate({
         }
 
         if (typeof currentVotes !== 'number') {
-            alert(dict.propose.error.currentVotesNotKnown);
+            alert(dict.common.error.currentVotesNotKnown);
             return;
         }
 
-        if (!httpDataProxyContract || !walletProvider) {
-            alert(dict.propose.error.dataProxyContractNotAvailable);
+        if (!httpDataProxyContract) {
+            alert(dict.common.error.dataProxyContractNotAvailable);
             return;
         }
 
         if (!walletProvider) {
-            alert(dict.propose.error.walletProviderNotAvailable);
+            alert(dict.common.error.walletProviderNotAvailable);
             return;
         }
 

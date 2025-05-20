@@ -7,7 +7,7 @@ import { useContext, useMemo } from 'react';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/proposal.module.css';
 import Signatures from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Signatures/Signatures';
 import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Promote';
-import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote';
+import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote/CastVote';
 import DaoProxyProvider from '@/context/DaoProxy';
 import ProposalPending from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Pending';
 

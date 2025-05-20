@@ -4,7 +4,7 @@ import clsx from 'clsx';
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    color?: 'purple' | 'yellow' | 'white';
+    color?: 'green' | 'grey' | 'purple' | 'red' | 'yellow' | 'white';
     processing?: boolean;
     size?: 'base' | 'lg';
 }

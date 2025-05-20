@@ -18,9 +18,27 @@
 }
 
 /* COLOR */
+.button.green {
+    background-color: #11d100;
+    border-color: #11d100;
+    color: #ffffff;
+}
+
+.button.grey {
+    background-color: #4d4d4d;
+    border-color: #4d4d4d;
+    color: #ffffff;
+}
+
 .button.purple {
     background-color: #4c48e3;
     border-color: #4c48e3;
+    color: #ffffff;
+}
+
+.button.red {
+    background-color: #ff0e0e;
+    border-color: #ff0e0e;
     color: #ffffff;
 }
 
