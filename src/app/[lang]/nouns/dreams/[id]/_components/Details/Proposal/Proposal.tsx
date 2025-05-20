@@ -9,7 +9,6 @@ import Signatures from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Propo
 import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Promote';
 import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote/CastVote';
 import VoteTally from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/VoteTally/VoteTally';
-import DaoProxyProvider from '@/context/DaoProxy';
 import ProposalPending from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Pending';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -69,82 +68,80 @@ export default function Proposal({ className, dict, dream }: Props) {
                     />
                 )}
 
-                <DaoProxyProvider>
-                    {proposal?.status === 'CANCELLED' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalCancelled}</p>
+                {proposal?.status === 'CANCELLED' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <p>{dict.dream.details.proposalCancelled}</p>
+                    </div>
+                )}
+
+                {proposal?.status === 'DEFEATED' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <p>{dict.dream.details.proposalDefeated}</p>
+                    </div>
+                )}
+
+                {proposal?.status === 'EXECUTED' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <p>{dict.dream.details.proposalExecuted}</p>
+                    </div>
+                )}
+
+                {proposal?.status === 'PENDING' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <ProposalPending dict={dict} proposal={proposal} />
+                    </div>
+                )}
+
+                {proposal?.status === 'SUCCEEDED' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <p>{dict.dream.details.proposalSucceeded}</p>
+                    </div>
+                )}
+
+                {proposal?.status === 'QUEUED' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <p>{dict.dream.details.proposalQueued}</p>
+                    </div>
+                )}
+
+                {proposal?.status === 'VETOED' && (
+                    <div className={styles.proposalStatusContainer}>
+                        <p>{dict.dream.details.proposalVetoed}</p>
+                    </div>
+                )}
+
+                {proposal?.status === 'ACTIVE' && (
+                    <>
+                        <div className={styles.proposalTitleContainer}>
+                            <h2 className={styles.proposalTitle}>
+                                {dict.dream.details.proposal} {proposal.id} (
+                                {dict.dream.details.quorum}{' '}
+                                {proposal.quorumVotes})
+                            </h2>
                         </div>
-                    )}
 
-                    {proposal?.status === 'DEFEATED' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalDefeated}</p>
-                        </div>
-                    )}
-
-                    {proposal?.status === 'EXECUTED' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalExecuted}</p>
-                        </div>
-                    )}
-
-                    {proposal?.status === 'PENDING' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <ProposalPending dict={dict} proposal={proposal} />
-                        </div>
-                    )}
-
-                    {proposal?.status === 'SUCCEEDED' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalSucceeded}</p>
-                        </div>
-                    )}
-
-                    {proposal?.status === 'QUEUED' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalQueued}</p>
-                        </div>
-                    )}
-
-                    {proposal?.status === 'VETOED' && (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalVetoed}</p>
-                        </div>
-                    )}
-
-                    {proposal?.status === 'ACTIVE' && (
-                        <>
-                            <div className={styles.proposalTitleContainer}>
-                                <h2 className={styles.proposalTitle}>
-                                    {dict.dream.details.proposal} {proposal.id}{' '}
-                                    ({dict.dream.details.quorum}{' '}
-                                    {proposal.quorumVotes})
-                                </h2>
-                            </div>
-
-                            <VoteTally
-                                className={styles.voteTallyContainer}
-                                dict={dict}
-                                proposal={proposal}
-                            />
-
-                            <CastVote
-                                className={styles.castVoteContainer}
-                                dict={dict}
-                                proposal={proposal}
-                            />
-                        </>
-                    )}
-
-                    {proposal === undefined && (
-                        <Promote
-                            className={styles.promoteContainer}
+                        <VoteTally
+                            className={styles.voteTallyContainer}
                             dict={dict}
-                            proposalCandidate={proposalCandidate}
-                            validSignaturesNouns={validSignaturesNouns}
+                            proposal={proposal}
                         />
-                    )}
-                </DaoProxyProvider>
+
+                        <CastVote
+                            className={styles.castVoteContainer}
+                            dict={dict}
+                            proposal={proposal}
+                        />
+                    </>
+                )}
+
+                {proposal === undefined && (
+                    <Promote
+                        className={styles.promoteContainer}
+                        dict={dict}
+                        proposalCandidate={proposalCandidate}
+                        validSignaturesNouns={validSignaturesNouns}
+                    />
+                )}
             </div>
         );
     }
