@@ -53,7 +53,7 @@ const CurrentVotesProvider: React.FC<Props> = ({ children }) => {
 
                 const votes = await tokenContractWithSigner.getCurrentVotes(
                     address
-                );
+                ); // BigInt 0n
 
                 console.log('[context/CurrentVotes] votes', votes);
                 console.log(
@@ -61,7 +61,7 @@ const CurrentVotesProvider: React.FC<Props> = ({ children }) => {
                     typeof votes
                 );
 
-                setCurrentVotes(votes);
+                setCurrentVotes(Number(votes));
             } catch (error: any) {
                 console.error(error);
 
