@@ -38,7 +38,7 @@ export default function SignArtworkAgreement({
 
     const agreementMessage = useMemo(() => {
         const agreementUrl =
-            'https://z5pvlzj323gcssdd3bua3hjqckxbcsydr4ksukoidh3l46fhet4q.arweave.net/z19V5TvWzClIY9hoDZ0wEq4RSwOPFSopyBn2vninJPk';
+            'https://ern3fbtsj23a2achuj5kqa4xtp2yvplqjy2r6cemo6ep52lfn2cq.arweave.net/JFuyhnJOtg0AR6J6qAOXm_WKvXBONR8IjHeI_ullboU';
 
         const contributionName = dream.custom_trait_image
             .split('/')
