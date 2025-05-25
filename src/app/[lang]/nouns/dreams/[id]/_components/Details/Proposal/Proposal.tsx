@@ -118,34 +118,37 @@ export default function Proposal({ className, dict, dream }: Props) {
                     </div>
                 )}
 
-                {proposal?.status === 'ACTIVE' &&
-                    (latestBlockAfterProposalEndBlock ? (
-                        <div className={styles.proposalStatusContainer}>
-                            <p>{dict.dream.details.proposalActiveButEnded}</p>
-                        </div>
-                    ) : (
-                        <>
-                            <div className={styles.proposalTitleContainer}>
-                                <h2 className={styles.proposalTitle}>
-                                    {dict.dream.details.proposal} {proposal.id}{' '}
-                                    ({dict.dream.details.quorum}{' '}
-                                    {proposal.quorumVotes})
-                                </h2>
+                {proposal?.status === 'ACTIVE' && (
+                    <>
+                        {latestBlockAfterProposalEndBlock && (
+                            <div className={styles.proposalStatusContainer}>
+                                <p>
+                                    {dict.dream.details.proposalActiveButEnded}
+                                </p>
                             </div>
+                        )}
 
-                            <VoteTally
-                                className={styles.voteTallyContainer}
-                                dict={dict}
-                                proposal={proposal}
-                            />
+                        <div className={styles.proposalTitleContainer}>
+                            <h2 className={styles.proposalTitle}>
+                                {dict.dream.details.proposal} {proposal.id} (
+                                {dict.dream.details.quorum}{' '}
+                                {proposal.quorumVotes})
+                            </h2>
+                        </div>
 
-                            <CastVote
-                                className={styles.castVoteContainer}
-                                dict={dict}
-                                proposal={proposal}
-                            />
-                        </>
-                    ))}
+                        <VoteTally
+                            className={styles.voteTallyContainer}
+                            dict={dict}
+                            proposal={proposal}
+                        />
+
+                        <CastVote
+                            className={styles.castVoteContainer}
+                            dict={dict}
+                            proposal={proposal}
+                        />
+                    </>
+                )}
 
                 {proposal === undefined && (
                     <Promote
