@@ -164,11 +164,11 @@ export default function Promote({
 
     if (address !== proposalCandidate.proposer) return null;
 
-    if (validSignaturesNouns.length < 4 && currentVotes < 4) return null;
+    if (validSignaturesNouns.length < 3 && currentVotes < 3) return null;
 
     return (
         <div className={className} data-current-votes={currentVotes}>
-            {currentVotes > 3 ? (
+            {currentVotes > 2 ? (
                 <form onSubmit={propose} data-method="propose">
                     <Button type="submit" color="purple" size="lg">
                         {dict.dream.details.promote}
