@@ -45,17 +45,17 @@ export default function Details({ dict, dream }: Props) {
 
             <RpcProvider>
                 <DataProxyProvider>
-                    <ProposalProvider dream={dream}>
-                        <Traits
-                            className={styles.traitsContainer}
-                            dict={dict}
-                            dream={dream}
-                        />
+                    <DaoProxyProvider>
+                        <ProposalProvider dream={dream}>
+                            <Traits
+                                className={styles.traitsContainer}
+                                dict={dict}
+                                dream={dream}
+                            />
 
-                        {isDreamFromDBWithCustomTrait(dream) && (
-                            <TokenProvider>
-                                <CurrentVotesProvider>
-                                    <DaoProxyProvider>
+                            {isDreamFromDBWithCustomTrait(dream) && (
+                                <TokenProvider>
+                                    <CurrentVotesProvider>
                                         <LatestBlockProvider>
                                             <Proposal
                                                 className={
@@ -65,11 +65,11 @@ export default function Details({ dict, dream }: Props) {
                                                 dream={dream}
                                             />
                                         </LatestBlockProvider>
-                                    </DaoProxyProvider>
-                                </CurrentVotesProvider>
-                            </TokenProvider>
-                        )}
-                    </ProposalProvider>
+                                    </CurrentVotesProvider>
+                                </TokenProvider>
+                            )}
+                        </ProposalProvider>
+                    </DaoProxyProvider>
                 </DataProxyProvider>
             </RpcProvider>
         </div>
