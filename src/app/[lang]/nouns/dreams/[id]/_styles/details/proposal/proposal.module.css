@@ -5,6 +5,10 @@
     margin-top: 0.625rem;
 }
 
+.proposalStatusContainer {
+    font-size: 0.8125rem;
+}
+
 .proposalTitle {
     font-size: 0.6875rem;
 }

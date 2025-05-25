@@ -115,7 +115,15 @@ export default function Promote({
             return;
         }
 
-        if (!walletProvider || !httpDaoProxyContract) return;
+        if (!walletProvider) {
+            alert(dict.common.error.walletProviderNotAvailable);
+            return;
+        }
+
+        if (!httpDaoProxyContract) {
+            alert(dict.common.error.daoProxyContractNotAvailable);
+            return;
+        }
 
         try {
             const provider = new BrowserProvider(

@@ -10,6 +10,7 @@ import Promote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal
 import CastVote from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/CastVote/CastVote';
 import VoteTally from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/VoteTally/VoteTally';
 import ProposalPending from '@/app/[lang]/nouns/dreams/[id]/_components/Details/Proposal/Pending';
+import { LatestBlockContext } from '@/context/LatestBlock';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     dict: Dictionary;
@@ -18,6 +19,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function Proposal({ className, dict, dream }: Props) {
     const { proposalCandidate, proposal } = useContext(ProposalContext);
+    const { number } = useContext(LatestBlockContext);
 
     const validSignatures = useMemo(() => {
         const seen = new Set<string>();
@@ -54,6 +56,12 @@ export default function Proposal({ className, dict, dream }: Props) {
 
         return nounIds;
     }, [validSignatures]);
+
+    const latestBlockAfterProposalEndBlock = useMemo(() => {
+        if (proposal === undefined || number === undefined) return undefined;
+
+        return BigInt(number) > BigInt(proposal.endBlock);
+    }, [number, proposal]);
 
     if (proposalCandidate) {
         return (
@@ -110,29 +118,34 @@ export default function Proposal({ className, dict, dream }: Props) {
                     </div>
                 )}
 
-                {proposal?.status === 'ACTIVE' && (
-                    <>
-                        <div className={styles.proposalTitleContainer}>
-                            <h2 className={styles.proposalTitle}>
-                                {dict.dream.details.proposal} {proposal.id} (
-                                {dict.dream.details.quorum}{' '}
-                                {proposal.quorumVotes})
-                            </h2>
+                {proposal?.status === 'ACTIVE' &&
+                    (latestBlockAfterProposalEndBlock ? (
+                        <div className={styles.proposalStatusContainer}>
+                            <p>{dict.dream.details.proposalActiveButEnded}</p>
                         </div>
+                    ) : (
+                        <>
+                            <div className={styles.proposalTitleContainer}>
+                                <h2 className={styles.proposalTitle}>
+                                    {dict.dream.details.proposal} {proposal.id}{' '}
+                                    ({dict.dream.details.quorum}{' '}
+                                    {proposal.quorumVotes})
+                                </h2>
+                            </div>
 
-                        <VoteTally
-                            className={styles.voteTallyContainer}
-                            dict={dict}
-                            proposal={proposal}
-                        />
+                            <VoteTally
+                                className={styles.voteTallyContainer}
+                                dict={dict}
+                                proposal={proposal}
+                            />
 
-                        <CastVote
-                            className={styles.castVoteContainer}
-                            dict={dict}
-                            proposal={proposal}
-                        />
-                    </>
-                )}
+                            <CastVote
+                                className={styles.castVoteContainer}
+                                dict={dict}
+                                proposal={proposal}
+                            />
+                        </>
+                    ))}
 
                 {proposal === undefined && (
                     <Promote

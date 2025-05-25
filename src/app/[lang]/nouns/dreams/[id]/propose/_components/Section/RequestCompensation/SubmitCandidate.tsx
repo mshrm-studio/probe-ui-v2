@@ -176,10 +176,6 @@ export default function SubmitCandidate({
             const costToPropose =
                 currentVotes > 0 ? parseEther('0') : createCandidateCost;
 
-            console.log('currentVotes', currentVotes);
-            console.log('createCandidateCost', createCandidateCost);
-            console.log('costToPropose', costToPropose);
-
             const gasEstimate =
                 await dataProxyContractWithSigner.createProposalCandidate.estimateGas(
                     targets,
@@ -195,9 +191,6 @@ export default function SubmitCandidate({
                 );
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
-
-            console.log('gasEstimate', gasEstimate);
-            console.log('gasLimit', gasLimit);
 
             const tx =
                 await dataProxyContractWithSigner.createProposalCandidate(

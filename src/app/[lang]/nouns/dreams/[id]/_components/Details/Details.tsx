@@ -14,6 +14,7 @@ import ProposalProvider from '@/context/Proposal';
 import TokenProvider from '@/context/Token';
 import CurrentVotesProvider from '@/context/CurrentVotes';
 import DaoProxyProvider from '@/context/DaoProxy';
+import LatestBlockProvider from '@/context/LatestBlock';
 
 interface Props {
     dict: Dictionary;
@@ -55,11 +56,15 @@ export default function Details({ dict, dream }: Props) {
                             <TokenProvider>
                                 <CurrentVotesProvider>
                                     <DaoProxyProvider>
-                                        <Proposal
-                                            className={styles.proposalContainer}
-                                            dict={dict}
-                                            dream={dream}
-                                        />
+                                        <LatestBlockProvider>
+                                            <Proposal
+                                                className={
+                                                    styles.proposalContainer
+                                                }
+                                                dict={dict}
+                                                dream={dream}
+                                            />
+                                        </LatestBlockProvider>
                                     </DaoProxyProvider>
                                 </CurrentVotesProvider>
                             </TokenProvider>

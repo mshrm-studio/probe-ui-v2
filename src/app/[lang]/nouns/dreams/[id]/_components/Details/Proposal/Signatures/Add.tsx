@@ -30,7 +30,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     proposalCandidate: NounProposalCandidateFromSubgraph;
 }
 
-export default function SignatureList({
+export default function AddSignature({
     className,
     dict,
     dream,
@@ -50,7 +50,15 @@ export default function SignatureList({
             return;
         }
 
-        if (!walletProvider || !httpDataProxyContract) return;
+        if (!walletProvider) {
+            alert(dict.common.error.walletProviderNotAvailable);
+            return;
+        }
+
+        if (!httpDataProxyContract) {
+            alert(dict.common.error.dataProxyContractNotAvailable);
+            return;
+        }
 
         try {
             const content = proposalCandidate.latestVersion.content;

@@ -77,13 +77,6 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
 
             let fnMethod: string, args: (number | string)[];
 
-            console.log('clientId', clientId);
-            console.log('proposalId', proposalId);
-            console.log('voteValue', voteValue);
-            console.log('reason', reason);
-            console.log('currentVotes', currentVotes);
-            console.log('address', address);
-
             if (currentVotes === 0) {
                 fnMethod = 'castVote(uint256,uint8)';
                 args = [proposalId, voteValue];

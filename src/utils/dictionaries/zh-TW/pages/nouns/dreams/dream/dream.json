@@ -17,6 +17,7 @@
         "nounRepresented": ":number 名詞",
         "nounsRepresented": ":number 名詞",
         "promote": "推廣",
+        "proposalActiveButEnded": "子圖狀態為「ACTIVE」，但最新區塊已超過提案結束區塊，狀態可能已過時。",
         "proposalCancelled": "提案已取消",
         "proposalDefeated": "提案已否決",
         "proposalExecuted": "提案已執行",

@@ -34,7 +34,7 @@ export default function Proposal({
 
             <SignatureList dict={dict} validSignatures={validSignatures} />
 
-            {validSignaturesNouns.length < 2 && (
+            {validSignaturesNouns.length < 4 && (
                 <AddSignature
                     className={styles.addSignatureContainer}
                     dict={dict}
