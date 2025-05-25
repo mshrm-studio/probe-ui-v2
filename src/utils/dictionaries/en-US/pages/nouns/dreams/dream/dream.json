@@ -17,6 +17,7 @@
         "nounRepresented": ":number Noun",
         "nounsRepresented": ":number Nouns",
         "promote": "Promote",
+        "proposalActiveButEnded": "Subgraph status is 'ACTIVE', but the latest block is past the proposal's end block. The status may be outdated.",
         "proposalCancelled": "Proposal cancelled",
         "proposalDefeated": "Proposal defeated",
         "proposalExecuted": "Proposal executed",

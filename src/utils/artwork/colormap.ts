@@ -10,6 +10,7 @@ export const colormap = (
     data: new Uint8ClampedArray(
         colorIndexes.flatMap((colorIndex) => {
             const color = palette[colorIndex];
+
             if (!color)
                 throw new Error(`Color index ${colorIndex} is out of bounds.`);
 

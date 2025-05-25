@@ -70,9 +70,9 @@ export const useTraitBitmap = (
                     normalisedPalette as Palette
                 );
 
-                const imgBitmap = await createImageBitmap(
-                    new ImageData(data, width, height)
-                );
+                const imageData = new ImageData(data, width, height);
+
+                const imgBitmap = await createImageBitmap(imageData);
 
                 setBitmap(imgBitmap);
             } catch (error) {

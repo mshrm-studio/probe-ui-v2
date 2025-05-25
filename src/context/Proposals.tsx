@@ -52,10 +52,6 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
     }, [proposalCandidates, proposals]);
 
     useEffect(() => {
-        console.log('[context/Proposals] activeProposals', activeProposals);
-    }, [activeProposals]);
-
-    useEffect(() => {
         const fetchProposalCandidates = async () => {
             try {
                 const response = await fetch(

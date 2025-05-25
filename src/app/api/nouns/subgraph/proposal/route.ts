@@ -68,6 +68,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
                 vetoedBlock
                 voteSnapshotBlock
             }
+            _meta {
+                block {
+                    number
+                }
+            }
         }
     `;
 

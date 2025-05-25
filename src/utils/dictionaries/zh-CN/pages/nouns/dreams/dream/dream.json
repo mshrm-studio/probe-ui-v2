@@ -17,6 +17,7 @@
         "nounRepresented": ":number 名词",
         "nounsRepresented": ":number 名词",
         "promote": "推广",
+        "proposalActiveButEnded": "子图状态为“ACTIVE”，但最新区块已超过提案结束区块，状态可能已过时。",
         "proposalCancelled": "提案已取消",
         "proposalDefeated": "提案已否决",
         "proposalExecuted": "提案已执行",

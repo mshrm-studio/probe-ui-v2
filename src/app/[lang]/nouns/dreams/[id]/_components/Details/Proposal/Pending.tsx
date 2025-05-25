@@ -1,11 +1,11 @@
 'use client';
 
 import { Dictionary } from '@/app/[lang]/dictionaries';
-import { RpcContext } from '@/context/Rpc';
 import NounProposalFromSubgraph from '@/utils/dto/Noun/Proposal/FromSubgraph';
 import { useContext, useEffect, useState } from 'react';
 import LocalisedDateTime from '@/app/_components/LocalisedDateTime';
 import styles from '@/app/[lang]/nouns/dreams/[id]/_styles/details/proposal/pending.module.css';
+import { LatestBlockContext } from '@/context/LatestBlock';
 
 interface Props {
     dict: Dictionary;
@@ -13,37 +13,22 @@ interface Props {
 }
 
 export default function ProposalPending({ dict, proposal }: Props) {
-    const { httpProvider: provider } = useContext(RpcContext);
+    const { number, timestamp } = useContext(LatestBlockContext);
     const [startTime, setStartTime] = useState<number>();
 
     useEffect(() => {
-        if (!provider) {
+        if (typeof number !== 'number' || typeof timestamp !== 'number') {
             setStartTime(undefined);
             return;
         }
 
-        const fetchProposal = async () => {
-            try {
-                const currentBlock = await provider.getBlock('latest');
+        const blocksUntilStart = Number(proposal.startBlock) - number;
+        const averageBlockTime = 12; // Approx. seconds per block on Ethereum mainnet
+        const estimatedStartTime =
+            timestamp + blocksUntilStart * averageBlockTime;
 
-                if (currentBlock) {
-                    const currentTime = currentBlock.timestamp;
-                    const currentNumber = currentBlock.number;
-                    const blocksUntilStart =
-                        Number(proposal.startBlock) - currentNumber;
-                    const averageBlockTime = 12; // Approx. seconds per block on Ethereum mainnet
-                    const estimatedStartTime =
-                        currentTime + blocksUntilStart * averageBlockTime;
-
-                    setStartTime(estimatedStartTime);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchProposal();
-    }, [proposal, provider]);
+        setStartTime(estimatedStartTime);
+    }, [number, timestamp]);
 
     if (startTime) {
         return (

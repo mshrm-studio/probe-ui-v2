@@ -107,6 +107,8 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         const fetchProposal = async () => {
             const id = matchingProposalIds[0];
 
+            console.log('[context/Proposal] Fetching proposal for id:', id);
+
             try {
                 const response = await fetch(
                     `/api/nouns/subgraph/proposal?id=${id}`,
@@ -126,7 +128,12 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                     throw new Error('Invalid data');
                 }
 
-                console.log('proposal', result.data.proposal);
+                console.log('[context/Proposal] result:', result);
+
+                console.log(
+                    '[context/Proposal] proposal:',
+                    result.data.proposal
+                );
 
                 setProposal(result.data.proposal);
             } catch (error) {

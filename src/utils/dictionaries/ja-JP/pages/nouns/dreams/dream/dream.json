@@ -17,6 +17,7 @@
         "nounRepresented": ":number ナウンズ",
         "nounsRepresented": ":number ナウンズ",
         "promote": "プロモート",
+        "proposalActiveButEnded": "サブグラフのステータスは「ACTIVE」ですが、最新のブロックは終了ブロックを超えています。ステータスが古い可能性があります。",
         "proposalCancelled": "提案キャンセル",
         "proposalDefeated": "提案否決",
         "proposalExecuted": "提案実行",
