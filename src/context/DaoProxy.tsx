@@ -7,11 +7,11 @@ import { Contract } from 'ethers';
 import { RpcContext } from '@/context/Rpc';
 import { nounsDaoProxyContractABI } from '@/utils/contracts/NounsDaoProxyContractABI';
 
-interface DaoProxyContext {
+interface DaoProxy {
     httpDaoProxyContract?: Contract | null;
 }
 
-export const DaoProxyContext = createContext<DaoProxyContext>({});
+export const DaoProxyContext = createContext<DaoProxy>({});
 
 type Props = {
     children: React.ReactNode;

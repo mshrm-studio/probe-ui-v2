@@ -1,6 +1,6 @@
 'use client';
 
-import { act, useEffect, useMemo, useState } from 'react';
+import { act, useContext, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
 import NounProposalCandidateFromSubgraph, {
@@ -9,12 +9,19 @@ import NounProposalCandidateFromSubgraph, {
 import NounProposalFromSubgraph, {
     isNounProposalFromSubgraphList,
 } from '@/utils/dto/Noun/Proposal/FromSubgraph';
+import { LatestBlockContext } from '@/context/LatestBlock';
 
-interface ProposalsContext {
-    activeProposals?: { id: string; candidateSlug: string }[];
+export type NounProposalFromSubgraphWithCandidateSlug =
+    NounProposalFromSubgraph & {
+        candidateSlug: string;
+        latestBlockAfterProposalEndBlock?: boolean;
+    };
+
+interface Proposals {
+    activeProposals?: NounProposalFromSubgraphWithCandidateSlug[];
 }
 
-export const ProposalsContext = createContext<ProposalsContext>({});
+export const ProposalsContext = createContext<Proposals>({});
 
 type Props = {
     children: React.ReactNode;
@@ -24,13 +31,14 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
     const [proposalCandidates, setProposalCandidates] =
         useState<NounProposalCandidateFromSubgraph[]>();
     const [proposals, setProposals] = useState<NounProposalFromSubgraph[]>();
+    const { number } = useContext(LatestBlockContext);
 
     const activeProposals = useMemo(() => {
         if (!Array.isArray(proposalCandidates) || !Array.isArray(proposals)) {
             return [];
         }
 
-        const matched: { id: string; candidateSlug: string }[] = [];
+        const matched: NounProposalFromSubgraphWithCandidateSlug[] = [];
 
         for (const candidate of proposalCandidates) {
             const matchingIds =
@@ -41,8 +49,13 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
 
                 if (proposalMatch) {
                     matched.push({
-                        id: proposalMatch.id,
+                        ...proposalMatch,
                         candidateSlug: candidate.slug,
+                        latestBlockAfterProposalEndBlock:
+                            number !== undefined
+                                ? BigInt(number) >
+                                  BigInt(proposalMatch.endBlock)
+                                : undefined,
                     });
                 }
             }

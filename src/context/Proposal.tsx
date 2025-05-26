@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import { DataProxyContext } from '@/context/DataProxy';
 import { keccak256, toUtf8Bytes } from 'ethers';
@@ -15,9 +15,11 @@ import NounProposalFromSubgraph, {
 } from '@/utils/dto/Noun/Proposal/FromSubgraph';
 import { DaoProxyContext } from '@/context//DaoProxy';
 import NounProposalFromContract from '@/utils/dto/Noun/Proposal/FromContract';
+import { LatestBlockContext } from '@/context/LatestBlock';
 
 interface ProposalContext {
     isCandidate?: boolean;
+    latestBlockAfterProposalEndBlock?: boolean;
     proposalCandidate?: NounProposalCandidateFromSubgraph;
     proposal?: NounProposalFromSubgraph;
 }
@@ -38,6 +40,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     const [proposal, setProposal] = useState<NounProposalFromSubgraph>();
     const [proposalFromContract, setProposalFromContract] =
         useState<NounProposalFromContract>();
+    const { number } = useContext(LatestBlockContext);
 
     useEffect(() => {
         console.log(
@@ -216,10 +219,17 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         fetchProposalFromContract();
     }, [httpDaoProxyContract, proposalCandidate]);
 
+    const latestBlockAfterProposalEndBlock = useMemo(() => {
+        if (proposal === undefined || number === undefined) return undefined;
+
+        return BigInt(number) > BigInt(proposal.endBlock);
+    }, [number, proposal]);
+
     return (
         <ProposalContext.Provider
             value={{
                 isCandidate,
+                latestBlockAfterProposalEndBlock,
                 proposalCandidate,
                 proposal,
             }}

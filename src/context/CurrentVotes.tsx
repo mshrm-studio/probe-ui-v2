@@ -6,11 +6,11 @@ import { TokenContext } from '@/context/Token';
 import { BrowserProvider, Contract, Eip1193Provider } from 'ethers';
 import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 
-interface CurrentVotesContext {
+interface CurrentVotes {
     currentVotes?: number | null;
 }
 
-export const CurrentVotesContext = createContext<CurrentVotesContext>({});
+export const CurrentVotesContext = createContext<CurrentVotes>({});
 
 type Props = {
     children: React.ReactNode;

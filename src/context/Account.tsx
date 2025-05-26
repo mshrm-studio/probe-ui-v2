@@ -6,11 +6,11 @@ import NounAccountFromSubgraph, {
 import { useAppKitAccount } from '@reown/appkit/react';
 import { createContext, useEffect, useState } from 'react';
 
-interface AccountContext {
+interface Account {
     account?: NounAccountFromSubgraph;
 }
 
-export const AccountContext = createContext<AccountContext>({});
+export const AccountContext = createContext<Account>({});
 
 type Props = {
     children: React.ReactNode;
