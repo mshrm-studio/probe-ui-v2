@@ -46,17 +46,17 @@ export default function Details({ dict, dream }: Props) {
             <RpcProvider>
                 <DataProxyProvider>
                     <DaoProxyProvider>
-                        <ProposalProvider dream={dream}>
-                            <Traits
-                                className={styles.traitsContainer}
-                                dict={dict}
-                                dream={dream}
-                            />
+                        <LatestBlockProvider>
+                            <ProposalProvider dream={dream}>
+                                <Traits
+                                    className={styles.traitsContainer}
+                                    dict={dict}
+                                    dream={dream}
+                                />
 
-                            {isDreamFromDBWithCustomTrait(dream) && (
-                                <TokenProvider>
-                                    <CurrentVotesProvider>
-                                        <LatestBlockProvider>
+                                {isDreamFromDBWithCustomTrait(dream) && (
+                                    <TokenProvider>
+                                        <CurrentVotesProvider>
                                             <Proposal
                                                 className={
                                                     styles.proposalContainer
@@ -64,11 +64,11 @@ export default function Details({ dict, dream }: Props) {
                                                 dict={dict}
                                                 dream={dream}
                                             />
-                                        </LatestBlockProvider>
-                                    </CurrentVotesProvider>
-                                </TokenProvider>
-                            )}
-                        </ProposalProvider>
+                                        </CurrentVotesProvider>
+                                    </TokenProvider>
+                                )}
+                            </ProposalProvider>
+                        </LatestBlockProvider>
                     </DaoProxyProvider>
                 </DataProxyProvider>
             </RpcProvider>

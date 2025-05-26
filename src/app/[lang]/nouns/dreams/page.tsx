@@ -10,6 +10,7 @@ import styles from '@/app/[lang]/nouns/dreams/_styles/page.module.css';
 import Link from 'next/link';
 import Button from '@/app/_components/Button';
 import ProposalsProvider from '@/context/Proposals';
+import LatestBlockProvider from '@/context/LatestBlock';
 
 type Props = Readonly<{
     params: Promise<{ lang: Locale }>;
@@ -43,9 +44,11 @@ export default async function Page({ params }: Props) {
 
                 <main className={styles.main}>
                     <Suspense>
-                        <ProposalsProvider>
-                            <DreamCatalogue dict={dict} />
-                        </ProposalsProvider>
+                        <LatestBlockProvider>
+                            <ProposalsProvider>
+                                <DreamCatalogue dict={dict} />
+                            </ProposalsProvider>
+                        </LatestBlockProvider>
                     </Suspense>
 
                     <div className={styles.createLink}>

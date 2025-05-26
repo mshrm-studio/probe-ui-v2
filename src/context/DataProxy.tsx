@@ -7,11 +7,11 @@ import { Contract } from 'ethers';
 import { RpcContext } from '@/context/Rpc';
 import { nounsDataProxyContractABI } from '@/utils/contracts/NounsDataProxyContractABI';
 
-interface DataProxyContext {
+interface DataProxy {
     httpDataProxyContract?: Contract | null;
 }
 
-export const DataProxyContext = createContext<DataProxyContext>({});
+export const DataProxyContext = createContext<DataProxy>({});
 
 type Props = {
     children: React.ReactNode;

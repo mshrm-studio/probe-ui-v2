@@ -8,14 +8,14 @@ import { RpcContext } from '@/context/Rpc';
 import { nounsAuctionHouseContractABI } from '@/utils/contracts/NounsAuctionHouseContractABI';
 import { useAppKitAccount } from '@reown/appkit/react';
 
-interface AuctionHouseContext {
+interface AuctionHouse {
     httpAuctionHouseContract?: Contract | null;
     wsAuctionHouseContract?: Contract | null;
     reservePrice?: number;
     minBidIncrementPercentage?: number;
 }
 
-export const AuctionHouseContext = createContext<AuctionHouseContext>({});
+export const AuctionHouseContext = createContext<AuctionHouse>({});
 
 type Props = {
     children: React.ReactNode;
