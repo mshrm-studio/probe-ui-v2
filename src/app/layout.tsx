@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 import AppKitProvider from '@/context/AppKit';
 import { Locale, locales } from '@/utils/enums/Locale';
 

@@ -11,6 +11,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
         query Proposals($clientId: Int!, $status: ProposalStatus!) {
             proposals(where: { clientId: $clientId, status: $status }) {
                 clientId
+                endBlock
                 id
                 status
                 title

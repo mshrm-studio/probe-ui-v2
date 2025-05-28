@@ -16,17 +16,7 @@ export default function DreamList({ activeProposals, dict, dreams }: Props) {
             {dreams.map((dream) => (
                 <li key={dream.id}>
                     <ListItem
-                        activeProposal={
-                            Array.isArray(activeProposals)
-                                ? activeProposals
-                                      .filter(
-                                          (ap) =>
-                                              ap.latestBlockAfterProposalEndBlock
-                                      )
-                                      .map((ap) => ap.candidateSlug)
-                                      .includes(`probe-dream-${dream.id}`)
-                                : false
-                        }
+                        activeProposals={activeProposals}
                         dict={dict}
                         dream={dream}
                     />

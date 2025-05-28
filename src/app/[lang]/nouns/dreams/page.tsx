@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Button from '@/app/_components/Button';
 import ProposalsProvider from '@/context/Proposals';
 import LatestBlockProvider from '@/context/LatestBlock';
+import RpcProvider from '@/context/Rpc';
 
 type Props = Readonly<{
     params: Promise<{ lang: Locale }>;
@@ -44,11 +45,13 @@ export default async function Page({ params }: Props) {
 
                 <main className={styles.main}>
                     <Suspense>
-                        <LatestBlockProvider>
-                            <ProposalsProvider>
-                                <DreamCatalogue dict={dict} />
-                            </ProposalsProvider>
-                        </LatestBlockProvider>
+                        <RpcProvider>
+                            <LatestBlockProvider>
+                                <ProposalsProvider>
+                                    <DreamCatalogue dict={dict} />
+                                </ProposalsProvider>
+                            </LatestBlockProvider>
+                        </RpcProvider>
                     </Suspense>
 
                     <div className={styles.createLink}>
