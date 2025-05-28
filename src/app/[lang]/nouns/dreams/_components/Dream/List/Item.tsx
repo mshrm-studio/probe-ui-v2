@@ -1,3 +1,5 @@
+'use client';
+
 import styles from '@/app/[lang]/nouns/dreams/_styles/dream/list/item.module.css';
 import Link from 'next/link';
 import DreamFromDB from '@/utils/dto/Dream/FromDB';
@@ -5,19 +7,28 @@ import LocalisedNumber from '@/app/_components/LocalisedNumber';
 import { DreamImageFromSeed } from '@/app/[lang]/nouns/dreams/_components/Dream/Image/FromSeed';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { Dictionary } from '@/app/[lang]/dictionaries';
+import { NounProposalFromSubgraphWithCandidateSlug } from '@/context/Proposals';
+import { useMemo } from 'react';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-    activeProposal: boolean;
+    activeProposals?: NounProposalFromSubgraphWithCandidateSlug[];
     dict: Dictionary;
     dream: DreamFromDB;
 }
 
-export default function DreamListItem({ activeProposal, dict, dream }: Props) {
+export default function DreamListItem({ activeProposals, dict, dream }: Props) {
+    const isActiveProposal = useMemo(() => {
+        return activeProposals
+            ?.filter((ap) => !ap.latestBlockAfterProposalEndBlock)
+            .map((ap) => ap.candidateSlug)
+            .includes(`probe-dream-${dream.id}`);
+    }, [activeProposals, dream]);
+
     return (
         <Link href={`/nouns/dreams/${dream.id}`}>
             <div
                 className={styles.container}
-                aria-live={activeProposal ? 'assertive' : 'off'}
+                aria-live={isActiveProposal ? 'assertive' : 'off'}
                 style={{ animationDelay: `${(Math.random() * 2).toFixed(2)}s` }}
             >
                 <DreamImageFromSeed
@@ -51,7 +62,7 @@ export default function DreamListItem({ activeProposal, dict, dream }: Props) {
                     <LocalisedNumber number={dream.id} removeCommasAndPeriods />
                 </label>
 
-                {activeProposal && (
+                {isActiveProposal && (
                     <div className={styles.voteBadge}>
                         {dict.dreams.catalogue.list.item.vote}
                     </div>

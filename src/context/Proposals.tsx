@@ -32,10 +32,32 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
         useState<NounProposalCandidateFromSubgraph[]>();
     const [proposals, setProposals] = useState<NounProposalFromSubgraph[]>();
     const { number } = useContext(LatestBlockContext);
+    const [activeProposals, setActiveProposals] = useState<
+        NounProposalFromSubgraphWithCandidateSlug[]
+    >([]);
 
-    const activeProposals = useMemo(() => {
-        if (!Array.isArray(proposalCandidates) || !Array.isArray(proposals)) {
-            return [];
+    useEffect(() => {
+        console.log('[context/Proposals] activeProposals:', activeProposals);
+    }, [activeProposals]);
+
+    useEffect(() => {
+        setActiveProposals([]);
+
+        if (!proposalCandidates) {
+            console.warn('[context/Proposals] proposalCandidates is undefined');
+            return;
+        }
+
+        if (!proposals) {
+            console.warn('[context/Proposals] proposals is undefined');
+            return;
+        }
+
+        if (typeof number !== 'number') {
+            console.warn(
+                '[context/Proposals] Latest block number is not defined'
+            );
+            return;
         }
 
         const matched: NounProposalFromSubgraphWithCandidateSlug[] = [];
@@ -52,7 +74,8 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
                         ...proposalMatch,
                         candidateSlug: candidate.slug,
                         latestBlockAfterProposalEndBlock:
-                            number !== undefined
+                            typeof number === 'number' &&
+                            typeof proposalMatch.endBlock === 'string'
                                 ? BigInt(number) >
                                   BigInt(proposalMatch.endBlock)
                                 : undefined,
@@ -61,8 +84,8 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
             }
         }
 
-        return matched;
-    }, [proposalCandidates, proposals]);
+        setActiveProposals(matched);
+    }, [number, proposalCandidates, proposals]);
 
     useEffect(() => {
         const fetchProposalCandidates = async () => {

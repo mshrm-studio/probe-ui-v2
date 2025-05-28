@@ -220,7 +220,11 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     }, [httpDaoProxyContract, proposalCandidate]);
 
     const latestBlockAfterProposalEndBlock = useMemo(() => {
-        if (proposal === undefined || number === undefined) return undefined;
+        if (
+            typeof proposal?.endBlock !== 'string' ||
+            typeof number !== 'number'
+        )
+            return undefined;
 
         return BigInt(number) > BigInt(proposal.endBlock);
     }, [number, proposal]);

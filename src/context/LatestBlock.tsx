@@ -50,7 +50,6 @@ const LatestBlockProvider: React.FC<Props> = ({ children }) => {
                 // #transactions: Array(180)
 
                 if (block) {
-                    console.log('[context/LatestBlock] Latest block:', block);
                     setLatestBlock({
                         number: block.number,
                         timestamp: block.timestamp,
