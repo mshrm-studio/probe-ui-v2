@@ -77,7 +77,7 @@ export default function SignArtworkAgreement({
                 signer: address,
             });
         } catch (error: any) {
-            console.error('Error signing message:', error);
+            console.error(error);
             alert(error?.info?.error?.message || error.code);
         }
     };

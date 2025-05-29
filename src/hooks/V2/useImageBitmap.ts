@@ -43,7 +43,7 @@ const useImageBitmap = (
 
                 img.src = imgSrc;
             } catch (err) {
-                console.error('Failed to create bitmap:', err);
+                console.error(err);
                 setBitmap(null);
             }
         })();

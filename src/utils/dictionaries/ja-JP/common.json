@@ -6,6 +6,8 @@
     "copied": "コピーしました",
     "copy": "コピー",
     "error": {
+        "auctionHouseContractNotAvailable": "オークションハウスコントラクトが利用できません。システムエラーが原因の可能性があります。",
+        "clientIdNotSet": "クライアントIDが設定されていません。システムエラーが原因の可能性があります。",
         "currentVotesNotKnown": "現在の投票数は不明です。システムエラーが原因の可能性があります。",
         "dataProxyContractNotAvailable": "データプロキシコントラクトが利用できません。システムエラーが原因の可能性があります。",
         "daoProxyContractNotAvailable": "DAOプロキシコントラクトが利用できません。システムエラーが原因の可能性があります。",

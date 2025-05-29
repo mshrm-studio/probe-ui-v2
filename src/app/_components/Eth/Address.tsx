@@ -33,7 +33,7 @@ export default function EthAddress({ address, shorten = true }: Props) {
                         setEnsName(name);
                     }
                 } catch (error) {
-                    console.error('Error fetching ENS name:', error);
+                    console.error(error);
                 }
             };
 
