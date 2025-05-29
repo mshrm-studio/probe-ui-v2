@@ -23,6 +23,16 @@ const useLiveAuction = () => {
             const { nounId, amount, startTime, endTime, bidder, settled } =
                 await httpContract.auction();
 
+            console.log(
+                '[hooks/useLiveAuction] httpContract.auction():',
+                nounId,
+                amount,
+                startTime,
+                endTime,
+                bidder,
+                settled
+            );
+
             setAuction({
                 nounId: Number(nounId),
                 amount: formatEther(amount),
@@ -43,7 +53,21 @@ const useLiveAuction = () => {
         extended: boolean
     ) => {
         setAuction((prev) => {
+            console.log(
+                '[hooks/useLiveAuction] handleAuctionBid setAuction() prev:',
+                prev
+            );
+
             if (!prev) return prev;
+
+            console.log(
+                '[hooks/useLiveAuction] handleAuctionBid setAuction() return:',
+                {
+                    ...prev,
+                    amount: formatEther(value),
+                    bidder: sender,
+                }
+            );
 
             return {
                 ...prev,
@@ -73,18 +97,24 @@ const useLiveAuction = () => {
 
     // Subscribe to auction bid events and clean up on unmount
     useEffect(() => {
+        console.log('[hooks/useLiveAuction] useEffect auction/wsContract');
+
         if (!wsContract || !auction || auction?.settled) return;
+
+        console.log('[hooks/useLiveAuction] wsContract.on(AuctionBid)');
 
         wsContract.on('AuctionBid', (nounId, sender, value, extended) => {
             handleAuctionBid(nounId, sender, value, extended);
         });
 
         return () => {
+            console.log('[hooks/useLiveAuction] wsContract.off(AuctionBid)');
+
             wsContract.off('AuctionBid', (nounId, sender, value, extended) => {
                 handleAuctionBid(nounId, sender, value, extended);
             });
         };
-    }, [wsContract]);
+    }, [auction, wsContract]);
 
     return auction;
 };
