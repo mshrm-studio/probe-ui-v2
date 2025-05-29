@@ -6,6 +6,8 @@
     "copied": "Copied",
     "copy": "Copy",
     "error": {
+        "auctionHouseContractNotAvailable": "Auction house contract not available. This is likely due to a system error.",
+        "clientIdNotSet": "Client ID not set. This is likely due to a system error.",
         "currentVotesNotKnown": "Current votes not known. This is likely due to a system error.",
         "dataProxyContractNotAvailable": "Data proxy contract not available. This is likely due to a system error.",
         "daoProxyContractNotAvailable": "DAO proxy contract not available. This is likely due to a system error.",

@@ -75,10 +75,7 @@ const AuctionHouseProvider: React.FC<Props> = ({
 
             localStorage.setItem(minBidPercentageStorageKey, String(pc));
         } catch (error) {
-            console.error(
-                'Failed to fetch auction min bid increment percentage',
-                error
-            );
+            console.error(error);
         }
     }, [isConnected, httpAuctionHouseContract]);
 
@@ -92,13 +89,15 @@ const AuctionHouseProvider: React.FC<Props> = ({
 
             localStorage.setItem(reservePriceStorageKey, String(reserve));
         } catch (error) {
-            console.error('Failed to fetch auction reserve price', error);
+            console.error(error);
         }
     }, [isConnected, httpAuctionHouseContract]);
 
     useEffect(() => {
         if (!httpAuctionHouseContract) {
-            console.warn('Auction House contract not available');
+            console.warn(
+                '[context/AuctionHouse] No auction house contract found'
+            );
             return;
         }
 

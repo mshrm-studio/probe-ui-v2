@@ -15,7 +15,7 @@ export default function CopyToClipboard({ children, content }: Props) {
             await navigator.clipboard.writeText(content);
             alert(`${content} ${dict.common.copied}`);
         } catch (err) {
-            console.error('Failed to copy:', err);
+            console.error(err);
         }
     };
 

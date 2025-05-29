@@ -56,19 +56,19 @@ export default function DetailsAuctionForm({ auction, dict }: Props) {
         event.preventDefault();
 
         if (!isConnected) {
-            alert('Not connected');
+            open();
             return;
         }
 
         const clientId = process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID;
 
         if (!httpAuctionHouseContract) {
-            alert('Auction House Contract not found');
+            alert(dict.common.error.auctionHouseContractNotAvailable);
             return;
         }
 
         if (typeof clientId !== 'string' || !clientId) {
-            alert('Client ID not found');
+            alert(dict.common.error.clientIdNotSet);
             return;
         }
 

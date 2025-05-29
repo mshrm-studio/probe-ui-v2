@@ -26,7 +26,9 @@ const useNounMintBlock = (nounId: number) => {
                 const logs = await contract.queryFilter(filter, 0, 'latest');
 
                 if (Array.isArray(logs) && logs.length === 0) {
-                    console.warn(`No mint event found for noun ID ${nounId}`);
+                    console.warn(
+                        `[hooks/useNounMint] No mint event found for noun ${nounId}`
+                    );
                 }
 
                 const log = logs[0];
@@ -36,13 +38,15 @@ const useNounMintBlock = (nounId: number) => {
                 const block = await provider.getBlock(log.blockHash);
 
                 if (!block) {
-                    console.error(`Block not found for hash: ${log.blockHash}`);
+                    console.error(
+                        `[hooks/useNounMint] Block not found for hash: ${log.blockHash}`
+                    );
                 } else {
                     setBlockNumber(block.number);
                     setBlockTimestamp(block.timestamp);
                 }
             } catch (error) {
-                console.error('Failed to fetch mint data:', error);
+                console.error(error);
             }
         };
 

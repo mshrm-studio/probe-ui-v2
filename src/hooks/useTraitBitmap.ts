@@ -40,7 +40,9 @@ export const useTraitBitmap = (
                 // Fetch the RLE data from the layer and index
                 const image = images[layer][Number(trait)];
                 if (!image) {
-                    console.error(`Trait ${trait} not found in layer ${layer}`);
+                    console.error(
+                        `[hooks/useTraitBitmap] Trait ${trait} not found in layer ${layer}`
+                    );
                     setBitmap(null);
                     return;
                 }
@@ -97,7 +99,7 @@ export const useTraitBitmap = (
 
                     if (!hexColor) {
                         console.error(
-                            `Invalid color index ${colorIndex} at ${x},${y}`
+                            `[hooks/useTraitBitmap] Invalid color index ${colorIndex} at ${x},${y}`
                         );
                         return;
                     }
@@ -131,7 +133,7 @@ export const useTraitBitmap = (
 
                 setBitmap(imgBitmap);
             } catch (error) {
-                console.error('Failed to decode RLE:', error);
+                console.error(error);
                 setBitmap(null);
             }
         }

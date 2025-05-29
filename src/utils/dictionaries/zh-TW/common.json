@@ -6,6 +6,8 @@
     "copied": "已複製",
     "copy": "複製",
     "error": {
+        "auctionHouseContractNotAvailable": "拍賣行合約不可用。這可能是由於系統錯誤。",
+        "clientIdNotSet": "客戶端ID未設置。這可能是由於系統錯誤。",
         "currentVotesNotKnown": "當前投票未知。這可能是由於系統錯誤。",
         "dataProxyContractNotAvailable": "數據代理合約不可用。這可能是由於系統錯誤。",
         "daoProxyContractNotAvailable": "DAO代理合約不可用。這可能是由於系統錯誤。",
