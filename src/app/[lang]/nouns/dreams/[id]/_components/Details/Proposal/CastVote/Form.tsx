@@ -132,6 +132,7 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
         } catch (error: any) {
             console.error(error);
             alert(error?.info?.error?.message || error.code);
+            setShowForm(false);
         }
     };
 
