@@ -39,6 +39,9 @@
         "voteFor": "Yes",
         "vote": "Vote"
     },
+    "error": {
+        "proposalNotActive": "This proposal is not active."
+    },
     "metadata": {
         "description": "Probe the stats for Dream :id",
         "title": "Dream :id"

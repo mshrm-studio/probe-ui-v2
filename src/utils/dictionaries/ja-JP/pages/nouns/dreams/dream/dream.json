@@ -39,6 +39,9 @@
         "voteFor": "賛成",
         "vote": "投票"
     },
+    "error": {
+        "proposalNotActive": "この提案はアクティブではありません。"
+    },
     "metadata": {
         "description": "ドリーム :id の統計を調べる",
         "title": "ドリーム :id"

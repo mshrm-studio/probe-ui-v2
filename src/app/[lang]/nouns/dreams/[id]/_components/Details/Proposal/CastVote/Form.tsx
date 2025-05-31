@@ -33,6 +33,8 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
     const { currentVotes } = useContext(CurrentVotesContext);
 
     const castVote = async (support: 'abstain' | 'against' | 'for') => {
+        console.log('castVote', support);
+
         if (!isConnected || !address) {
             open();
             return;
@@ -53,7 +55,15 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
             return;
         }
 
-        if (proposal?.status !== 'ACTIVE') return;
+        if (process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID === undefined) {
+            alert(dict.common.error.clientIdNotSet);
+            return;
+        }
+
+        if (proposal?.status !== 'ACTIVE') {
+            alert(dict.dream.error.proposalNotActive);
+            return;
+        }
 
         try {
             const provider = new BrowserProvider(
@@ -70,10 +80,19 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
 
             const voteValue =
                 support === 'for' ? 1 : support === 'against' ? 0 : 2;
+
+            console.log('voteValue', voteValue);
+
             const clientId = Number(
                 process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID
             );
+
+            console.log('clientId', clientId);
+
             const proposalId = Number(proposal.id);
+
+            console.log('proposalId', proposalId);
+            console.log('currentVotes', currentVotes);
 
             let fnMethod: string, args: (number | string)[];
 
