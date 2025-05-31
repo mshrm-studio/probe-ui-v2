@@ -39,6 +39,9 @@
         "voteFor": "赞成",
         "vote": "投票"
     },
+    "error": {
+        "proposalNotActive": "此提案未处于活动状态。"
+    },
     "metadata": {
         "description": "探查梦境 :id 的统计信息",
         "title": "梦境 :id"
