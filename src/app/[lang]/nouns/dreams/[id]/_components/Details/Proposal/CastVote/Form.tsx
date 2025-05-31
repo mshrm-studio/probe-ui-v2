@@ -94,18 +94,28 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
             console.log('proposalId', proposalId);
             console.log('currentVotes', currentVotes);
 
+            const trimmedReason = reason.trim();
+            console.log('trimmedReason', trimmedReason);
+
             let fnMethod: string, args: (number | string)[];
 
             if (currentVotes === 0) {
-                fnMethod = 'castVote(uint256,uint8)';
-                args = [proposalId, voteValue];
-            } else if (reason) {
-                fnMethod =
-                    'castRefundableVoteWithReason(uint256,uint8,string,uint32)';
-                args = [proposalId, voteValue, reason, clientId];
+                if (trimmedReason) {
+                    fnMethod = 'castVoteWithReason(uint256,uint8,string)';
+                    args = [proposalId, voteValue, trimmedReason];
+                } else {
+                    fnMethod = 'castVote(uint256,uint8)';
+                    args = [proposalId, voteValue];
+                }
             } else {
-                fnMethod = 'castRefundableVote(uint256,uint8,uint32)';
-                args = [proposalId, voteValue, clientId];
+                if (trimmedReason) {
+                    fnMethod =
+                        'castRefundableVoteWithReason(uint256,uint8,string,uint32)';
+                    args = [proposalId, voteValue, trimmedReason, clientId];
+                } else {
+                    fnMethod = 'castRefundableVote(uint256,uint8,uint32)';
+                    args = [proposalId, voteValue, clientId];
+                }
             }
 
             console.log('fnMethod', fnMethod);
