@@ -20,7 +20,8 @@ const LatestBlockProvider: React.FC<Props> = ({ children }) => {
     const { httpProvider: provider } = useContext(RpcContext);
 
     useEffect(() => {
-        async function fetchCurrentVotes() {
+        // Fetch the latest block information
+        async function fetchLatestBlock() {
             if (!provider) return;
 
             setLatestBlock(undefined);
@@ -28,7 +29,7 @@ const LatestBlockProvider: React.FC<Props> = ({ children }) => {
             try {
                 const block = await provider.getBlock('latest');
 
-                // Example
+                // Example latest block data
                 // baseFeePerGas: 372827101n
                 // blobGasUsed: 262144n
                 // difficulty: 0n
@@ -62,7 +63,7 @@ const LatestBlockProvider: React.FC<Props> = ({ children }) => {
             }
         }
 
-        fetchCurrentVotes();
+        fetchLatestBlock();
     }, [provider]);
 
     return (
