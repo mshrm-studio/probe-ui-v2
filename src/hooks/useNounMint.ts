@@ -12,7 +12,7 @@ const useNounMintBlock = (nounId: number) => {
     const { httpTokenContract: contract } = useContext(TokenContext);
 
     useEffect(() => {
-        if (!contract || !provider || !contract) return;
+        if (!contract || !provider) return;
 
         const fetchTokenTransfers = async () => {
             try {
