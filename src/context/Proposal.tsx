@@ -13,7 +13,7 @@ import NounProposalCandidateFromSubgraph, {
 import NounProposalFromSubgraph, {
     isNounProposalFromSubgraph,
 } from '@/utils/dto/Noun/Proposal/FromSubgraph';
-import { DaoProxyContext } from '@/context//DaoProxy';
+import { DaoProxyContext } from '@/context/DaoProxy';
 import NounProposalFromContract from '@/utils/dto/Noun/Proposal/FromContract';
 import { LatestBlockContext } from '@/context/LatestBlock';
 
