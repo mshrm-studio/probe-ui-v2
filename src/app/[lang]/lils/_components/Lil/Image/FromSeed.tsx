@@ -33,10 +33,6 @@ export default function LilImageFromSeed({ seed }: Props) {
                 head: Number(seed.head),
             });
 
-            console.log('Lil Image From Seed:', seed);
-            console.log('Generating SVG with parts:', parts);
-            console.log('Using background color:', background);
-
             // const response = await fetch('/api/lils/build-svg', {
             //     method: 'POST',
             //     headers: { 'Content-Type': 'application/json' },
