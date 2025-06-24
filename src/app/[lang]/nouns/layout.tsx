@@ -14,7 +14,7 @@ export default async function Layout({
         <>
             <Script
                 src="https://assets.noundry.wtf/nouns/image-data.js"
-                strategy="beforeInteractive"
+                strategy="afterInteractive"
             />
 
             <div>{children}</div>
