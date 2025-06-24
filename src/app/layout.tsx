@@ -3,6 +3,7 @@ import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import AppKitProvider from '@/context/AppKit';
 import { Locale, locales } from '@/utils/enums/Locale';
+import Script from 'next/script';
 
 export async function generateStaticParams() {
     return locales.map((lang) => ({ lang }));
@@ -23,6 +24,16 @@ export default async function RootLayout({
                 <AppKitProvider>{children}</AppKitProvider>
 
                 <Analytics />
+
+                <Script
+                    src="https://assets.noundry.wtf/nouns/image-data.js"
+                    strategy="beforeInteractive"
+                />
+
+                <Script
+                    src="https://assets.noundry.wtf/lil-nouns/image-data.js"
+                    strategy="beforeInteractive"
+                />
             </body>
         </html>
     );

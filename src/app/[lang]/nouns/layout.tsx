@@ -1,5 +1,4 @@
 import { Locale } from '@/utils/enums/Locale';
-import Script from 'next/script';
 
 export default async function Layout({
     children,
@@ -10,14 +9,5 @@ export default async function Layout({
 }>) {
     // const { lang } = await params;
 
-    return (
-        <>
-            <Script
-                src="https://assets.noundry.wtf/nouns/image-data.js"
-                strategy="afterInteractive"
-            />
-
-            <div>{children}</div>
-        </>
-    );
+    return <div>{children}</div>;
 }
