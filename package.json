@@ -13,7 +13,7 @@
         "@headlessui/react": "^2.2.2",
         "@heroicons/react": "^2.2.0",
         "@noundry/lil-nouns-assets": "^1.2.0",
-        "@noundry/nouns-assets": "^1.16.0",
+        "@noundry/nouns-assets": "^1.17.0",
         "@nouns/assets": "^0.10.0",
         "@nouns/sdk": "^0.4.0",
         "@reown/appkit": "^1.6.9",
