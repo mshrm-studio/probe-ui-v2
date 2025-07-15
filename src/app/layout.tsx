@@ -21,10 +21,6 @@ export default async function RootLayout({
     return (
         <html lang={lang}>
             <body>
-                <AppKitProvider>{children}</AppKitProvider>
-
-                <Analytics />
-
                 <Script
                     src="https://assets.noundry.wtf/nouns/image-data.js"
                     strategy="beforeInteractive"
@@ -34,6 +30,10 @@ export default async function RootLayout({
                     src="https://assets.noundry.wtf/lil-nouns/image-data.js"
                     strategy="beforeInteractive"
                 />
+
+                <AppKitProvider>{children}</AppKitProvider>
+
+                <Analytics />
             </body>
         </html>
     );
