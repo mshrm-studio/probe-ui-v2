@@ -6,6 +6,7 @@ import SelectNounColor from '@/app/[lang]/nouns/_components/Select/Noun/Color';
 import SelectNounGlasses from '@/app/[lang]/nouns/_components/Select/Noun/Glasses';
 import SelectNounHead from '@/app/[lang]/nouns/_components/Select/Noun/Head';
 import SelectNounBackground from '@/app/[lang]/nouns/_components/Select/Noun/Background';
+import SelectNounOwner from '@/app/[lang]/nouns/_components/Select/Noun/Owner';
 import SelectNounSettler from '@/app/[lang]/nouns/_components/Select/Noun/Settler';
 import { useEffect, useState } from 'react';
 import styles from '@/app/[lang]/nouns/_styles/catalogue/controls/filters.module.css';
@@ -30,6 +31,9 @@ export default function NounsControlsFilters() {
         searchParams.get('glasses')
     );
     const [head, setHead] = useState<string | null>(searchParams.get('head'));
+    const [owner, setOwner] = useState<string | null>(
+        searchParams.get('owner')
+    );
     const [settler, setSettler] = useState<string | null>(
         searchParams.get('settler')
     );
@@ -41,6 +45,7 @@ export default function NounsControlsFilters() {
         setColor(searchParams.get('color'));
         setGlasses(searchParams.get('glasses'));
         setHead(searchParams.get('head'));
+        setOwner(searchParams.get('owner'));
         setSettler(searchParams.get('settler'));
     }, [searchParams]);
 
@@ -83,6 +88,12 @@ export default function NounsControlsFilters() {
             params.delete('head');
         }
 
+        if (owner) {
+            params.set('owner', owner);
+        } else {
+            params.delete('owner');
+        }
+
         if (settler) {
             params.set('settler', settler);
         } else {
@@ -90,7 +101,7 @@ export default function NounsControlsFilters() {
         }
 
         router.push(pathname + '?' + params.toString());
-    }, [accessory, background, body, color, glasses, head, settler]);
+    }, [accessory, background, body, color, glasses, head, owner, settler]);
 
     return (
         <div className={styles.container}>
@@ -111,6 +122,8 @@ export default function NounsControlsFilters() {
                 selected={background}
                 setSelected={setBackground}
             />
+
+            <SelectNounOwner selected={owner} setSelected={setOwner} />
 
             <SelectNounSettler selected={settler} setSelected={setSettler} />
         </div>

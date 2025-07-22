@@ -8,6 +8,7 @@ export default interface NounFilters {
     color?: string | null;
     glasses?: string | null;
     head?: string | null;
+    owner?: string | null;
     page?: number | null;
     per_page?: number | null;
     search?: string | null;
