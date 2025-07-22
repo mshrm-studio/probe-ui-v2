@@ -39,6 +39,7 @@ export default function NounsCatalogue({ dict }: Props) {
     const color = searchParams.get('color');
     const glasses = searchParams.get('glasses');
     const head = searchParams.get('head');
+    const owner = searchParams.get('owner');
     const search = searchParams.get('search');
     const settler = searchParams.get('settler');
     const sort_method = searchParams.get('sort_method');
@@ -58,6 +59,7 @@ export default function NounsCatalogue({ dict }: Props) {
                     color,
                     glasses,
                     head,
+                    owner,
                     page: pageNumber,
                     search,
                     settler,
@@ -95,6 +97,7 @@ export default function NounsCatalogue({ dict }: Props) {
             color,
             glasses,
             head,
+            owner,
             search,
             settler,
             sort_method,
@@ -112,6 +115,7 @@ export default function NounsCatalogue({ dict }: Props) {
         color,
         glasses,
         head,
+        owner,
         search,
         settler,
         sort_method,

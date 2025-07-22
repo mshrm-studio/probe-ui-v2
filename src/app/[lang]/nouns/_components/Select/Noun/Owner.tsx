@@ -3,6 +3,7 @@
 import Comboxbox from '@/app/_components/Combobox/Combobox';
 import useDictionary from '@/hooks/useDictionary';
 import { useEffect, useMemo, useState } from 'react';
+import fetchOwners from '@/utils/lib/nouns/owners/list';
 
 interface Props {
     selected: string | null;
@@ -11,30 +12,37 @@ interface Props {
 
 export default function SelectNounOwner({ selected, setSelected }: Props) {
     const dict = useDictionary();
-
+    const [error, setError] = useState<any>('');
+    const [fetching, setFetching] = useState(false);
     const [owners, setOwners] = useState<string[]>([]);
 
-    const fetchOwners = async () => {
+    const initFetchOwners = async () => {
         try {
-            const response = await fetch('/api/nouns/subgraph/owners', {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
+            setFetching(true);
+            setError('');
+
+            const data = await fetchOwners();
+
+            setOwners((prev) => {
+                const newItems = data.filter(
+                    (newOwner) =>
+                        !prev.some(
+                            (existingOwner) => existingOwner === newOwner
+                        )
+                );
+
+                return [...prev, ...newItems];
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch owners');
-            }
-
-            const json = await response.json();
-
-            console.log(json);
-        } catch (error) {
-            console.error(error);
+        } catch (err: unknown) {
+            setError(String(err));
+        } finally {
+            setFetching(false);
         }
     };
 
     useEffect(() => {
-        fetchOwners();
+        setOwners([]);
+        initFetchOwners();
     }, []);
 
     const options = useMemo(() => {

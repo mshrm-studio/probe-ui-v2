@@ -15,6 +15,8 @@ export async function GET(_req: NextRequest) {
     try {
         const result = await urqlClient.query(DATA_QUERY, {}).toPromise();
 
+        console.log('owners result', result);
+
         if (result.error) {
             return NextResponse.json(
                 { error: result.error.message },

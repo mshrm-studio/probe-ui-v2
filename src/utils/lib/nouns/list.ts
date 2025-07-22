@@ -26,6 +26,8 @@ export default async function fetchNouns(
 
     if (filters?.head) params.set('head', filters.head);
 
+    if (filters?.owner) params.set('owner', filters.owner);
+
     if (filters?.search) params.set('search', filters.search);
 
     if (filters?.settler) params.set('settler', filters.settler);
