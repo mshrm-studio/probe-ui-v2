@@ -155,16 +155,23 @@ export default function NounsCatalogue({ dict }: Props) {
     }, []);
 
     const absentAuctions = useMemo(() => {
-        if (!accessory && !background && !body && !color && !glasses && !head) {
-            const nounTokenIds = new Set(nouns.map((n) => n.token_id));
+        const nounTokenIds = new Set(nouns.map((n) => n.token_id));
 
-            return auctions.filter(
-                (auction) => !nounTokenIds.has(Number(auction.noun.id))
-            );
-        }
+        return auctions.filter(
+            (auction) => !nounTokenIds.has(Number(auction.noun.id))
+        );
+    }, [auctions, nouns]);
 
-        return [];
-    }, [accessory, auctions, background, body, color, glasses, head, nouns]);
+    const listIsFiltered =
+        !!accessory ||
+        !!background ||
+        !!body ||
+        !!color ||
+        !!glasses ||
+        !!head ||
+        !!owner ||
+        !!search ||
+        !!settler;
 
     if (error) {
         return <div>{error}</div>;
@@ -177,6 +184,7 @@ export default function NounsCatalogue({ dict }: Props) {
             <NounList
                 absentAuctions={absentAuctions}
                 auctions={auctions}
+                isFiltered={listIsFiltered}
                 dict={dict}
                 nouns={nouns}
             />

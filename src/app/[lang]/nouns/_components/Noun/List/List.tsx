@@ -10,6 +10,7 @@ interface Props extends React.HTMLAttributes<HTMLUListElement> {
     absentAuctions: AuctionFromSubgraph[];
     auctions: AuctionFromSubgraph[];
     dict: Dictionary;
+    isFiltered?: boolean;
     nouns: NounFromDB[] | NounFromSubgraph[];
 }
 
@@ -17,24 +18,26 @@ export default function NounList({
     absentAuctions,
     auctions,
     dict,
+    isFiltered,
     nouns,
 }: Props) {
     const normalisedNounList = useNormalisedNounList(nouns);
 
     return (
         <ul className={styles.list}>
-            {absentAuctions.map((auction) => (
-                <li key={auction.noun.id}>
-                    <ListItem
-                        atAuction
-                        dict={dict}
-                        noun={{
-                            id: Number(auction.noun.id),
-                            seed: auction.noun.seed,
-                        }}
-                    />
-                </li>
-            ))}
+            {!isFiltered &&
+                absentAuctions.map((auction) => (
+                    <li key={auction.noun.id}>
+                        <ListItem
+                            atAuction
+                            dict={dict}
+                            noun={{
+                                id: Number(auction.noun.id),
+                                seed: auction.noun.seed,
+                            }}
+                        />
+                    </li>
+                ))}
 
             {normalisedNounList.map((noun) => (
                 <li key={noun.id}>
