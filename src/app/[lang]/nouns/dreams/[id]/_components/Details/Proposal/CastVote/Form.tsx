@@ -33,8 +33,6 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
     const { currentVotes } = useContext(CurrentVotesContext);
 
     const castVote = async (support: 'abstain' | 'against' | 'for') => {
-        console.log('castVote', support);
-
         if (!isConnected || !address) {
             open();
             return;
@@ -80,49 +78,67 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
 
             const voteValue =
                 support === 'for' ? 1 : support === 'against' ? 0 : 2;
-
-            console.log('voteValue', voteValue);
-
-            const clientId = Number(
+            const clientId = BigInt(
                 process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID
             );
 
-            console.log('clientId', clientId);
-
-            const proposalId = Number(proposal.id);
-
-            console.log('proposalId', proposalId);
-            console.log('currentVotes', currentVotes);
+            const proposalId = BigInt(proposal.id);
 
             const trimmedReason = reason.trim();
-            console.log('trimmedReason', trimmedReason);
 
-            let fnMethod: string, args: (number | string)[];
+            let fnSignature: string, args: (bigint | number | string)[];
 
             if (currentVotes === 0) {
                 if (trimmedReason) {
-                    fnMethod = 'castVoteWithReason(uint256,uint8,string)';
+                    fnSignature = 'castVoteWithReason(uint256,uint8,string)';
                     args = [proposalId, voteValue, trimmedReason];
                 } else {
-                    fnMethod = 'castVote(uint256,uint8)';
+                    fnSignature = 'castVote(uint256,uint8)';
                     args = [proposalId, voteValue];
                 }
             } else {
                 if (trimmedReason) {
-                    fnMethod =
+                    fnSignature =
                         'castRefundableVoteWithReason(uint256,uint8,string,uint32)';
                     args = [proposalId, voteValue, trimmedReason, clientId];
                 } else {
-                    fnMethod = 'castRefundableVote(uint256,uint8,uint32)';
+                    fnSignature = 'castRefundableVote(uint256,uint8,uint32)';
                     args = [proposalId, voteValue, clientId];
                 }
             }
 
-            console.log('fnMethod', fnMethod);
-            console.log('args', args);
-            console.log('...args', ...args);
+            console.log('----- HELPFUL DIAGNOSTICS START -----');
 
-            const fn = contractWithSigner.getFunction(fnMethod);
+            console.log({
+                fnSignature,
+                args,
+                contract: contractWithSigner.target,
+            });
+
+            console.log('----- HELPFUL DIAGNOSTICS END -----');
+
+            const fn = contractWithSigner.getFunction(fnSignature);
+
+            try {
+                await fn.staticCall(...args);
+            } catch (preflightErr: any) {
+                console.error('staticCall revert:', {
+                    message:
+                        preflightErr?.shortMessage || preflightErr?.message,
+                    code: preflightErr?.code,
+                    reason: preflightErr?.reason, // ethers may populate this
+                    data: preflightErr?.data, // raw error data (for custom errors)
+                });
+
+                alert(
+                    preflightErr?.shortMessage ||
+                        preflightErr?.reason ||
+                        preflightErr?.message ||
+                        'Preflight failed'
+                );
+
+                return;
+            }
 
             const tx = await fn(...args);
 
@@ -130,8 +146,14 @@ export default function CastVoteForm({ className, dict, setShowForm }: Props) {
 
             setShowForm(false);
         } catch (error: any) {
-            console.error(error);
-            alert(error?.info?.error?.message || error.code);
+            console.error('send errors:', error);
+            alert(
+                error?.shortMessage ||
+                    error?.info?.error?.message ||
+                    error?.message ||
+                    error?.code ||
+                    'UNKNOWN_ERROR'
+            );
             setShowForm(false);
         }
     };
