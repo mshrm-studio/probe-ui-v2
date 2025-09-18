@@ -11,6 +11,7 @@ import ArtworkContributionAgreement from '@/utils/dto/Dream/ArtworkContributionA
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { nounsDescriptorContractABI } from '@/utils/contracts/NounsDescriptorContractABI';
+import { nounsTokenContractABI } from '@/utils/contracts/NounsTokenContractABI';
 import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
 import { useRouter } from 'next/navigation';
@@ -23,6 +24,7 @@ interface Props {
     dict: Dictionary;
     dream: DreamFromDBWithCustomTrait;
     requestedEth: number;
+    requestedNoun: number;
     writeUp: string;
 }
 
@@ -32,6 +34,7 @@ export default function SubmitCandidate({
     dict,
     dream,
     requestedEth,
+    requestedNoun,
     writeUp,
 }: Props) {
     const router = useRouter();
@@ -55,6 +58,33 @@ export default function SubmitCandidate({
         }
     }, [dream.custom_trait_layer]);
 
+    const encodedNounTransferCalldata = useMemo(() => {
+        if (!address || requestedNoun < 0) return null;
+
+        const nounsTokenContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS;
+        // Is this the holder of the noun?
+
+        if (!nounsTokenContractAddress) return null;
+
+        const full = encodeFunctionData({
+            abi: nounsTokenContractABI,
+            functionName: 'safeTransferFrom',
+            args: [nounsTokenContractAddress, address, BigInt(requestedNoun)],
+        });
+
+        return `0x${full.slice(10)}`;
+    }, [address, requestedNoun]);
+
+    const encodedNounTransferSignature = useMemo(() => {
+        const item = getAbiItem({
+            abi: nounsTokenContractABI,
+            name: 'safeTransferFrom',
+        });
+
+        return item ? formatAbiItem(item) : null;
+    }, []);
+
     const encodedTraitCalldata = useMemo(() => {
         if (!compressedEncodedArtwork || !functionName) return null;
 
@@ -68,38 +98,18 @@ export default function SubmitCandidate({
     const encodedTraitSignature = useMemo(() => {
         if (!functionName || !nounsDescriptorContractABI) return null;
 
-        // BELOW REQUIRED IF REQUESTING A NOUN
-        // safeTransferFrom(address,address,uint256)
-        // return ['addHeads(bytes,uint80,uint16)', '', '']
-
         const item = getAbiItem({
             abi: nounsDescriptorContractABI,
             name: functionName,
         });
 
-        if (!item) return null;
-
-        return formatAbiItem(item);
+        return item ? formatAbiItem(item) : null;
     }, [functionName, nounsDescriptorContractABI]);
 
     const transactions = useMemo(() => {
         if (!encodedTraitCalldata) return null;
 
-        // ADD THIS WHEN REQUESTING A NOUN
-        // encodeFunctionData({
-        //     abi: nounsTokenContractABI,
-        //     functionName: 'safeTransferFrom',
-        //     args: [
-        //         process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS,
-        //         address,
-        //         0, // TOKENID
-        //     ],
-        // })
-
-        // BELOW REQUIRED IF REQUESTING A NOUN
-        // safeTransferFrom(address,address,uint256)
-
-        const base = [
+        let txs = [
             {
                 address:
                     process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS,
@@ -109,19 +119,33 @@ export default function SubmitCandidate({
             },
         ];
 
-        if (requestedEth > 0) {
-            return base.concat([
-                {
-                    address,
-                    value: parseEther(String(requestedEth)).toString(),
-                    calldata: '0x',
-                    signature: '',
-                },
-            ]);
+        if (encodedNounTransferCalldata && encodedNounTransferSignature) {
+            txs.push({
+                address: process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS,
+                value: '0',
+                calldata: encodedNounTransferCalldata,
+                signature: encodedNounTransferSignature,
+            });
         }
 
-        return base;
-    }, [address, encodedTraitCalldata, encodedTraitSignature, requestedEth]);
+        if (address && requestedEth > 0) {
+            txs.push({
+                address,
+                value: parseEther(String(requestedEth)).toString(),
+                calldata: '0x',
+                signature: '',
+            });
+        }
+
+        return txs;
+    }, [
+        address,
+        encodedNounTransferCalldata,
+        encodedNounTransferSignature,
+        encodedTraitCalldata,
+        encodedTraitSignature,
+        requestedEth,
+    ]);
 
     const submitCandidate = async () => {
         if (!agreement) {
