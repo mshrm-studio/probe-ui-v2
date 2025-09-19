@@ -61,16 +61,19 @@ export default function SubmitCandidate({
     const encodedNounTransferCalldata = useMemo(() => {
         if (!address || requestedNoun < 0) return null;
 
-        const nounsTokenContractAddress =
-            process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS;
-        // Is this the holder of the noun?
+        const nounsTreasuryContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_DAO_EXECUTOR_PROXY_CONTRACT_ADDRESS;
 
-        if (!nounsTokenContractAddress) return null;
+        if (!nounsTreasuryContractAddress) return null;
 
         const full = encodeFunctionData({
             abi: nounsTokenContractABI,
             functionName: 'safeTransferFrom',
-            args: [nounsTokenContractAddress, address, BigInt(requestedNoun)],
+            args: [
+                nounsTreasuryContractAddress,
+                address,
+                BigInt(requestedNoun),
+            ],
         });
 
         return `0x${full.slice(10)}`;
@@ -107,13 +110,31 @@ export default function SubmitCandidate({
     }, [functionName, nounsDescriptorContractABI]);
 
     const transactions = useMemo(() => {
-        if (!encodedTraitCalldata) return null;
+        const nounsDescriptorContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS;
 
-        let txs = [
+        const nounsTokenContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS;
+
+        if (
+            !encodedTraitCalldata ||
+            !encodedTraitSignature ||
+            !nounsDescriptorContractAddress ||
+            !nounsTokenContractAddress
+        )
+            return null;
+
+        type Transaction = {
+            address: string;
+            value: bigint;
+            calldata: string;
+            signature: string;
+        };
+
+        let txs: Transaction[] = [
             {
-                address:
-                    process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS,
-                value: '0',
+                address: nounsDescriptorContractAddress,
+                value: BigInt(0),
                 calldata: `0x${encodedTraitCalldata}`,
                 signature: encodedTraitSignature,
             },
@@ -121,8 +142,8 @@ export default function SubmitCandidate({
 
         if (encodedNounTransferCalldata && encodedNounTransferSignature) {
             txs.push({
-                address: process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS,
-                value: '0',
+                address: nounsTokenContractAddress,
+                value: BigInt(0),
                 calldata: encodedNounTransferCalldata,
                 signature: encodedNounTransferSignature,
             });
@@ -131,7 +152,7 @@ export default function SubmitCandidate({
         if (address && requestedEth > 0) {
             txs.push({
                 address,
-                value: parseEther(String(requestedEth)).toString(),
+                value: parseEther(String(requestedEth)),
                 calldata: '0x',
                 signature: '',
             });
@@ -215,7 +236,12 @@ export default function SubmitCandidate({
                 );
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
-
+            console.table({
+                targets,
+                values: values.map(String),
+                signatures,
+                calldatas,
+            });
             const tx =
                 await dataProxyContractWithSigner.createProposalCandidate(
                     targets,
