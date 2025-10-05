@@ -30,6 +30,7 @@ export default function RequestCompensation({
     writeUp,
 }: Props) {
     const [requestedEth, setRequestedEth] = useState<string>('');
+    const [requestedNoun, setRequestedNoun] = useState<string>('');
 
     const [agreement, setAgreement] = useState<ArtworkContributionAgreement>();
 
@@ -93,6 +94,19 @@ export default function RequestCompensation({
                 />
             </FormField>
 
+            <FormField
+                label={dict.propose.requestCompensation.field.noun.label}
+            >
+                <Input
+                    motif="borderless"
+                    placeholder={
+                        dict.propose.requestCompensation.field.noun.placeholder
+                    }
+                    value={requestedNoun}
+                    onChange={(e) => setRequestedNoun(e.target.value)}
+                />
+            </FormField>
+
             <div className={styles.actions}>
                 <div className={styles.actionContainer}>
                     <SignArtworkAgreement
@@ -111,6 +125,7 @@ export default function RequestCompensation({
                         dict={dict}
                         dream={dream}
                         requestedEth={Number(requestedEth)}
+                        requestedNoun={Number(requestedNoun)}
                         writeUp={writeUp}
                     />
                 </div>

@@ -5,6 +5,7 @@
 
 .colorSquares {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .colorSquare {

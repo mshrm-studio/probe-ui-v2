@@ -30,9 +30,13 @@
             "eth": {
                 "label": "Request ETH",
                 "placeholder": "Specify ETH amnt"
+            },
+            "noun": {
+                "label": "Request Noun",
+                "placeholder": "Noun ID"
             }
         },
-        "title": "Would you like to request componsation? This will be sent to the wallet you are proposing from right now."
+        "title": "Would you like to request compensation? This will be sent to the wallet you are proposing from right now."
     },
     "titleAndDescription": {
         "field": {

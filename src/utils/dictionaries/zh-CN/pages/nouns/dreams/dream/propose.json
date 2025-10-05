@@ -30,6 +30,10 @@
             "eth": {
                 "label": "请求 ETH",
                 "placeholder": "输入 ETH 数量"
+            },
+            "noun": {
+                "label": "请求 Noun",
+                "placeholder": "Noun ID"
             }
         },
         "title": "是否请求补偿？资金将发送到您当前提案的钱包。"

@@ -30,6 +30,10 @@
             "eth": {
                 "label": "請求 ETH",
                 "placeholder": "指定 ETH 金額"
+            },
+            "noun": {
+                "label": "請求 Noun",
+                "placeholder": "Noun ID"
             }
         },
         "title": "是否要請求補償？將發送至您目前用於提案的錢包。"
