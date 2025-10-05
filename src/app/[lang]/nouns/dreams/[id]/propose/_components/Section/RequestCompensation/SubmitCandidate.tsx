@@ -11,6 +11,7 @@ import ArtworkContributionAgreement from '@/utils/dto/Dream/ArtworkContributionA
 import { DreamFromDBWithCustomTrait } from '@/utils/dto/Dream/FromDB';
 import { NounTraitLayer } from '@/utils/enums/Noun/TraitLayer';
 import { nounsDescriptorContractABI } from '@/utils/contracts/NounsDescriptorContractABI';
+import { nounsTokenContractABI } from '@/utils/contracts/NounsTokenContractABI';
 import { encodeFunctionData, getAbiItem } from 'viem';
 import { formatAbiItem } from 'viem/utils';
 import { useRouter } from 'next/navigation';
@@ -23,6 +24,7 @@ interface Props {
     dict: Dictionary;
     dream: DreamFromDBWithCustomTrait;
     requestedEth: number;
+    requestedNoun: number;
     writeUp: string;
 }
 
@@ -32,6 +34,7 @@ export default function SubmitCandidate({
     dict,
     dream,
     requestedEth,
+    requestedNoun,
     writeUp,
 }: Props) {
     const router = useRouter();
@@ -55,6 +58,36 @@ export default function SubmitCandidate({
         }
     }, [dream.custom_trait_layer]);
 
+    const encodedNounTransferCalldata = useMemo(() => {
+        if (!address || requestedNoun < 0) return null;
+
+        const nounsTreasuryContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_DAO_EXECUTOR_PROXY_CONTRACT_ADDRESS;
+
+        if (!nounsTreasuryContractAddress) return null;
+
+        const full = encodeFunctionData({
+            abi: nounsTokenContractABI,
+            functionName: 'safeTransferFrom',
+            args: [
+                nounsTreasuryContractAddress,
+                address,
+                BigInt(requestedNoun),
+            ],
+        });
+
+        return `0x${full.slice(10)}`;
+    }, [address, requestedNoun]);
+
+    const encodedNounTransferSignature = useMemo(() => {
+        const item = getAbiItem({
+            abi: nounsTokenContractABI,
+            name: 'safeTransferFrom',
+        });
+
+        return item ? formatAbiItem(item) : null;
+    }, []);
+
     const encodedTraitCalldata = useMemo(() => {
         if (!compressedEncodedArtwork || !functionName) return null;
 
@@ -68,60 +101,72 @@ export default function SubmitCandidate({
     const encodedTraitSignature = useMemo(() => {
         if (!functionName || !nounsDescriptorContractABI) return null;
 
-        // BELOW REQUIRED IF REQUESTING A NOUN
-        // safeTransferFrom(address,address,uint256)
-        // return ['addHeads(bytes,uint80,uint16)', '', '']
-
         const item = getAbiItem({
             abi: nounsDescriptorContractABI,
             name: functionName,
         });
 
-        if (!item) return null;
-
-        return formatAbiItem(item);
+        return item ? formatAbiItem(item) : null;
     }, [functionName, nounsDescriptorContractABI]);
 
     const transactions = useMemo(() => {
-        if (!encodedTraitCalldata) return null;
+        const nounsDescriptorContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS;
 
-        // ADD THIS WHEN REQUESTING A NOUN
-        // encodeFunctionData({
-        //     abi: nounsTokenContractABI,
-        //     functionName: 'safeTransferFrom',
-        //     args: [
-        //         process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS,
-        //         address,
-        //         0, // TOKENID
-        //     ],
-        // })
+        const nounsTokenContractAddress =
+            process.env.NEXT_PUBLIC_NOUNS_TOKEN_CONTRACT_ADDRESS;
 
-        // BELOW REQUIRED IF REQUESTING A NOUN
-        // safeTransferFrom(address,address,uint256)
+        if (
+            !encodedTraitCalldata ||
+            !encodedTraitSignature ||
+            !nounsDescriptorContractAddress ||
+            !nounsTokenContractAddress
+        )
+            return null;
 
-        const base = [
+        type Transaction = {
+            address: string;
+            value: bigint;
+            calldata: string;
+            signature: string;
+        };
+
+        let txs: Transaction[] = [
             {
-                address:
-                    process.env.NEXT_PUBLIC_NOUNS_DESCRIPTOR_CONTRACT_ADDRESS,
-                value: '0',
+                address: nounsDescriptorContractAddress,
+                value: BigInt(0),
                 calldata: `0x${encodedTraitCalldata}`,
                 signature: encodedTraitSignature,
             },
         ];
 
-        if (requestedEth > 0) {
-            return base.concat([
-                {
-                    address,
-                    value: parseEther(String(requestedEth)).toString(),
-                    calldata: '0x',
-                    signature: '',
-                },
-            ]);
+        if (encodedNounTransferCalldata && encodedNounTransferSignature) {
+            txs.push({
+                address: nounsTokenContractAddress,
+                value: BigInt(0),
+                calldata: encodedNounTransferCalldata,
+                signature: encodedNounTransferSignature,
+            });
         }
 
-        return base;
-    }, [address, encodedTraitCalldata, encodedTraitSignature, requestedEth]);
+        if (address && requestedEth > 0) {
+            txs.push({
+                address,
+                value: parseEther(String(requestedEth)),
+                calldata: '0x',
+                signature: '',
+            });
+        }
+
+        return txs;
+    }, [
+        address,
+        encodedNounTransferCalldata,
+        encodedNounTransferSignature,
+        encodedTraitCalldata,
+        encodedTraitSignature,
+        requestedEth,
+    ]);
 
     const submitCandidate = async () => {
         if (!agreement) {
@@ -191,7 +236,12 @@ export default function SubmitCandidate({
                 );
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
-
+            console.table({
+                targets,
+                values: values.map(String),
+                signatures,
+                calldatas,
+            });
             const tx =
                 await dataProxyContractWithSigner.createProposalCandidate(
                     targets,

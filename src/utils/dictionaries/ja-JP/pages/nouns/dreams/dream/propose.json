@@ -26,11 +26,14 @@
         },
         "artworkAgreementSigned": "CC0放棄に署名済み",
         "artworkContributionAgreementMessage": "私は、Ethereumアドレス :ethAddress を管理する個人として、法の許す限り、著作権および関連・隣接権、ならびにそれに伴う請求権または訴因を放棄します。:agreementUrl に掲載されている Nouns Art Contribution Agreement の条項と法的効果を読み理解したうえで、本貢献に適用することを自発的に選択します。貢献名: :contributionName。貢献仕様: :contributionSpec。",
-
         "field": {
             "eth": {
                 "label": "ETHを請求",
                 "placeholder": "ETHの金額を指定"
+            },
+            "noun": {
+                "label": "Nounを請求",
+                "placeholder": "Noun ID"
             }
         },
         "title": "報酬を請求しますか？ 現在提案に使用しているウォレットに送金されます。"
