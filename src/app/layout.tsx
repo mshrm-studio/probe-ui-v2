@@ -2,24 +2,15 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import AppKitProvider from '@/context/AppKit';
-import { Locale, locales } from '@/utils/enums/Locale';
 import Script from 'next/script';
-
-export async function generateStaticParams() {
-    return locales.map((lang) => ({ lang }));
-}
 
 export default async function RootLayout({
     children,
-    params,
 }: Readonly<{
     children: React.ReactNode;
-    params: Promise<{ lang: Locale }>;
 }>) {
-    const { lang } = await params;
-
     return (
-        <html lang={lang}>
+        <html>
             <body>
                 <Script
                     src="https://assets.noundry.wtf/nouns/image-data.js"
