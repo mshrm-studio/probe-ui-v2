@@ -5,7 +5,7 @@ import styles from '@/app/[lang]/lils/_styles/lil/image/from-seed.module.css';
 import LilSeed from '@/utils/dto/Lil/Seed';
 import { useInViewport } from 'react-in-viewport';
 import { ImageData, getNounData } from '@noundry/lil-nouns-assets';
-import { buildSVG } from '@nouns/sdk/dist/image/svg-builder';
+import { buildSVG } from '@nouns/sdk';
 
 type Props = {
     seed: LilSeed;

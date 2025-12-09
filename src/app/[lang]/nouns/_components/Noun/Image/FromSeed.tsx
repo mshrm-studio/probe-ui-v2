@@ -5,7 +5,7 @@ import styles from '@/app/[lang]/nouns/_styles/noun/image/from-seed.module.css';
 import NounSeed from '@/utils/dto/Noun/Seed';
 import { useInViewport } from 'react-in-viewport';
 import { ImageData, getNounData } from '@noundry/nouns-assets';
-import { buildSVG } from '@nouns/sdk/dist/image/svg-builder';
+import { buildSVG } from '@nouns/sdk';
 
 type Props = {
     seed: NounSeed;
