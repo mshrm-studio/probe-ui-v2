@@ -45,7 +45,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
     useEffect(() => {
         console.log(
             '[context/Proposal] proposalFromContract:',
-            proposalFromContract
+            proposalFromContract,
         );
     }, [proposalFromContract]);
 
@@ -60,7 +60,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         const fetchDreamIsCandidate = async () => {
             const isCandidate = await httpDataProxyContract.propCandidates(
                 dream.dreamer,
-                keccak256(toUtf8Bytes(`probe-dream-${dream.id}`))
+                keccak256(toUtf8Bytes(`probe-dream-${dream.id}`)),
             );
 
             if (typeof isCandidate !== 'boolean') {
@@ -77,7 +77,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
         if (!isCandidate) return;
 
         const fetchProposalCandidate = async () => {
-            const id = `${dream.dreamer}-probe-dream-${dream.id}`;
+            const id = `${dream.dreamer.toLowerCase()}-probe-dream-${dream.id}`;
 
             try {
                 const response = await fetch(
@@ -85,7 +85,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                     {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
-                    }
+                    },
                 );
 
                 if (!response.ok) {
@@ -96,7 +96,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
 
                 if (
                     !isNounProposalCandidateFromSubgraph(
-                        result.data.proposalCandidate
+                        result.data.proposalCandidate,
                     )
                 ) {
                     throw new Error('Invalid data');
@@ -124,7 +124,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
 
             console.log(
                 '[context/Proposal] Fetching proposal from subgraph for id:',
-                id
+                id,
             );
 
             try {
@@ -133,7 +133,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
                     {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
-                    }
+                    },
                 );
 
                 if (!response.ok) {
@@ -150,7 +150,7 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
 
                 console.log(
                     '[context/Proposal] subgraph proposal:',
-                    result.data.proposal
+                    result.data.proposal,
                 );
 
                 setProposal(result.data.proposal);
@@ -177,17 +177,17 @@ const ProposalProvider: React.FC<Props> = ({ children, dream }) => {
 
             console.log(
                 '[context/Proposal] Fetching proposal from contract for id:',
-                id
+                id,
             );
 
             try {
                 const response = await httpDaoProxyContract.proposalsV3(
-                    Number(id)
+                    Number(id),
                 );
 
                 console.log(
                     '[context/Proposal] contract proposalsV3 response:',
-                    response
+                    response,
                 );
 
                 setProposalFromContract({
