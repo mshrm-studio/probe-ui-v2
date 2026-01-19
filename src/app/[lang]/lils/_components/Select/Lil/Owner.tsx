@@ -25,9 +25,7 @@ export default function SelectLilOwner({ selected, setSelected }: Props) {
                 throw new Error('Failed to fetch owners');
             }
 
-            const json = await response.json();
-
-            console.log(json);
+            await response.json();
         } catch (error) {
             console.error(error);
         }
