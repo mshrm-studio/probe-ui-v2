@@ -95,7 +95,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         if (result.error) {
             return NextResponse.json(
                 { error: result.error.message },
-                { status: 500 }
+                { status: 500 },
             );
         }
 
@@ -103,8 +103,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
             !isNounProposalCandidateFromSubgraph(result.data.proposalCandidate)
         ) {
             return NextResponse.json(
-                { error: 'Invalid data' },
-                { status: 500 }
+                { error: 'Invalid data', response: result.data },
+                { status: 500 },
             );
         }
 

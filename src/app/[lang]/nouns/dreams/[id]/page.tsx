@@ -87,10 +87,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         alternates: {
             canonical: `/${lang}/nouns/dreams/${id}`,
-            languages: locales.reduce((acc, locale) => {
-                acc[locale] = `/${locale}/nouns/dreams/${id}`;
-                return acc;
-            }, {} as Record<string, string>),
+            languages: locales.reduce(
+                (acc, locale) => {
+                    acc[locale] = `/${locale}/nouns/dreams/${id}`;
+                    return acc;
+                },
+                {} as Record<string, string>,
+            ),
         },
         description,
         openGraph: {
