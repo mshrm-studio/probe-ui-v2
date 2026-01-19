@@ -59,7 +59,7 @@ export default function SubmitCandidate({
     }, [dream.custom_trait_layer]);
 
     const encodedNounTransferCalldata = useMemo(() => {
-        if (!address || requestedNoun < 0) return null;
+        if (!address || requestedNoun <= 0) return null;
 
         const nounsTreasuryContractAddress =
             process.env.NEXT_PUBLIC_NOUNS_DAO_EXECUTOR_PROXY_CONTRACT_ADDRESS;
@@ -196,13 +196,13 @@ export default function SubmitCandidate({
 
         try {
             const provider = new BrowserProvider(
-                walletProvider as Eip1193Provider
+                walletProvider as Eip1193Provider,
             );
 
             const signer = await provider.getSigner();
 
             const dataProxyContractWithSigner = httpDataProxyContract.connect(
-                signer
+                signer,
             ) as Contract;
 
             const createCandidateCost =
@@ -232,7 +232,7 @@ export default function SubmitCandidate({
                     proposalIdToUpdate,
                     {
                         value: costToPropose,
-                    }
+                    },
                 );
 
             const gasLimit = gasEstimate + BigInt(10000); // Padding to avoid out-of-gas
@@ -254,7 +254,7 @@ export default function SubmitCandidate({
                     {
                         value: costToPropose,
                         gasLimit,
-                    }
+                    },
                 );
 
             await tx.wait();
