@@ -55,7 +55,7 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
 
         if (typeof number !== 'number') {
             console.warn(
-                '[context/Proposals] Latest block number is not defined'
+                '[context/Proposals] Latest block number is not defined',
             );
             return;
         }
@@ -95,7 +95,7 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
                     {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
-                    }
+                    },
                 );
 
                 if (!response.ok) {
@@ -106,7 +106,7 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
 
                 if (
                     !isNounProposalCandidateFromSubgraphList(
-                        result.data.proposalCandidates
+                        result.data.proposalCandidates,
                     )
                 ) {
                     throw new Error('Invalid data');
@@ -114,7 +114,7 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
 
                 console.log(
                     '[context/Proposals] proposalCandidates',
-                    result.data.proposalCandidates
+                    result.data.proposalCandidates,
                 );
 
                 setProposalCandidates(result.data.proposalCandidates);
@@ -150,7 +150,7 @@ const ProposalProvider: React.FC<Props> = ({ children }) => {
 
                 console.log(
                     '[context/Proposals] proposals',
-                    result.data.proposals
+                    result.data.proposals,
                 );
 
                 setProposals(result.data.proposals);
