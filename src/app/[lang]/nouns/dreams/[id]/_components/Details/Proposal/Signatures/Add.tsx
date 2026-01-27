@@ -68,7 +68,7 @@ export default function AddSignature({
             const reason = '';
 
             const provider = new BrowserProvider(
-                walletProvider as Eip1193Provider
+                walletProvider as Eip1193Provider,
             );
 
             const signer = await provider.getSigner();
@@ -79,7 +79,7 @@ export default function AddSignature({
                     .getNetwork()
                     .then((n) => Number(n.chainId)),
                 verifyingContract: String(
-                    process.env.NEXT_PUBLIC_NOUNS_DAO_PROXY_CONTRACT_ADDRESS
+                    process.env.NEXT_PUBLIC_NOUNS_DAO_PROXY_CONTRACT_ADDRESS,
                 ),
             };
 
@@ -152,15 +152,15 @@ export default function AddSignature({
             const sig = await signer.signTypedData(domain, types, value);
 
             const contractWithSigner = httpDataProxyContract.connect(
-                signer
+                signer,
             ) as Contract;
 
             const signatureHashes = content.signatures.map((signature) =>
-                keccak256(toUtf8Bytes(signature))
+                keccak256(toUtf8Bytes(signature)),
             );
 
             const calldatasHashes = content.calldatas.map((calldata) =>
-                keccak256(calldata)
+                keccak256(calldata),
             );
 
             const encodedProp = AbiCoder.defaultAbiCoder().encode(
@@ -179,12 +179,12 @@ export default function AddSignature({
                     keccak256(solidityPacked(['bytes32[]'], [signatureHashes])),
                     keccak256(solidityPacked(['bytes32[]'], [calldatasHashes])),
                     keccak256(toUtf8Bytes(content.description)),
-                ]
+                ],
             );
 
             const encodedPropUpdate = solidityPacked(
                 ['uint256', 'bytes'],
-                [Number(content.proposalIdToUpdate), encodedProp]
+                [Number(content.proposalIdToUpdate), encodedProp],
             );
 
             const tx = await contractWithSigner.addSignature(
@@ -196,7 +196,7 @@ export default function AddSignature({
                 content.proposalIdToUpdate == '0'
                     ? encodedProp
                     : encodedPropUpdate,
-                reason
+                reason,
             );
 
             await tx.wait();
@@ -209,7 +209,9 @@ export default function AddSignature({
 
     if (typeof currentVotes !== 'number') return null;
 
-    if (dream.dreamer === address) return null;
+    if (!address) return null;
+
+    if (dream.dreamer.toLowerCase() === address.toLowerCase()) return null;
 
     return (
         <form onSubmit={handleSubmit} className={clsx(className, styles.form)}>
