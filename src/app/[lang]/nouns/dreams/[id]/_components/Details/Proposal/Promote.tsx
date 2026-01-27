@@ -40,19 +40,20 @@ export default function Promote({
             return;
         }
 
-        if (address !== proposalCandidate.proposer) return;
+        if (address.toLowerCase() !== proposalCandidate.proposer.toLowerCase())
+            return;
 
         if (!walletProvider || !httpDaoProxyContract) return;
 
         try {
             const provider = new BrowserProvider(
-                walletProvider as Eip1193Provider
+                walletProvider as Eip1193Provider,
             );
 
             const signer = await provider.getSigner();
 
             const contractWithSigner = httpDaoProxyContract.connect(
-                signer
+                signer,
             ) as Contract;
 
             const content = proposalCandidate.latestVersion.content;
@@ -63,12 +64,12 @@ export default function Promote({
                         .filter(
                             (s) =>
                                 Number(s.expirationTimestamp) >
-                                Math.floor(Date.now() / 1000)
+                                Math.floor(Date.now() / 1000),
                         )
                         .sort((a, b) =>
                             a.signer.id
                                 .toLowerCase()
-                                .localeCompare(b.signer.id.toLowerCase())
+                                .localeCompare(b.signer.id.toLowerCase()),
                         )
                         .map((s) => [
                             s.signer.id.toLowerCase(),
@@ -76,15 +77,15 @@ export default function Promote({
                                 sig: s.sig,
                                 signer: s.signer.id,
                                 expirationTimestamp: Number(
-                                    s.expirationTimestamp
+                                    s.expirationTimestamp,
                                 ),
                             },
-                        ])
-                ).values()
+                        ]),
+                ).values(),
             );
 
             const proposeBySigsWithClientId = contractWithSigner.getFunction(
-                'proposeBySigs((bytes,address,uint256)[],address[],uint256[],string[],bytes[],string,uint32)'
+                'proposeBySigs((bytes,address,uint256)[],address[],uint256[],string[],bytes[],string,uint32)',
             );
 
             const tx = await proposeBySigsWithClientId(
@@ -94,7 +95,7 @@ export default function Promote({
                 content.signatures,
                 content.calldatas,
                 content.description,
-                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
+                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID),
             );
 
             await tx.wait();
@@ -127,19 +128,19 @@ export default function Promote({
 
         try {
             const provider = new BrowserProvider(
-                walletProvider as Eip1193Provider
+                walletProvider as Eip1193Provider,
             );
 
             const signer = await provider.getSigner();
 
             const contractWithSigner = httpDaoProxyContract.connect(
-                signer
+                signer,
             ) as Contract;
 
             const content = proposalCandidate.latestVersion.content;
 
             const proposeWithClientId = contractWithSigner.getFunction(
-                'propose(address[],uint256[],string[],bytes[],string,uint32)'
+                'propose(address[],uint256[],string[],bytes[],string,uint32)',
             );
 
             const tx = await proposeWithClientId(
@@ -148,7 +149,7 @@ export default function Promote({
                 content.signatures,
                 content.calldatas,
                 content.description,
-                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID)
+                Number(process.env.NEXT_PUBLIC_PROBE_NOUNS_CLIENT_ID),
             );
 
             await tx.wait();
