@@ -163,7 +163,10 @@ export default function Promote({
 
     if (typeof currentVotes !== 'number') return null;
 
-    if (address !== proposalCandidate.proposer) return null;
+    if (!address) return null;
+
+    if (address.toLowerCase() !== proposalCandidate.proposer.toLowerCase())
+        return null;
 
     if (validSignaturesNouns.length < 3 && currentVotes < 3) return null;
 
