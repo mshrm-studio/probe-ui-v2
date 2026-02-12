@@ -190,7 +190,7 @@ export default function NounsCatalogue({ dict }: Props) {
             />
 
             {!fetching && listIsFiltered && nouns.length === 0 && (
-                <div>{dict.catalogue.noNounsMatchingYourFilters}</div>
+                <div>{dict.nouns.catalogue.noNounsMatchingYourFilters}</div>
             )}
 
             {fetching && (
