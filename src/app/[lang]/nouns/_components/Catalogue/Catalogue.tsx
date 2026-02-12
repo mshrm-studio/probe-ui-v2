@@ -76,8 +76,8 @@ export default function NounsCatalogue({ dict }: Props) {
                         (newNoun) =>
                             !prev.some(
                                 (existingNoun) =>
-                                    existingNoun.token_id === newNoun.token_id
-                            )
+                                    existingNoun.token_id === newNoun.token_id,
+                            ),
                     );
 
                     return [...prev, ...newItems];
@@ -102,7 +102,7 @@ export default function NounsCatalogue({ dict }: Props) {
             settler,
             sort_method,
             sort_property,
-        ]
+        ],
     );
 
     useEffect(() => {
@@ -158,7 +158,7 @@ export default function NounsCatalogue({ dict }: Props) {
         const nounTokenIds = new Set(nouns.map((n) => n.token_id));
 
         return auctions.filter(
-            (auction) => !nounTokenIds.has(Number(auction.noun.id))
+            (auction) => !nounTokenIds.has(Number(auction.noun.id)),
         );
     }, [auctions, nouns]);
 
@@ -188,6 +188,10 @@ export default function NounsCatalogue({ dict }: Props) {
                 dict={dict}
                 nouns={nouns}
             />
+
+            {!fetching && listIsFiltered && nouns.length === 0 && (
+                <div>{dict.catalogue.noNounsMatchingYourFilters}</div>
+            )}
 
             {fetching && (
                 <div className={styles.fetchingImgContainer}>

@@ -15,7 +15,8 @@
                 "oldest": "Oldest",
                 "smallest": "Smallest"
             }
-        }
+        },
+        "noNounsMatchingYourFilters": "No nouns found matching your filters."
     },
     "metadata": {
         "description": "Probing Nouns",

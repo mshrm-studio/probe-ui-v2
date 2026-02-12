@@ -15,7 +15,8 @@
                 "oldest": "最も古い",
                 "smallest": "最小"
             }
-        }
+        },
+        "noNounsMatchingYourFilters": "フィルターに一致するナウンズが見つかりません。"
     },
     "metadata": {
         "description": "ナウンズを調査中",
