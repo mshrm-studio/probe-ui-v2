@@ -15,7 +15,8 @@
                 "oldest": "最旧",
                 "smallest": "最小"
             }
-        }
+        },
+        "noNounsMatchingYourFilters": "没有找到符合您筛选条件的名词。"
     },
     "metadata": {
         "description": "探究 名词",
